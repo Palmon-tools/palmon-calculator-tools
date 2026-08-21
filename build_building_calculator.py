@@ -343,7 +343,6 @@ def render_tile(b: dict) -> str:
     <div class="tile" data-key="{html.escape(name_key)}">
       {img_html}
       <div class="name">{html.escape(display)}</div>
-      <div class="meta-line">build_type {b['build_type']}</div>
       {hint}
       <div class="lvl-row">
         <label>Level:</label>
