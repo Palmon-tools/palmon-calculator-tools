@@ -17,6 +17,8 @@ h1 { color: #fff; margin-bottom: 6px; }
 .tile .lvl-row { clear: both; padding-top: 8px; display: flex; align-items: center; gap: 6px; }
 .tile .lvl-row label { font-size: 11px; color: #999; }
 .tile .lvl-row input { width: 55px; padding: 4px 6px; background: #16161a; border: 1px solid #444; border-radius: 4px; color: #fff; font-size: 13px; }
+.tile .lvl-step { width: 26px; height: 26px; padding: 0; background: #16161a; border: 1px solid #444; border-radius: 4px; color: #fff; font-size: 15px; line-height: 1; cursor: pointer; }
+.tile .lvl-step:hover { background: #2a2a32; }
 .tile .remaining { margin-top: 6px; font-size: 11px; line-height: 1.5; }
 .tile .remaining .row0 { color: #6ee7b7; }
 .res-gold { color: #fbbf24; } .res-lumber { color: #a78bfa; } .res-steel { color: #94a3b8; }
@@ -51,6 +53,7 @@ button.secondary { background: #444; color: #ddd; }
   .tile img { width: 40px; height: 40px; margin-right: 6px; }
   .tile .name { font-size: 12px; }
   .tile .lvl-row input { width: 44px; font-size: 16px; }
+  .tile .lvl-step { width: 32px; height: 32px; font-size: 18px; }
   .totals { font-size: 15px; gap: 10px; }
   .modifiers label { display: flex; margin-right: 0; width: 100%; }
   .modifiers select, .modifiers input[type=number], .modifiers input[type=text] { flex: 1; min-width: 0; font-size: 16px; }
@@ -67,7 +70,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname1" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname1" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname1" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -81,7 +86,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname15" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname15" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname15" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -95,7 +102,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname3" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="pgame_buildingname3" data-max="30" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname3" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -109,7 +118,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname5" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="15" step="1" data-key="pgame_buildingname5" data-max="15" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname5" data-dir="1">+</button>
         <label>/ 15</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -123,7 +134,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="new_tech_1" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="new_tech_1" data-max="35" />
+        <button type="button" class="lvl-step" data-key="new_tech_1" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -137,7 +150,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname6" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname6" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname6" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -151,7 +166,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_9" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building_name_9" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building_name_9" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -165,7 +182,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname16" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname16" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname16" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -179,7 +198,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname7" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname7" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname7" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -193,7 +214,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname8" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname8" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname8" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -207,7 +230,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname9" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname9" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname9" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -221,7 +246,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname16_2" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname16_2" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname16_2" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -235,7 +262,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname11" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname11" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname11" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -249,7 +278,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname24" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="pgame_buildingname24" data-max="30" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname24" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -263,7 +294,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname17" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname17" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname17" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -277,7 +310,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname18" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname18" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname18" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -291,7 +326,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname19" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname19" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname19" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -305,7 +342,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname20" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname20" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname20" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -319,7 +358,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="new_tech_2" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="new_tech_2" data-max="35" />
+        <button type="button" class="lvl-step" data-key="new_tech_2" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -333,7 +374,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname57" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="pgame_buildingname57" data-max="30" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname57" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -347,7 +390,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname58" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="pgame_buildingname58" data-max="30" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname58" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -361,7 +406,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname4" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname4" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname4" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -375,7 +422,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname52" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="pgame_buildingname52" data-max="35" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname52" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -389,7 +438,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="pgame_buildingname59" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="pgame_buildingname59" data-max="30" />
+        <button type="button" class="lvl-step" data-key="pgame_buildingname59" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -403,7 +454,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_57" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building_name_57" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building_name_57" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -417,7 +470,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_58" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building_name_58" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building_name_58" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -431,7 +486,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_59" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building_name_59" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building_name_59" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -445,7 +502,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_60" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building_name_60" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building_name_60" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -459,7 +518,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_62" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building_name_62" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building_name_62" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -473,7 +534,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_151" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="building_name_151" data-max="30" />
+        <button type="button" class="lvl-step" data-key="building_name_151" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -487,7 +550,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_152" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="building_name_152" data-max="30" />
+        <button type="button" class="lvl-step" data-key="building_name_152" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -501,7 +566,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_153" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="building_name_153" data-max="30" />
+        <button type="button" class="lvl-step" data-key="building_name_153" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -515,7 +582,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_155" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="building_name_155" data-max="30" />
+        <button type="button" class="lvl-step" data-key="building_name_155" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -529,7 +598,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_157" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="building_name_157" data-max="30" />
+        <button type="button" class="lvl-step" data-key="building_name_157" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -543,7 +614,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building_name_159" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="30" step="1" data-key="building_name_159" data-max="30" />
+        <button type="button" class="lvl-step" data-key="building_name_159" data-dir="1">+</button>
         <label>/ 30</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -557,7 +630,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building69_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building69_name" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building69_name" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -571,7 +646,9 @@ button.secondary { background: #444; color: #ddd; }
       <div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building70_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="35" step="0.1" data-key="building70_name" data-max="35" />
+        <button type="button" class="lvl-step" data-key="building70_name" data-dir="1">+</button>
         <label>/ 35</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -585,7 +662,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building71_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="150" step="1" data-key="building71_name" data-max="150" />
+        <button type="button" class="lvl-step" data-key="building71_name" data-dir="1">+</button>
         <label>/ 150</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -599,7 +678,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building72_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="150" step="1" data-key="building72_name" data-max="150" />
+        <button type="button" class="lvl-step" data-key="building72_name" data-dir="1">+</button>
         <label>/ 150</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -613,7 +694,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building73_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="150" step="1" data-key="building73_name" data-max="150" />
+        <button type="button" class="lvl-step" data-key="building73_name" data-dir="1">+</button>
         <label>/ 150</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -627,7 +710,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building74_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="150" step="1" data-key="building74_name" data-max="150" />
+        <button type="button" class="lvl-step" data-key="building74_name" data-dir="1">+</button>
         <label>/ 150</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -641,7 +726,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building75_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="150" step="1" data-key="building75_name" data-max="150" />
+        <button type="button" class="lvl-step" data-key="building75_name" data-dir="1">+</button>
         <label>/ 150</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -655,7 +742,9 @@ button.secondary { background: #444; color: #ddd; }
       
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="building76_name" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="150" step="1" data-key="building76_name" data-max="150" />
+        <button type="button" class="lvl-step" data-key="building76_name" data-dir="1">+</button>
         <label>/ 150</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -830,6 +919,26 @@ function setLevel(key, value, max) {
   return v;
 }
 
+// Step to the next/prev level that actually exists in this building's real level sequence
+// (handles the 29 -> 30 -> 30.1..30.4 -> 31 stepping correctly across sub-stage boundaries).
+function stepLevel(key, dir) {
+  const building = DATA.buildingByKey[key];
+  const sequence = building.levels.map(l => l.level).filter(l => l !== 0).sort((a, b) => a - b);
+  const levels = loadLevels();
+  const current = levels[key] ?? 0;
+  let next = current;
+  if (dir > 0) {
+    next = sequence.find(l => l > current + 1e-9);
+    if (next === undefined) next = current;
+  } else {
+    const below = sequence.filter(l => l < current - 1e-9);
+    next = below.length ? below[below.length - 1] : 0;
+  }
+  levels[key] = next;
+  saveLevels(levels);
+  return next;
+}
+
 function resetAll() {
   if (!confirm('Reset ALL current levels to 0?')) return;
   localStorage.removeItem(LS_KEY);
@@ -902,6 +1011,17 @@ document.addEventListener('DOMContentLoaded', () => {
     el.value = levels[key] ?? 0;
     el.addEventListener('input', () => {
       el.value = setLevel(key, el.value, max);
+      recalcAll();
+    });
+  });
+
+  document.querySelectorAll('.lvl-step').forEach(el => {
+    el.addEventListener('click', () => {
+      const key = el.dataset.key;
+      const dir = parseInt(el.dataset.dir, 10);
+      const v = stepLevel(key, dir);
+      const input = document.querySelector(`.lvl-input[data-key="${key}"]`);
+      if (input) input.value = v;
       recalcAll();
     });
   });

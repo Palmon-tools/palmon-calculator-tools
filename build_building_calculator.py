@@ -40,6 +40,8 @@ h1 { color: #fff; margin-bottom: 6px; }
 .tile .lvl-row { clear: both; padding-top: 8px; display: flex; align-items: center; gap: 6px; }
 .tile .lvl-row label { font-size: 11px; color: #999; }
 .tile .lvl-row input { width: 55px; padding: 4px 6px; background: #16161a; border: 1px solid #444; border-radius: 4px; color: #fff; font-size: 13px; }
+.tile .lvl-step { width: 26px; height: 26px; padding: 0; background: #16161a; border: 1px solid #444; border-radius: 4px; color: #fff; font-size: 15px; line-height: 1; cursor: pointer; }
+.tile .lvl-step:hover { background: #2a2a32; }
 .tile .remaining { margin-top: 6px; font-size: 11px; line-height: 1.5; }
 .tile .remaining .row0 { color: #6ee7b7; }
 .res-gold { color: #fbbf24; } .res-lumber { color: #a78bfa; } .res-steel { color: #94a3b8; }
@@ -74,6 +76,7 @@ button.secondary { background: #444; color: #ddd; }
   .tile img { width: 40px; height: 40px; margin-right: 6px; }
   .tile .name { font-size: 12px; }
   .tile .lvl-row input { width: 44px; font-size: 16px; }
+  .tile .lvl-step { width: 32px; height: 32px; font-size: 18px; }
   .totals { font-size: 15px; gap: 10px; }
   .modifiers label { display: flex; margin-right: 0; width: 100%; }
   .modifiers select, .modifiers input[type=number], .modifiers input[type=text] { flex: 1; min-width: 0; font-size: 16px; }
@@ -253,6 +256,26 @@ function setLevel(key, value, max) {
   return v;
 }
 
+// Step to the next/prev level that actually exists in this building's real level sequence
+// (handles the 29 -> 30 -> 30.1..30.4 -> 31 stepping correctly across sub-stage boundaries).
+function stepLevel(key, dir) {
+  const building = DATA.buildingByKey[key];
+  const sequence = building.levels.map(l => l.level).filter(l => l !== 0).sort((a, b) => a - b);
+  const levels = loadLevels();
+  const current = levels[key] ?? 0;
+  let next = current;
+  if (dir > 0) {
+    next = sequence.find(l => l > current + 1e-9);
+    if (next === undefined) next = current;
+  } else {
+    const below = sequence.filter(l => l < current - 1e-9);
+    next = below.length ? below[below.length - 1] : 0;
+  }
+  levels[key] = next;
+  saveLevels(levels);
+  return next;
+}
+
 function resetAll() {
   if (!confirm('Reset ALL current levels to 0?')) return;
   localStorage.removeItem(LS_KEY);
@@ -328,6 +351,17 @@ document.addEventListener('DOMContentLoaded', () => {
       recalcAll();
     });
   });
+
+  document.querySelectorAll('.lvl-step').forEach(el => {
+    el.addEventListener('click', () => {
+      const key = el.dataset.key;
+      const dir = parseInt(el.dataset.dir, 10);
+      const v = stepLevel(key, dir);
+      const input = document.querySelector(`.lvl-input[data-key="${key}"]`);
+      if (input) input.value = v;
+      recalcAll();
+    });
+  });
   recalcAll();
 });
 """
@@ -355,7 +389,9 @@ def render_tile(b: dict) -> str:
       {hint}
       <div class="lvl-row">
         <label>Level:</label>
+        <button type="button" class="lvl-step" data-key="{html.escape(name_key)}" data-dir="-1">−</button>
         <input class="lvl-input" type="number" min="0" max="{max_lv}" step="{step}" data-key="{html.escape(name_key)}" data-max="{max_lv}" />
+        <button type="button" class="lvl-step" data-key="{html.escape(name_key)}" data-dir="1">+</button>
         <label>/ {max_lv}</label>
       </div>
       <div class="remaining remaining-slot"></div>
