@@ -24,6 +24,10 @@ ICON_DIR = "tech_icons"
 CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
 body { background: #1a1a1e; color: #ddd; padding: 24px; }
+.site-header { display: flex; justify-content: flex-end; margin-bottom: 4px; }
+.site-brand { text-align: center; }
+.site-logo { width: 56px; height: 56px; object-fit: contain; display: block; margin: 0 auto 4px; opacity: 0.9; }
+.site-credit { font-size: 11px; color: #888; }
 h1 { color: #fff; margin-bottom: 6px; }
 h2 { color: #6ee7b7; margin-top: 32px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #333; }
 .meta { color: #888; font-size: 13px; margin-bottom: 20px; }
@@ -77,6 +81,8 @@ button.secondary { background: #444; color: #ddd; }
   button { padding: 10px 14px; font-size: 14px; margin-bottom: 6px; width: 100%; }
   .tree-max-btn { width: auto; margin-top: 6px; display: block; }
   .toc a { display: inline-block; margin-bottom: 6px; }
+  .site-header { justify-content: center; margin-bottom: 8px; }
+  .site-logo { width: 40px; height: 40px; }
 }
 """
 
@@ -93,7 +99,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', extraMaterialPct: 0, extraElectricityPct: 0, builderClassPct: 0 };
+  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', builderClassPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -187,9 +193,9 @@ function recalcAll() {
     + (mod.fieldlabSpeedPct1 || 0)
     + (mod.fieldlabSpeedPct2 || 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
-  // Unidentified extra discounts observed in-game, entered manually until their source is confirmed.
-  const materialFactor = baseResFactor * (1 - (mod.extraMaterialPct || 0) / 100);
-  const electricityFactor = baseResFactor * (1 - (mod.extraElectricityPct || 0) / 100);
+  // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction (or Builder Class Buff) — no resource discount applies to it.
+  const materialFactor = baseResFactor;
+  const electricityFactor = 1;
   const timeFactor = 1 / (1 + speedBonusSum / 100);
   const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
   const helperSeconds = parseHMS(mod.helper);
@@ -339,8 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-fieldlab-speed1').value = mod.fieldlabSpeedPct1;
   document.getElementById('mod-fieldlab-speed2').value = mod.fieldlabSpeedPct2;
   document.getElementById('mod-helper').value = mod.helper;
-  document.getElementById('mod-extra-material').value = mod.extraMaterialPct;
-  document.getElementById('mod-extra-electricity').value = mod.extraElectricityPct;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
@@ -353,8 +357,6 @@ document.addEventListener('DOMContentLoaded', () => {
       m.fieldlabSpeedPct1 = parseFloat(document.getElementById('mod-fieldlab-speed1').value) || 0;
       m.fieldlabSpeedPct2 = parseFloat(document.getElementById('mod-fieldlab-speed2').value) || 0;
       m.helper = document.getElementById('mod-helper').value;
-      m.extraMaterialPct = parseFloat(document.getElementById('mod-extra-material').value) || 0;
-      m.extraElectricityPct = parseFloat(document.getElementById('mod-extra-electricity').value) || 0;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
       saveModifiers(m);
       recalcAll();
@@ -394,7 +396,6 @@ def render_tile(tech: dict, tree_label: str) -> str:
     <div class="tile" data-key="{html.escape(name_key)}" data-tree="{html.escape(tree_label)}">
       {img_html}
       <div class="name">{html.escape(display)}</div>
-      <div class="meta-line">{html.escape(name_key)}</div>
       <div class="lvl-row">
         <label>Level:</label>
         <input class="lvl-input" type="number" min="0" max="{max_lv}" data-key="{html.escape(name_key)}" data-max="{max_lv}" />
@@ -423,6 +424,10 @@ def main():
     parts = []
     parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Palmon Tech Upgrade Calculator</title>')
     parts.append(f"<style>{CSS}</style></head><body>")
+    parts.append('<div class="site-header"><div class="site-brand">'
+                 '<img class="site-logo" src="logo.png" alt="Logo" onerror="this.style.display=&quot;none&quot;">'
+                 '<div class="site-credit">By MewLuy and Tetsu @S35</div>'
+                 '</div></div>')
     parts.append('<div class="controls">')
     parts.append('<h1>Palmon Survival — Tech Upgrade Calculator</h1>')
     parts.append('<div class="meta">Enter your CURRENT level for each tech. Totals show what\'s still needed to reach max level. Saved automatically in your browser.</div>')
@@ -454,10 +459,6 @@ def main():
                  '<input type="number" id="mod-fieldlab-speed1" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Fieldlab 2 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed2" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<label>Extra Gold/Lumber/Steel discount %: '
-                 '<input type="number" id="mod-extra-material" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<label>Extra Electricity discount %: '
-                 '<input type="number" id="mod-extra-electricity" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'
@@ -466,7 +467,7 @@ def main():
                  '<option value="4">-4% resource cost</option>'
                  '<option value="5">-5% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). TriumphBadge is excluded from the -2.5% resource reduction (it\'s not a reducible resource). Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Extra Gold/Lumber/Steel and Electricity discounts are separate manual overrides for an unidentified resource-only buff (they multiply on top of the -2.5% Development-maxed reduction). Builder Class Buff is an additional resource-cost discount (-1% to -5%) that stacks the same way. Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
+    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction or the Builder Class Buff — no resource discount ever applies to it. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction. Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')

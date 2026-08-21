@@ -24,6 +24,10 @@ ICON_DIR = "building_icons"
 CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
 body { background: #1a1a1e; color: #ddd; padding: 24px; }
+.site-header { display: flex; justify-content: flex-end; margin-bottom: 4px; }
+.site-brand { text-align: center; }
+.site-logo { width: 56px; height: 56px; object-fit: contain; display: block; margin: 0 auto 4px; opacity: 0.9; }
+.site-credit { font-size: 11px; color: #888; }
 h1 { color: #fff; margin-bottom: 6px; }
 .meta { color: #888; font-size: 13px; margin-bottom: 20px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
@@ -72,10 +76,12 @@ button.secondary { background: #444; color: #ddd; }
   .tile .lvl-row input { width: 44px; font-size: 16px; }
   .totals { font-size: 15px; gap: 10px; }
   .modifiers label { display: flex; margin-right: 0; width: 100%; }
-  .modifiers select, .modifiers input[type=number] { flex: 1; min-width: 0; font-size: 16px; }
+  .modifiers select, .modifiers input[type=number], .modifiers input[type=text] { flex: 1; min-width: 0; font-size: 16px; }
   button { padding: 10px 14px; font-size: 14px; margin-bottom: 6px; width: 100%; }
   .tile .details-toggle { width: 100%; padding: 6px; }
   .tile .level-breakdown { max-height: 200px; }
+  .site-header { justify-content: center; margin-bottom: 8px; }
+  .site-logo { width: 40px; height: 40px; }
 }
 """
 
@@ -92,12 +98,17 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { resourceDiscountPct: 0, buildSpeedPct: 0 };
+  const defaults = { title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, helper: '00:00:00', builderClassPct: 0, masterBuilderPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
 function saveModifiers(mod) {
   localStorage.setItem(LS_KEY_MOD, JSON.stringify(mod));
+}
+function parseHMS(str) {
+  const m = /^(\\d+):(\\d{1,2}):(\\d{1,2})$/.exec((str || '').trim());
+  if (!m) return 0;
+  return (parseInt(m[1], 10) * 3600) + (parseInt(m[2], 10) * 60) + parseInt(m[3], 10);
 }
 function fmtNum(n) { return n ? Math.round(n).toLocaleString('en-US') : '0'; }
 function fmtTime(totalSeconds) {
@@ -121,12 +132,19 @@ function resClass(key) { return RESOURCE_CLASS[key.split('(')[0]] || 'res-badge'
 function remainingCost(building, currentLevel) {
   const totals = {};
   let time = 0;
+  const levelTimes = [];
   for (const lvl of building.levels) {
     if (lvl.level <= currentLevel || lvl.level === 0) continue;
     for (const [k, v] of Object.entries(lvl.cost || {})) totals[k] = (totals[k] || 0) + v;
     time += lvl.up_time_seconds || 0;
+    levelTimes.push(lvl.up_time_seconds || 0);
   }
-  return { totals, time };
+  return { totals, time, levelTimes };
+}
+
+// Building Helpers give a flat time reduction per single upgrade (not a %), floored at 0 — same mechanic as tech Fieldlab helpers.
+function adjustedTimeFromLevels(levelTimes, timeFactor, helperSeconds) {
+  return levelTimes.reduce((sum, t) => sum + Math.max(0, t * timeFactor - helperSeconds), 0);
 }
 
 function fmtAdjustedResource(k, raw, resFactor) {
@@ -139,15 +157,16 @@ function fmtAdjustedTime(raw, adj) {
   return `<div class="res-time">Time: ${fmtTime(adj)}${suffix}</div>`;
 }
 
-function renderTileRemaining(remaining, resFactor, timeFactor) {
+function renderTileRemaining(remaining, resFactor, timeFactor, helperSeconds) {
   const entries = Object.entries(remaining.totals);
   if (!entries.length && !remaining.time) return '<div class="row0">max level reached</div>';
   let html = entries.map(([k, v]) => fmtAdjustedResource(k, v, resFactor)).join('');
-  html += fmtAdjustedTime(remaining.time, remaining.time * timeFactor);
+  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor, helperSeconds);
+  html += fmtAdjustedTime(remaining.time, adjTime);
   return html;
 }
 
-function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor) {
+function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor, helperSeconds) {
   const upcoming = building.levels.filter(lvl => lvl.level > currentLevel && lvl.level !== 0);
   if (!upcoming.length) return '<div class="level-row">max level reached</div>';
   return upcoming.map(lvl => {
@@ -155,7 +174,7 @@ function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor) {
       const adj = v * (k.startsWith('Gold') || k.startsWith('Lumber') || k.startsWith('Steel') || k.startsWith('Electricity') ? resFactor : 1);
       return `<span class="res-line ${resClass(k)}">${k}: ${fmtNum(adj)}</span>`;
     }).join('');
-    const time = (lvl.up_time_seconds || 0) * timeFactor;
+    const time = Math.max(0, (lvl.up_time_seconds || 0) * timeFactor - helperSeconds);
     const reqs = (lvl.prerequisite_buildings || []);
     const reqLine = reqs.length
       ? `<div class="req">Requires: ${reqs.map(r => `${r.display_name || r.name_key || ('build_type ' + r.build_type)} Lv.${r.at_level}`).join(', ')}</div>`
@@ -174,8 +193,13 @@ function toggleDetails(btn) {
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
-  const resFactor = 1 - (mod.resourceDiscountPct || 0) / 100;
-  const timeFactor = 1 / (1 + (mod.buildSpeedPct || 0) / 100);
+  const resourceDiscountPct = (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
+  const resFactor = 1 - resourceDiscountPct / 100;
+  const speedBonusSum = (mod.title || 0) + (mod.constructionAid || 0) + (mod.vip || 0)
+    + (mod.lifetimePass ? 30 : 0) + (mod.monthlyPass ? 10 : 0);
+  const timeFactor = 1 / (1 + speedBonusSum / 100);
+  const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
+  const helperSeconds = parseHMS(mod.helper);
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
 
   document.querySelectorAll('.tile[data-key]').forEach(tile => {
@@ -183,20 +207,20 @@ function recalcAll() {
     const building = DATA.buildingByKey[key];
     const cur = levels[key] ?? 0;
     const rem = remainingCost(building, cur);
-    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, resFactor, timeFactor);
+    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor, helperSeconds);
+    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, resFactor, timeFactor, helperSeconds);
     tile.classList.toggle('done', cur >= building.max_level);
-    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(building, cur, resFactor, timeFactor);
+    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(building, cur, resFactor, timeFactor, helperSeconds);
 
     for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
     grand.rawTime += rem.time;
-    grand.adjTime += rem.time * timeFactor;
+    grand.adjTime += adjTime;
   });
 
   const grandEl = document.getElementById('grand-totals');
   const order = ['Gold', 'Lumber', 'Steel', 'Electricity'];
   const otherKeys = Object.keys(grand.totals).filter(k => !order.includes(k));
   const allKeys = [...order.filter(k => k in grand.totals), ...otherKeys];
-  const speedBonusPct = Math.round((mod.buildSpeedPct || 0) * 10) / 10;
   grandEl.innerHTML = allKeys.map(k => {
     const raw = grand.totals[k];
     const adj = raw * resFactor;
@@ -262,13 +286,25 @@ function importLevels() {
 document.addEventListener('DOMContentLoaded', () => {
   const levels = loadLevels();
   const mod = loadModifiers();
-  document.getElementById('mod-resource-discount').value = mod.resourceDiscountPct;
-  document.getElementById('mod-build-speed').value = mod.buildSpeedPct;
+  document.getElementById('mod-title').value = mod.title;
+  document.getElementById('mod-construction-aid').value = mod.constructionAid;
+  document.getElementById('mod-vip').value = mod.vip;
+  document.getElementById('mod-lifetime-pass').checked = mod.lifetimePass;
+  document.getElementById('mod-monthly-pass').checked = mod.monthlyPass;
+  document.getElementById('mod-helper').value = mod.helper;
+  document.getElementById('mod-builder-class').value = mod.builderClassPct;
+  document.getElementById('mod-master-builder').value = mod.masterBuilderPct;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
-      m.resourceDiscountPct = parseFloat(document.getElementById('mod-resource-discount').value) || 0;
-      m.buildSpeedPct = parseFloat(document.getElementById('mod-build-speed').value) || 0;
+      m.title = parseInt(document.getElementById('mod-title').value, 10) || 0;
+      m.constructionAid = parseInt(document.getElementById('mod-construction-aid').value, 10) || 0;
+      m.vip = parseInt(document.getElementById('mod-vip').value, 10) || 0;
+      m.lifetimePass = document.getElementById('mod-lifetime-pass').checked;
+      m.monthlyPass = document.getElementById('mod-monthly-pass').checked;
+      m.helper = document.getElementById('mod-helper').value;
+      m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
+      m.masterBuilderPct = parseInt(document.getElementById('mod-master-builder').value, 10) || 0;
       saveModifiers(m);
       recalcAll();
     });
@@ -350,17 +386,55 @@ def main():
     parts = []
     parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Palmon Building Upgrade Calculator</title>')
     parts.append(f"<style>{CSS}</style></head><body>")
+    parts.append('<div class="site-header"><div class="site-brand">'
+                 '<img class="site-logo" src="logo.png" alt="Logo" onerror="this.style.display=&quot;none&quot;">'
+                 '<div class="site-credit">By MewLuy and Tetsu @S35</div>'
+                 '</div></div>')
     parts.append('<div class="controls">')
     parts.append('<h1>Palmon Survival — Building Upgrade Calculator</h1>')
     parts.append('<div class="meta">Enter your CURRENT level for each building. Totals show what\'s still needed to reach max level. Saved automatically in your browser.</div>')
     parts.append('<div id="grand-totals" class="totals"></div>')
     parts.append('<div class="modifiers">')
     parts.append('<h3>Global Modifiers</h3>')
-    parts.append('<label>Resource cost discount %: '
-                 '<input type="number" id="mod-resource-discount" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<label>Build speed bonus %: '
-                 '<input type="number" id="mod-build-speed" class="mod-input" min="0" max="1000" step="0.01" style="width:70px"></label>')
-    parts.append('<div class="note">Placeholder modifiers — building buffs (construction speed items, VIP building bonus, etc.) differ from the tech-tree buffs and will be wired in precisely once confirmed. For now enter a combined discount/speed % manually.</div>')
+    parts.append('<label>Title: <select id="mod-title" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="60">Warden (+60% Building Speed)</option>'
+                 '<option value="50">Architect (+50% Building Speed)</option>'
+                 '</select></label>')
+    parts.append('<label>Construction Aid: <select id="mod-construction-aid" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="10">+10% Building Speed</option>'
+                 '<option value="20">+20% Building Speed</option>'
+                 '</select></label>')
+    parts.append('<label>VIP Level: <select id="mod-vip" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="5">VIP 3 (+5% Building Speed)</option>'
+                 '<option value="10">VIP 5 (+10% Building Speed)</option>'
+                 '<option value="20">VIP 6 (+20% Building Speed)</option>'
+                 '<option value="30">VIP 8 (+30% Building Speed)</option>'
+                 '<option value="50">VIP 9 (+50% Building Speed)</option>'
+                 '</select></label>')
+    parts.append('<label>Building Helpers total (HH:MM:SS reduction): '
+                 '<input type="text" id="mod-helper" class="mod-input" pattern="\\d+:\\d{2}:\\d{2}" placeholder="00:00:00" style="width:90px"></label>')
+    parts.append('<label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Building Speed)</label>')
+    parts.append('<label><input type="checkbox" id="mod-monthly-pass" class="mod-input"> Monthly Pass (+10% Building Speed)</label>')
+    parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">-1% resource cost</option>'
+                 '<option value="2">-2% resource cost</option>'
+                 '<option value="3">-3% resource cost</option>'
+                 '<option value="4">-4% resource cost</option>'
+                 '<option value="5">-5% resource cost</option>'
+                 '</select></label>')
+    parts.append('<label>Master Builder: <select id="mod-master-builder" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="5">-5% resource cost</option>'
+                 '<option value="10">-10% resource cost</option>'
+                 '<option value="15">-15% resource cost</option>'
+                 '<option value="20">-20% resource cost</option>'
+                 '<option value="25">-25% resource cost</option>'
+                 '</select></label>')
+    parts.append('<div class="note">Building-speed sources (Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) sum additively into one total %, then a single time factor is applied — same model as the Tech calculator. Builder Class Buff and Master Builder both discount resource cost and stack additively. Building Helper reductions are flat and applied per individual level-up (not per total), after the speed factor, floored at 0.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')

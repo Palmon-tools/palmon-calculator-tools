@@ -9,9 +9,20 @@
   h1 { margin-bottom: 30px; }
   a.tool { display:block; background:#222; color:#fff; text-decoration:none; padding:16px 24px; margin:10px 0; border-radius:8px; width:100%; max-width:400px; text-align:center; font-size:1.1em; border:1px solid #444; }
   a.tool:hover { background:#333; }
+  .site-header { position:fixed; top:12px; right:16px; text-align:center; }
+  .site-logo { width:56px; height:56px; object-fit:contain; display:block; margin:0 auto 4px; opacity:0.9; }
+  .site-credit { font-size:11px; color:#888; }
+  @media (max-width:640px) {
+    .site-header { position:static; margin-bottom:16px; order:-1; }
+    .site-logo { width:40px; height:40px; }
+  }
 </style>
 </head>
 <body>
+  <div class="site-header">
+    <img class="site-logo" src="logo.png" alt="Logo" onerror="this.style.display='none'">
+    <div class="site-credit">By MewLuy and Tetsu @S35</div>
+  </div>
   <h1>Palmon Calculator Tools</h1>
   <a class="tool" href="techtrees_calculator.html">Tech-Calculator</a>
   <a class="tool" href="buildings_calculator.html">Building-Calculator</a>
