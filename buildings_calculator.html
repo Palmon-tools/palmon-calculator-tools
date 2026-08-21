@@ -815,6 +815,15 @@ function setLevel(key, value, max) {
   const levels = loadLevels();
   let v = Math.round(parseFloat(value) * 10) / 10;
   if (isNaN(v) || v < 0) v = 0;
+  const base = Math.floor(v);
+  // Below level 30 only whole levels exist; from 30+ only .1-.4 sub-stages exist (no .5+).
+  if (base < 30) {
+    v = Math.round(v);
+  } else {
+    let frac = Math.round((v - base) * 10);
+    if (frac > 4) frac = 4;
+    v = base + frac / 10;
+  }
   if (v > max) v = max;
   levels[key] = v;
   saveLevels(levels);
