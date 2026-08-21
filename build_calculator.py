@@ -93,7 +93,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', extraMaterialPct: 0, extraElectricityPct: 0 };
+  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', extraMaterialPct: 0, extraElectricityPct: 0, builderClassPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -174,7 +174,7 @@ function renderTileRemaining(remaining, materialFactor, electricityFactor, timeF
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
-  const resourceReductionPct = mod.devMaxed ? 2.5 : 0;
+  const resourceReductionPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
   // Verified against real in-game before/after-Warden data: research-speed sources sum ADDITIVELY
   // into one total %, then a single factor is applied — multiplicative per-source compounding
   // was tested and produces impossible (negative) results once many bonuses stack.
@@ -341,6 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-helper').value = mod.helper;
   document.getElementById('mod-extra-material').value = mod.extraMaterialPct;
   document.getElementById('mod-extra-electricity').value = mod.extraElectricityPct;
+  document.getElementById('mod-builder-class').value = mod.builderClassPct;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
@@ -354,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
       m.helper = document.getElementById('mod-helper').value;
       m.extraMaterialPct = parseFloat(document.getElementById('mod-extra-material').value) || 0;
       m.extraElectricityPct = parseFloat(document.getElementById('mod-extra-electricity').value) || 0;
+      m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
       saveModifiers(m);
       recalcAll();
     });
@@ -456,7 +458,15 @@ def main():
                  '<input type="number" id="mod-extra-material" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Extra Electricity discount %: '
                  '<input type="number" id="mod-extra-electricity" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). TriumphBadge is excluded from the -2.5% resource reduction (it\'s not a reducible resource). Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Extra Gold/Lumber/Steel and Electricity discounts are separate manual overrides for an unidentified resource-only buff (they multiply on top of the -2.5% Development-maxed reduction). Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
+    parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">-1% resource cost</option>'
+                 '<option value="2">-2% resource cost</option>'
+                 '<option value="3">-3% resource cost</option>'
+                 '<option value="4">-4% resource cost</option>'
+                 '<option value="5">-5% resource cost</option>'
+                 '</select></label>')
+    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). TriumphBadge is excluded from the -2.5% resource reduction (it\'s not a reducible resource). Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Extra Gold/Lumber/Steel and Electricity discounts are separate manual overrides for an unidentified resource-only buff (they multiply on top of the -2.5% Development-maxed reduction). Builder Class Buff is an additional resource-cost discount (-1% to -5%) that stacks the same way. Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')

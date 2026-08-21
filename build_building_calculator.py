@@ -160,7 +160,7 @@ function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor) {
     const reqLine = reqs.length
       ? `<div class="req">Requires: ${reqs.map(r => `${r.display_name || r.name_key || ('build_type ' + r.build_type)} Lv.${r.at_level}`).join(', ')}</div>`
       : '';
-    return `<div class="level-row"><span class="lvl-num">Lv.${lvl.level}</span> — ${resLine}<span class="res-time">Time: ${fmtTime(time)}</span>${reqLine}</div>`;
+    return `<div class="level-row"><span class="lvl-num">Lv.${lvl.level_label}</span> — ${resLine}<span class="res-time">Time: ${fmtTime(time)}</span>${reqLine}</div>`;
   }).join('');
 }
 
@@ -212,7 +212,7 @@ function recalcAll() {
 
 function setLevel(key, value, max) {
   const levels = loadLevels();
-  let v = parseInt(value, 10);
+  let v = Math.round(parseFloat(value) * 10) / 10;
   if (isNaN(v) || v < 0) v = 0;
   if (v > max) v = max;
   levels[key] = v;
@@ -295,6 +295,10 @@ def render_tile(b: dict) -> str:
     icon_file = icon_path.split("/")[-1] if icon_path else ""
     img_url = f"{ICON_DIR}/{icon_file}.png" if icon_file else ""
     max_lv = b.get("max_level", 0)
+    has_sub_levels = any(isinstance(lvl.get("level"), float) and not lvl["level"].is_integer() for lvl in b.get("levels", []))
+    step = "0.1" if has_sub_levels else "1"
+    hint = ('<div class="meta-line">Lv.30+ has sub-stages: use 30.1/30.2/30.3/30.4 for 30-1..30-4</div>'
+            if has_sub_levels else "")
 
     img_html = (f'<img src="{html.escape(img_url)}" onerror="this.classList.add(&quot;missing&quot;);this.replaceWith(document.createTextNode(&quot;(no icon)&quot;));" alt="{html.escape(display)}">'
                 if img_url else '<div class="missing">(no icon)</div>')
@@ -304,9 +308,10 @@ def render_tile(b: dict) -> str:
       {img_html}
       <div class="name">{html.escape(display)}</div>
       <div class="meta-line">build_type {b['build_type']}</div>
+      {hint}
       <div class="lvl-row">
         <label>Level:</label>
-        <input class="lvl-input" type="number" min="0" max="{max_lv}" data-key="{html.escape(name_key)}" data-max="{max_lv}" />
+        <input class="lvl-input" type="number" min="0" max="{max_lv}" step="{step}" data-key="{html.escape(name_key)}" data-max="{max_lv}" />
         <label>/ {max_lv}</label>
       </div>
       <div class="remaining remaining-slot"></div>
@@ -325,6 +330,7 @@ def main():
             "levels": [
                 {
                     "level": lvl.get("level"),
+                    "level_label": lvl.get("level_label") or str(lvl.get("level")),
                     "cost": lvl.get("cost") or {},
                     "up_time_seconds": lvl.get("up_time_seconds", 0),
                     "prerequisite_buildings": [
