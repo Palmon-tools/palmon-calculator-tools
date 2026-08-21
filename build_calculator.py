@@ -62,6 +62,7 @@ button.secondary { background: #444; color: #ddd; }
 .tree-body.collapsed { display: none; }
 
 @media (max-width: 640px) {
+  .controls { position: static; }
   body { padding: 10px; }
   h1 { font-size: 18px; }
   h2 { font-size: 15px; margin-top: 22px; }
