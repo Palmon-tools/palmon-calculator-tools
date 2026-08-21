@@ -193,9 +193,10 @@ function recalcAll() {
     + (mod.fieldlabSpeedPct1 || 0)
     + (mod.fieldlabSpeedPct2 || 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
-  // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction (or Builder Class Buff) — no resource discount applies to it.
+  // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
+  // by other resource-cost reductions such as the Builder Class Buff.
   const materialFactor = baseResFactor;
-  const electricityFactor = 1;
+  const electricityFactor = 1 - (mod.builderClassPct || 0) / 100;
   const timeFactor = 1 / (1 + speedBonusSum / 100);
   const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
   const helperSeconds = parseHMS(mod.helper);
@@ -467,7 +468,7 @@ def main():
                  '<option value="4">-4% resource cost</option>'
                  '<option value="5">-5% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction or the Builder Class Buff — no resource discount ever applies to it. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction. Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
+    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only). Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
