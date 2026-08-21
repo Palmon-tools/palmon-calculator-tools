@@ -1,0 +1,333 @@
+#!/usr/bin/env python3
+"""
+Build an interactive HTML calculator for BUILDING upgrades: enter your CURRENT
+level for every building, it sums up how much Gold/Lumber/Steel/Electricity and
+how much time is still needed to bring everything to max level.
+
+Reads buildings_final.json (display names merged in) if present, else falls
+back to buildings_v2.json (raw name_keys). Data is embedded directly into the
+HTML so it works by double-click, no server needed.
+
+Output: buildings_calculator.html
+"""
+from __future__ import annotations
+import json, html
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+SRC = ROOT / "buildings_final.json"
+if not SRC.exists():
+    SRC = ROOT / "buildings_v2.json"
+BD = json.loads(SRC.read_text(encoding="utf-8"))
+ICON_DIR = "building_icons"
+
+CSS = """
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+body { background: #1a1a1e; color: #ddd; padding: 24px; }
+h1 { color: #fff; margin-bottom: 6px; }
+.meta { color: #888; font-size: 13px; margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+.tile { background: #2a2a30; border: 1px solid #3a3a42; border-radius: 8px; padding: 10px; }
+.tile.done { border-color: #34d399; }
+.tile img { width: 56px; height: 56px; object-fit: contain; background: #16161a; border-radius: 4px; float: left; margin-right: 8px; }
+.tile img.missing { display: flex; align-items: center; justify-content: center; color: #666; font-size: 9px; text-align: center; }
+.tile .name { font-size: 13px; font-weight: 600; color: #fff; }
+.tile .meta-line { font-size: 10px; color: #888; }
+.tile .lvl-row { clear: both; padding-top: 8px; display: flex; align-items: center; gap: 6px; }
+.tile .lvl-row label { font-size: 11px; color: #999; }
+.tile .lvl-row input { width: 55px; padding: 4px 6px; background: #16161a; border: 1px solid #444; border-radius: 4px; color: #fff; font-size: 13px; }
+.tile .remaining { margin-top: 6px; font-size: 11px; line-height: 1.5; }
+.tile .remaining .row0 { color: #6ee7b7; }
+.res-gold { color: #fbbf24; } .res-lumber { color: #a78bfa; } .res-steel { color: #94a3b8; }
+.res-elec { color: #38bdf8; } .res-badge { color: #f472b6; } .res-time { color: #6ee7b7; }
+.controls { position: sticky; top: 0; background: #1a1a1e; padding: 10px 0; z-index: 10; margin-bottom: 12px; border-bottom: 1px solid #333; }
+button { padding: 8px 16px; background: #6ee7b7; color: #111; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; margin-right: 8px; margin-top: 6px; }
+button:hover { background: #34d399; }
+button.secondary { background: #444; color: #ddd; }
+.totals { display: flex; flex-wrap: wrap; gap: 18px; font-size: 20px; font-weight: 700; margin: 10px 0; }
+.totals div span.label { display: block; font-size: 11px; font-weight: 400; color: #888; }
+.totals div span.raw { display: block; font-size: 10px; font-weight: 400; color: #666; }
+.modifiers { background: #24242a; border: 1px solid #3a3a42; border-radius: 6px; padding: 10px 14px; margin: 10px 0; font-size: 13px; }
+.modifiers h3 { color: #fbbf24; font-size: 13px; margin-bottom: 8px; }
+.modifiers label { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; margin-bottom: 6px; color: #ccc; }
+.modifiers select, .modifiers input[type=number] { background: #16161a; border: 1px solid #444; border-radius: 4px; color: #fff; padding: 3px 6px; }
+.modifiers .note { color: #888; font-size: 11px; margin-top: 4px; }
+
+@media (max-width: 640px) {
+  .controls { position: static; }
+  body { padding: 10px; }
+  h1 { font-size: 18px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+  .tile { padding: 8px; }
+  .tile img { width: 40px; height: 40px; margin-right: 6px; }
+  .tile .name { font-size: 12px; }
+  .tile .lvl-row input { width: 44px; font-size: 16px; }
+  .totals { font-size: 15px; gap: 10px; }
+  .modifiers label { display: flex; margin-right: 0; width: 100%; }
+  .modifiers select, .modifiers input[type=number] { flex: 1; min-width: 0; font-size: 16px; }
+  button { padding: 10px 14px; font-size: 14px; margin-bottom: 6px; width: 100%; }
+}
+"""
+
+JS_TEMPLATE = """
+const LS_KEY = 'palmon_building_levels_v1';
+const LS_KEY_MOD = 'palmon_building_modifiers_v1';
+const DATA = __DATA__;
+
+function loadLevels() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+function saveLevels(store) {
+  localStorage.setItem(LS_KEY, JSON.stringify(store));
+}
+function loadModifiers() {
+  const defaults = { resourceDiscountPct: 0, buildSpeedPct: 0 };
+  try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
+  catch(e) { return defaults; }
+}
+function saveModifiers(mod) {
+  localStorage.setItem(LS_KEY_MOD, JSON.stringify(mod));
+}
+function fmtNum(n) { return n ? Math.round(n).toLocaleString('en-US') : '0'; }
+function fmtTime(totalSeconds) {
+  if (!totalSeconds) return '0s';
+  let s = totalSeconds;
+  const d = Math.floor(s / 86400); s -= d * 86400;
+  const h = Math.floor(s / 3600); s -= h * 3600;
+  const m = Math.floor(s / 60); s -= m * 60;
+  const parts = [];
+  if (d) parts.push(d + 'd');
+  if (h) parts.push(h + 'h');
+  if (m && !d) parts.push(m + 'm');
+  if (!d && !h && !m) parts.push(Math.round(s) + 's');
+  return parts.join(' ');
+}
+
+const RESOURCE_CLASS = { Gold: 'res-gold', Lumber: 'res-lumber', Steel: 'res-steel', Electricity: 'res-elec' };
+function resClass(key) { return RESOURCE_CLASS[key.split('(')[0]] || 'res-badge'; }
+
+// remaining cost from (currentLevel+1) to max_level, inclusive
+function remainingCost(building, currentLevel) {
+  const totals = {};
+  let time = 0;
+  for (const lvl of building.levels) {
+    if (lvl.level <= currentLevel || lvl.level === 0) continue;
+    for (const [k, v] of Object.entries(lvl.cost || {})) totals[k] = (totals[k] || 0) + v;
+    time += lvl.up_time_seconds || 0;
+  }
+  return { totals, time };
+}
+
+function fmtAdjustedResource(k, raw, resFactor) {
+  const adj = raw * resFactor;
+  const suffix = resFactor !== 1 ? ` <span class="raw">(raw ${fmtNum(raw)})</span>` : '';
+  return `<div class="${resClass(k)}">${k}: ${fmtNum(adj)}${suffix}</div>`;
+}
+function fmtAdjustedTime(raw, adj) {
+  const suffix = adj !== raw ? ` <span class="raw">(raw ${fmtTime(raw)})</span>` : '';
+  return `<div class="res-time">Time: ${fmtTime(adj)}${suffix}</div>`;
+}
+
+function renderTileRemaining(remaining, resFactor, timeFactor) {
+  const entries = Object.entries(remaining.totals);
+  if (!entries.length && !remaining.time) return '<div class="row0">max level reached</div>';
+  let html = entries.map(([k, v]) => fmtAdjustedResource(k, v, resFactor)).join('');
+  html += fmtAdjustedTime(remaining.time, remaining.time * timeFactor);
+  return html;
+}
+
+function recalcAll() {
+  const levels = loadLevels();
+  const mod = loadModifiers();
+  const resFactor = 1 - (mod.resourceDiscountPct || 0) / 100;
+  const timeFactor = 1 / (1 + (mod.buildSpeedPct || 0) / 100);
+  const grand = { totals: {}, rawTime: 0, adjTime: 0 };
+
+  document.querySelectorAll('.tile[data-key]').forEach(tile => {
+    const key = tile.dataset.key;
+    const building = DATA.buildingByKey[key];
+    const cur = levels[key] ?? 0;
+    const rem = remainingCost(building, cur);
+    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, resFactor, timeFactor);
+    tile.classList.toggle('done', cur >= building.max_level);
+
+    for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
+    grand.rawTime += rem.time;
+    grand.adjTime += rem.time * timeFactor;
+  });
+
+  const grandEl = document.getElementById('grand-totals');
+  const order = ['Gold', 'Lumber', 'Steel', 'Electricity'];
+  const otherKeys = Object.keys(grand.totals).filter(k => !order.includes(k));
+  const allKeys = [...order.filter(k => k in grand.totals), ...otherKeys];
+  const speedBonusPct = Math.round((mod.buildSpeedPct || 0) * 10) / 10;
+  grandEl.innerHTML = allKeys.map(k => {
+    const raw = grand.totals[k];
+    const adj = raw * resFactor;
+    const rawNote = (resFactor !== 1) ? `<span class="raw">raw: ${fmtNum(raw)}</span>` : '';
+    return `<div><span class="${resClass(k)}">${fmtNum(adj)}</span><span class="label">${k}</span>${rawNote}</div>`;
+  }).join('') + (() => {
+    const rawTime = grand.rawTime;
+    const adjTime = grand.adjTime;
+    const rawNote = adjTime !== rawTime ? `<span class="raw">raw: ${fmtTime(rawTime)}</span>` : '';
+    return `<div><span class="res-time">${fmtTime(adjTime)}</span><span class="label">Total time (${speedBonusPct}% faster)</span>${rawNote}</div>`;
+  })();
+}
+
+function setLevel(key, value, max) {
+  const levels = loadLevels();
+  let v = parseInt(value, 10);
+  if (isNaN(v) || v < 0) v = 0;
+  if (v > max) v = max;
+  levels[key] = v;
+  saveLevels(levels);
+  return v;
+}
+
+function resetAll() {
+  if (!confirm('Reset ALL current levels to 0?')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+function maxAll() {
+  if (!confirm('Set ALL buildings to their max level (nothing left to calculate)?')) return;
+  const levels = {};
+  for (const key in DATA.buildingByKey) levels[key] = DATA.buildingByKey[key].max_level;
+  saveLevels(levels);
+  location.reload();
+}
+function exportLevels() {
+  const data = JSON.stringify(loadLevels(), null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'current_building_levels.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importLevels() {
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'application/json';
+  inp.onchange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try {
+        saveLevels(JSON.parse(rd.result));
+        location.reload();
+      } catch(e) { alert('Bad file: ' + e); }
+    };
+    rd.readAsText(f);
+  };
+  inp.click();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const levels = loadLevels();
+  const mod = loadModifiers();
+  document.getElementById('mod-resource-discount').value = mod.resourceDiscountPct;
+  document.getElementById('mod-build-speed').value = mod.buildSpeedPct;
+  document.querySelectorAll('.mod-input').forEach(el => {
+    el.addEventListener('input', () => {
+      const m = loadModifiers();
+      m.resourceDiscountPct = parseFloat(document.getElementById('mod-resource-discount').value) || 0;
+      m.buildSpeedPct = parseFloat(document.getElementById('mod-build-speed').value) || 0;
+      saveModifiers(m);
+      recalcAll();
+    });
+  });
+
+  document.querySelectorAll('.lvl-input').forEach(el => {
+    const key = el.dataset.key;
+    const max = parseInt(el.dataset.max, 10);
+    el.value = levels[key] ?? 0;
+    el.addEventListener('input', () => {
+      el.value = setLevel(key, el.value, max);
+      recalcAll();
+    });
+  });
+  recalcAll();
+});
+"""
+
+
+def render_tile(b: dict) -> str:
+    name_key = b.get("name_key") or f"build_type_{b['build_type']}"
+    display = b.get("display_name") or name_key
+    icon_path = b.get("icon_sprite_path") or ""
+    icon_file = icon_path.split("/")[-1] if icon_path else ""
+    img_url = f"{ICON_DIR}/{icon_file}.png" if icon_file else ""
+    max_lv = b.get("max_level", 0)
+
+    img_html = (f'<img src="{html.escape(img_url)}" onerror="this.classList.add(&quot;missing&quot;);this.replaceWith(document.createTextNode(&quot;(no icon)&quot;));" alt="{html.escape(display)}">'
+                if img_url else '<div class="missing">(no icon)</div>')
+
+    return f"""
+    <div class="tile" data-key="{html.escape(name_key)}">
+      {img_html}
+      <div class="name">{html.escape(display)}</div>
+      <div class="meta-line">build_type {b['build_type']}</div>
+      <div class="lvl-row">
+        <label>Level:</label>
+        <input class="lvl-input" type="number" min="0" max="{max_lv}" data-key="{html.escape(name_key)}" data-max="{max_lv}" />
+        <label>/ {max_lv}</label>
+      </div>
+      <div class="remaining remaining-slot"></div>
+    </div>
+    """
+
+
+def main():
+    building_by_key = {}
+    for b in BD["buildings"]:
+        nk = b.get("name_key") or f"build_type_{b['build_type']}"
+        building_by_key[nk] = {
+            "max_level": b.get("max_level", 0),
+            "levels": [
+                {"level": lvl.get("level"), "cost": lvl.get("cost") or {}, "up_time_seconds": lvl.get("up_time_seconds", 0)}
+                for lvl in b.get("levels", [])
+            ],
+        }
+
+    parts = []
+    parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Palmon Building Upgrade Calculator</title>')
+    parts.append(f"<style>{CSS}</style></head><body>")
+    parts.append('<div class="controls">')
+    parts.append('<h1>Palmon Survival — Building Upgrade Calculator</h1>')
+    parts.append('<div class="meta">Enter your CURRENT level for each building. Totals show what\'s still needed to reach max level. Saved automatically in your browser.</div>')
+    parts.append('<div id="grand-totals" class="totals"></div>')
+    parts.append('<div class="modifiers">')
+    parts.append('<h3>Global Modifiers</h3>')
+    parts.append('<label>Resource cost discount %: '
+                 '<input type="number" id="mod-resource-discount" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
+    parts.append('<label>Build speed bonus %: '
+                 '<input type="number" id="mod-build-speed" class="mod-input" min="0" max="1000" step="0.01" style="width:70px"></label>')
+    parts.append('<div class="note">Placeholder modifiers — building buffs (construction speed items, VIP building bonus, etc.) differ from the tech-tree buffs and will be wired in precisely once confirmed. For now enter a combined discount/speed % manually.</div>')
+    parts.append('</div>')
+    parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
+    parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
+    parts.append('<button class="secondary" onclick="resetAll()">Reset all to 0</button>')
+    parts.append('<button class="secondary" onclick="maxAll()">Set all to max</button>')
+    parts.append('</div>')
+
+    parts.append('<div class="grid">')
+    for b in sorted(BD["buildings"], key=lambda x: x["build_type"]):
+        parts.append(render_tile(b))
+    parts.append('</div>')
+
+    data_json = json.dumps({"buildingByKey": building_by_key}, ensure_ascii=False)
+    js = JS_TEMPLATE.replace("__DATA__", data_json)
+    parts.append(f"<script>{js}</script>")
+    parts.append("</body></html>")
+
+    out_path = ROOT / "buildings_calculator.html"
+    out_path.write_text("".join(parts), encoding="utf-8")
+    print(f"source data: {SRC.name}")
+    print(f"wrote {out_path.name}  ({out_path.stat().st_size:,} bytes)")
+    print("open it directly in a browser — no server needed.")
+
+
+if __name__ == "__main__":
+    main()
