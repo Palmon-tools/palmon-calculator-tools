@@ -60,6 +60,23 @@ button.secondary { background: #444; color: #ddd; }
 .modifiers .note { color: #888; font-size: 11px; margin-top: 4px; }
 .tree-toggle { cursor: pointer; user-select: none; display: inline-block; width: 16px; color: #6ee7b7; }
 .tree-body.collapsed { display: none; }
+
+@media (max-width: 640px) {
+  body { padding: 10px; }
+  h1 { font-size: 18px; }
+  h2 { font-size: 15px; margin-top: 22px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+  .tile { padding: 8px; }
+  .tile img { width: 40px; height: 40px; margin-right: 6px; }
+  .tile .name { font-size: 12px; }
+  .tile .lvl-row input { width: 44px; font-size: 16px; }
+  .totals { font-size: 15px; gap: 10px; }
+  .modifiers label { display: flex; margin-right: 0; width: 100%; }
+  .modifiers select, .modifiers input[type=number], .modifiers input[type=text] { flex: 1; min-width: 0; font-size: 16px; }
+  button { padding: 10px 14px; font-size: 14px; margin-bottom: 6px; width: 100%; }
+  .tree-max-btn { width: auto; margin-top: 6px; display: block; }
+  .toc a { display: inline-block; margin-bottom: 6px; }
+}
 """
 
 JS_TEMPLATE = """
@@ -401,7 +418,7 @@ def main():
             }
 
     parts = []
-    parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Palmon Tech Upgrade Calculator</title>')
+    parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Palmon Tech Upgrade Calculator</title>')
     parts.append(f"<style>{CSS}</style></head><body>")
     parts.append('<div class="controls">')
     parts.append('<h1>Palmon Survival — Tech Upgrade Calculator</h1>')
