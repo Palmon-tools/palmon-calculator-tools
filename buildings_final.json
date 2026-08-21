@@ -867,7 +867,7 @@
           "peak_level": -1,
           "power": 3972978,
           "cost": {
-            "TriumphBadge(105000)": 1900,
+            "Mastery Sigil(105000)": 1900,
             "Lumber": 1600000000,
             "Steel": 1600000000,
             "Gold": 1700000000
@@ -906,7 +906,7 @@
           "peak_level": -1,
           "power": 5562342,
           "cost": {
-            "TriumphBadge(105000)": 2400,
+            "Mastery Sigil(105000)": 2400,
             "Lumber": 2100000000,
             "Steel": 2200000000,
             "Gold": 2300000000
@@ -945,7 +945,7 @@
           "peak_level": -1,
           "power": 7336236,
           "cost": {
-            "TriumphBadge(105000)": 3100,
+            "Mastery Sigil(105000)": 3100,
             "Lumber": 2800000000,
             "Steel": 2800000000,
             "Gold": 3000000000
@@ -984,7 +984,7 @@
           "peak_level": -1,
           "power": 9259585,
           "cost": {
-            "TriumphBadge(105000)": 3800,
+            "Mastery Sigil(105000)": 3800,
             "Lumber": 3500000000,
             "Steel": 3500000000,
             "Gold": 3700000000
@@ -1023,7 +1023,7 @@
           "peak_level": -1,
           "power": 11305981,
           "cost": {
-            "TriumphBadge(105000)": 4700,
+            "Mastery Sigil(105000)": 4700,
             "Lumber": 4100000000,
             "Steel": 4100000000,
             "Gold": 4300000000
@@ -1711,7 +1711,7 @@
           "peak_level": -1,
           "power": 3049522,
           "cost": {
-            "TriumphBadge(105000)": 1100,
+            "Mastery Sigil(105000)": 1100,
             "Lumber": 422000000,
             "Steel": 423000000,
             "Gold": 535000000
@@ -1734,7 +1734,7 @@
           "peak_level": -1,
           "power": 3996448,
           "cost": {
-            "TriumphBadge(105000)": 1500,
+            "Mastery Sigil(105000)": 1500,
             "Lumber": 549000000,
             "Steel": 550000000,
             "Gold": 695000000
@@ -1757,7 +1757,7 @@
           "peak_level": -1,
           "power": 5048499,
           "cost": {
-            "TriumphBadge(105000)": 1800,
+            "Mastery Sigil(105000)": 1800,
             "Lumber": 714000000,
             "Steel": 715000000,
             "Gold": 904000000
@@ -1780,7 +1780,7 @@
           "peak_level": -1,
           "power": 6197671,
           "cost": {
-            "TriumphBadge(105000)": 2300,
+            "Mastery Sigil(105000)": 2300,
             "Lumber": 893000000,
             "Steel": 894000000,
             "Gold": 1100000000
@@ -1803,7 +1803,7 @@
           "peak_level": -1,
           "power": 7409013,
           "cost": {
-            "TriumphBadge(105000)": 2800,
+            "Mastery Sigil(105000)": 2800,
             "Lumber": 1000000000,
             "Steel": 1000000000,
             "Gold": 1300000000
@@ -3448,7 +3448,7 @@
           "peak_level": -1,
           "power": 3797638,
           "cost": {
-            "TriumphBadge(105000)": 1400,
+            "Mastery Sigil(105000)": 1400,
             "Lumber": 1200000000,
             "Steel": 1200000000,
             "Gold": 1700000000
@@ -3471,7 +3471,7 @@
           "peak_level": -1,
           "power": 5264403,
           "cost": {
-            "TriumphBadge(105000)": 1800,
+            "Mastery Sigil(105000)": 1800,
             "Lumber": 1500000000,
             "Steel": 1500000000,
             "Gold": 2300000000
@@ -3494,7 +3494,7 @@
           "peak_level": -1,
           "power": 6898408,
           "cost": {
-            "TriumphBadge(105000)": 2300,
+            "Mastery Sigil(105000)": 2300,
             "Lumber": 2000000000,
             "Steel": 2000000000,
             "Gold": 3000000000
@@ -3517,7 +3517,7 @@
           "peak_level": -1,
           "power": 8678939,
           "cost": {
-            "TriumphBadge(105000)": 2900,
+            "Mastery Sigil(105000)": 2900,
             "Lumber": 2500000000,
             "Steel": 2500000000,
             "Gold": 3700000000
@@ -3540,7 +3540,7 @@
           "peak_level": -1,
           "power": 10562045,
           "cost": {
-            "TriumphBadge(105000)": 3500,
+            "Mastery Sigil(105000)": 3500,
             "Lumber": 2900000000,
             "Steel": 2900000000,
             "Gold": 4300000000
@@ -4220,7 +4220,7 @@
           "peak_level": -1,
           "power": 1789274,
           "cost": {
-            "TriumphBadge(105000)": 190,
+            "Mastery Sigil(105000)": 190,
             "Lumber": 253000000,
             "Steel": 84600000,
             "Gold": 223000000
@@ -4243,7 +4243,7 @@
           "peak_level": -1,
           "power": 2449242,
           "cost": {
-            "TriumphBadge(105000)": 240,
+            "Mastery Sigil(105000)": 240,
             "Lumber": 329000000,
             "Steel": 110000000,
             "Gold": 289000000
@@ -4266,7 +4266,7 @@
           "peak_level": -1,
           "power": 3182614,
           "cost": {
-            "TriumphBadge(105000)": 310,
+            "Mastery Sigil(105000)": 310,
             "Lumber": 428000000,
             "Steel": 143000000,
             "Gold": 376000000
@@ -4289,7 +4289,7 @@
           "peak_level": -1,
           "power": 3984750,
           "cost": {
-            "TriumphBadge(105000)": 380,
+            "Mastery Sigil(105000)": 380,
             "Lumber": 536000000,
             "Steel": 178000000,
             "Gold": 471000000
@@ -4312,7 +4312,7 @@
           "peak_level": -1,
           "power": 4832864,
           "cost": {
-            "TriumphBadge(105000)": 470,
+            "Mastery Sigil(105000)": 470,
             "Lumber": 616000000,
             "Steel": 205000000,
             "Gold": 541000000
@@ -4992,7 +4992,7 @@
           "peak_level": -1,
           "power": 3317141,
           "cost": {
-            "TriumphBadge(105000)": 1200,
+            "Mastery Sigil(105000)": 1200,
             "Lumber": 676000000,
             "Steel": 1100000000,
             "Gold": 802000000
@@ -5015,7 +5015,7 @@
           "peak_level": -1,
           "power": 4541525,
           "cost": {
-            "TriumphBadge(105000)": 1600,
+            "Mastery Sigil(105000)": 1600,
             "Lumber": 879000000,
             "Steel": 1500000000,
             "Gold": 1000000000
@@ -5038,7 +5038,7 @@
           "peak_level": -1,
           "power": 5902078,
           "cost": {
-            "TriumphBadge(105000)": 2000,
+            "Mastery Sigil(105000)": 2000,
             "Lumber": 1100000000,
             "Steel": 2000000000,
             "Gold": 1300000000
@@ -5061,7 +5061,7 @@
           "peak_level": -1,
           "power": 7383998,
           "cost": {
-            "TriumphBadge(105000)": 2500,
+            "Mastery Sigil(105000)": 2500,
             "Lumber": 1400000000,
             "Steel": 2500000000,
             "Gold": 1600000000
@@ -5084,7 +5084,7 @@
           "peak_level": -1,
           "power": 8951942,
           "cost": {
-            "TriumphBadge(105000)": 3000,
+            "Mastery Sigil(105000)": 3000,
             "Lumber": 1600000000,
             "Steel": 2800000000,
             "Gold": 1900000000
@@ -5764,7 +5764,7 @@
           "peak_level": -1,
           "power": 3293496,
           "cost": {
-            "TriumphBadge(105000)": 1000,
+            "Mastery Sigil(105000)": 1000,
             "Lumber": 1200000000,
             "Steel": 761000000,
             "Gold": 713000000
@@ -5787,7 +5787,7 @@
           "peak_level": -1,
           "power": 4525115,
           "cost": {
-            "TriumphBadge(105000)": 1300,
+            "Mastery Sigil(105000)": 1300,
             "Lumber": 1500000000,
             "Steel": 990000000,
             "Gold": 927000000
@@ -5810,7 +5810,7 @@
           "peak_level": -1,
           "power": 5888145,
           "cost": {
-            "TriumphBadge(105000)": 1700,
+            "Mastery Sigil(105000)": 1700,
             "Lumber": 2000000000,
             "Steel": 1200000000,
             "Gold": 1200000000
@@ -5833,7 +5833,7 @@
           "peak_level": -1,
           "power": 7378124,
           "cost": {
-            "TriumphBadge(105000)": 2100,
+            "Mastery Sigil(105000)": 2100,
             "Lumber": 2500000000,
             "Steel": 1600000000,
             "Gold": 1500000000
@@ -5856,7 +5856,7 @@
           "peak_level": -1,
           "power": 8952161,
           "cost": {
-            "TriumphBadge(105000)": 2600,
+            "Mastery Sigil(105000)": 2600,
             "Lumber": 2900000000,
             "Steel": 1800000000,
             "Gold": 1700000000
@@ -6536,7 +6536,7 @@
           "peak_level": -1,
           "power": 1520108,
           "cost": {
-            "TriumphBadge(105000)": 150,
+            "Mastery Sigil(105000)": 150,
             "Lumber": 50700000,
             "Steel": 121000000,
             "Gold": 133000000
@@ -6559,7 +6559,7 @@
           "peak_level": -1,
           "power": 2038222,
           "cost": {
-            "TriumphBadge(105000)": 190,
+            "Mastery Sigil(105000)": 190,
             "Lumber": 65900000,
             "Steel": 158000000,
             "Gold": 173000000
@@ -6582,7 +6582,7 @@
           "peak_level": -1,
           "power": 2613787,
           "cost": {
-            "TriumphBadge(105000)": 250,
+            "Mastery Sigil(105000)": 250,
             "Lumber": 85700000,
             "Steel": 205000000,
             "Gold": 226000000
@@ -6605,7 +6605,7 @@
           "peak_level": -1,
           "power": 3243221,
           "cost": {
-            "TriumphBadge(105000)": 310,
+            "Mastery Sigil(105000)": 310,
             "Lumber": 107000000,
             "Steel": 257000000,
             "Gold": 282000000
@@ -6628,7 +6628,7 @@
           "peak_level": -1,
           "power": 3908885,
           "cost": {
-            "TriumphBadge(105000)": 370,
+            "Mastery Sigil(105000)": 370,
             "Lumber": 123000000,
             "Steel": 296000000,
             "Gold": 325000000
@@ -7308,7 +7308,7 @@
           "peak_level": -1,
           "power": 1548456,
           "cost": {
-            "TriumphBadge(105000)": 150,
+            "Mastery Sigil(105000)": 150,
             "Lumber": 121000000,
             "Steel": 50700000,
             "Gold": 133000000
@@ -7331,7 +7331,7 @@
           "peak_level": -1,
           "power": 2066473,
           "cost": {
-            "TriumphBadge(105000)": 190,
+            "Mastery Sigil(105000)": 190,
             "Lumber": 158000000,
             "Steel": 66000000,
             "Gold": 173000000
@@ -7354,7 +7354,7 @@
           "peak_level": -1,
           "power": 2642109,
           "cost": {
-            "TriumphBadge(105000)": 250,
+            "Mastery Sigil(105000)": 250,
             "Lumber": 205000000,
             "Steel": 85800000,
             "Gold": 226000000
@@ -7377,7 +7377,7 @@
           "peak_level": -1,
           "power": 3271547,
           "cost": {
-            "TriumphBadge(105000)": 310,
+            "Mastery Sigil(105000)": 310,
             "Lumber": 257000000,
             "Steel": 107000000,
             "Gold": 282000000
@@ -7400,7 +7400,7 @@
           "peak_level": -1,
           "power": 3936995,
           "cost": {
-            "TriumphBadge(105000)": 370,
+            "Mastery Sigil(105000)": 370,
             "Lumber": 295000000,
             "Steel": 123000000,
             "Gold": 325000000
@@ -8080,7 +8080,7 @@
           "peak_level": -1,
           "power": 1799493,
           "cost": {
-            "TriumphBadge(105000)": 190,
+            "Mastery Sigil(105000)": 190,
             "Lumber": 84500000,
             "Steel": 84600000,
             "Gold": 98100000
@@ -8103,7 +8103,7 @@
           "peak_level": -1,
           "power": 2290533,
           "cost": {
-            "TriumphBadge(105000)": 240,
+            "Mastery Sigil(105000)": 240,
             "Lumber": 109000000,
             "Steel": 110000000,
             "Gold": 127000000
@@ -8126,7 +8126,7 @@
           "peak_level": -1,
           "power": 2835939,
           "cost": {
-            "TriumphBadge(105000)": 310,
+            "Mastery Sigil(105000)": 310,
             "Lumber": 142000000,
             "Steel": 143000000,
             "Gold": 165000000
@@ -8149,7 +8149,7 @@
           "peak_level": -1,
           "power": 3432102,
           "cost": {
-            "TriumphBadge(105000)": 380,
+            "Mastery Sigil(105000)": 380,
             "Lumber": 178000000,
             "Steel": 178000000,
             "Gold": 207000000
@@ -8172,7 +8172,7 @@
           "peak_level": -1,
           "power": 4062517,
           "cost": {
-            "TriumphBadge(105000)": 470,
+            "Mastery Sigil(105000)": 470,
             "Lumber": 205000000,
             "Steel": 205000000,
             "Gold": 238000000
@@ -8852,7 +8852,7 @@
           "peak_level": -1,
           "power": 3293496,
           "cost": {
-            "TriumphBadge(105000)": 1000,
+            "Mastery Sigil(105000)": 1000,
             "Lumber": 1200000000,
             "Steel": 761000000,
             "Gold": 713000000
@@ -8875,7 +8875,7 @@
           "peak_level": -1,
           "power": 4525115,
           "cost": {
-            "TriumphBadge(105000)": 1300,
+            "Mastery Sigil(105000)": 1300,
             "Lumber": 1500000000,
             "Steel": 990000000,
             "Gold": 927000000
@@ -8898,7 +8898,7 @@
           "peak_level": -1,
           "power": 5888145,
           "cost": {
-            "TriumphBadge(105000)": 1700,
+            "Mastery Sigil(105000)": 1700,
             "Lumber": 2000000000,
             "Steel": 1200000000,
             "Gold": 1200000000
@@ -8921,7 +8921,7 @@
           "peak_level": -1,
           "power": 7378124,
           "cost": {
-            "TriumphBadge(105000)": 2100,
+            "Mastery Sigil(105000)": 2100,
             "Lumber": 2500000000,
             "Steel": 1600000000,
             "Gold": 1500000000
@@ -8944,7 +8944,7 @@
           "peak_level": -1,
           "power": 8952161,
           "cost": {
-            "TriumphBadge(105000)": 2600,
+            "Mastery Sigil(105000)": 2600,
             "Lumber": 2900000000,
             "Steel": 1800000000,
             "Gold": 1700000000
@@ -9624,7 +9624,7 @@
           "peak_level": -1,
           "power": 2965145,
           "cost": {
-            "TriumphBadge(105000)": 560,
+            "Mastery Sigil(105000)": 560,
             "Lumber": 338000000,
             "Steel": 338000000,
             "Gold": 446000000
@@ -9647,7 +9647,7 @@
           "peak_level": -1,
           "power": 3836551,
           "cost": {
-            "TriumphBadge(105000)": 730,
+            "Mastery Sigil(105000)": 730,
             "Lumber": 439000000,
             "Steel": 440000000,
             "Gold": 579000000
@@ -9670,7 +9670,7 @@
           "peak_level": -1,
           "power": 4804597,
           "cost": {
-            "TriumphBadge(105000)": 920,
+            "Mastery Sigil(105000)": 920,
             "Lumber": 571000000,
             "Steel": 572000000,
             "Gold": 753000000
@@ -9693,7 +9693,7 @@
           "peak_level": -1,
           "power": 5863241,
           "cost": {
-            "TriumphBadge(105000)": 1100,
+            "Mastery Sigil(105000)": 1100,
             "Lumber": 714000000,
             "Steel": 715000000,
             "Gold": 942000000
@@ -9716,7 +9716,7 @@
           "peak_level": -1,
           "power": 6979585,
           "cost": {
-            "TriumphBadge(105000)": 1400,
+            "Mastery Sigil(105000)": 1400,
             "Lumber": 822000000,
             "Steel": 822000000,
             "Gold": 1000000000
@@ -9735,27 +9735,6 @@
         }
       ],
       "display_name": "Hatchery"
-    },
-    {
-      "build_type": 20,
-      "name_key": "pgame_buildingname14",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0220_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 20001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {
-            "Gold": 500,
-            "Lumber": 500
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Adventure"
     },
     {
       "build_type": 22,
@@ -10412,741 +10391,6 @@
       "display_name": "Pumpkin Farm"
     },
     {
-      "build_type": 25,
-      "name_key": "pgame_buildingname13",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0260_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 25001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 300,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Scowl Perch"
-    },
-    {
-      "build_type": 29,
-      "name_key": "building_name_29",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0350_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 29001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 189,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1001,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 1,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29002,
-          "level": 2,
-          "peak_level": -1,
-          "power": 552,
-          "cost": {
-            "Lumber": 80
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1002,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 2,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29003,
-          "level": 3,
-          "peak_level": -1,
-          "power": 1245,
-          "cost": {
-            "Lumber": 430
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1003,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 3,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29004,
-          "level": 4,
-          "peak_level": -1,
-          "power": 2160,
-          "cost": {
-            "Lumber": 870
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1004,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 4,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29005,
-          "level": 5,
-          "peak_level": -1,
-          "power": 3570,
-          "cost": {
-            "Lumber": 3500
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1005,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 5,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_2_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29006,
-          "level": 6,
-          "peak_level": -1,
-          "power": 5562,
-          "cost": {
-            "Lumber": 8700
-          },
-          "up_time_seconds": 450,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1006,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 6,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_2_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29007,
-          "level": 7,
-          "peak_level": -1,
-          "power": 8514,
-          "cost": {
-            "Lumber": 26000
-          },
-          "up_time_seconds": 1125,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1007,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 7,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0000_2_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29008,
-          "level": 8,
-          "peak_level": -1,
-          "power": 13065,
-          "cost": {
-            "Lumber": 87000
-          },
-          "up_time_seconds": 2250,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1008,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 8,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0007_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29009,
-          "level": 9,
-          "peak_level": -1,
-          "power": 19032,
-          "cost": {
-            "Lumber": 175000
-          },
-          "up_time_seconds": 3625,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1009,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 9,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0007_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29010,
-          "level": 10,
-          "peak_level": -1,
-          "power": 26862,
-          "cost": {
-            "Lumber": 350000
-          },
-          "up_time_seconds": 4500,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1010,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 10,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0007_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29011,
-          "level": 11,
-          "peak_level": -1,
-          "power": 36354,
-          "cost": {
-            "Lumber": 560000
-          },
-          "up_time_seconds": 6875,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1011,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 11,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0007_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29012,
-          "level": 12,
-          "peak_level": -1,
-          "power": 48282,
-          "cost": {
-            "Lumber": 876000,
-            "Steel": 1100000
-          },
-          "up_time_seconds": 8875,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1012,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 12,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0010_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29013,
-          "level": 13,
-          "peak_level": -1,
-          "power": 62910,
-          "cost": {
-            "Lumber": 1200000,
-            "Steel": 1600000
-          },
-          "up_time_seconds": 11250,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1013,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 13,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0010_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29014,
-          "level": 14,
-          "peak_level": -1,
-          "power": 80793,
-          "cost": {
-            "Lumber": 1700000,
-            "Steel": 2200000
-          },
-          "up_time_seconds": 15000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1014,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 14,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0010_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29015,
-          "level": 15,
-          "peak_level": -1,
-          "power": 103176,
-          "cost": {
-            "Lumber": 2400000,
-            "Steel": 3100000
-          },
-          "up_time_seconds": 20500,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1015,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 15,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0015_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29016,
-          "level": 16,
-          "peak_level": -1,
-          "power": 132144,
-          "cost": {
-            "Gold": 333000,
-            "Lumber": 3800000,
-            "Steel": 4900000
-          },
-          "up_time_seconds": 28750,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1016,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 16,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0015_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29017,
-          "level": 17,
-          "peak_level": -1,
-          "power": 167508,
-          "cost": {
-            "Gold": 833000,
-            "Lumber": 5600000,
-            "Steel": 7200000
-          },
-          "up_time_seconds": 40000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1017,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 17,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0015_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29018,
-          "level": 18,
-          "peak_level": -1,
-          "power": 211056,
-          "cost": {
-            "Gold": 1600000,
-            "Lumber": 9300000,
-            "Steel": 11900000
-          },
-          "up_time_seconds": 56250,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1018,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 18,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0016_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29019,
-          "level": 19,
-          "peak_level": -1,
-          "power": 258771,
-          "cost": {
-            "Gold": 2600000,
-            "Lumber": 10600000,
-            "Steel": 13700000
-          },
-          "up_time_seconds": 80000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1019,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 19,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0016_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29020,
-          "level": 20,
-          "peak_level": -1,
-          "power": 317925,
-          "cost": {
-            "Gold": 5000000,
-            "Lumber": 18200000,
-            "Steel": 23400000
-          },
-          "up_time_seconds": 112500,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1020,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 20,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0016_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29021,
-          "level": 21,
-          "peak_level": -1,
-          "power": 384120,
-          "cost": {
-            "Gold": 6600000,
-            "Lumber": 24100000,
-            "Steel": 31000000
-          },
-          "up_time_seconds": 157500,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1021,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 21,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29022,
-          "level": 22,
-          "peak_level": -1,
-          "power": 451386,
-          "cost": {
-            "Gold": 8300000,
-            "Lumber": 25100000,
-            "Steel": 32300000
-          },
-          "up_time_seconds": 218750,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1022,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 22,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29023,
-          "level": 23,
-          "peak_level": -1,
-          "power": 530139,
-          "cost": {
-            "Gold": 10800000,
-            "Lumber": 37300000,
-            "Steel": 47900000
-          },
-          "up_time_seconds": 287500,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1023,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 23,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29024,
-          "level": 24,
-          "peak_level": -1,
-          "power": 629499,
-          "cost": {
-            "Gold": 19100000,
-            "Lumber": 66700000,
-            "Steel": 85800000
-          },
-          "up_time_seconds": 375000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1024,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 24,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29025,
-          "level": 25,
-          "peak_level": -1,
-          "power": 742482,
-          "cost": {
-            "Gold": 25000000,
-            "Lumber": 92000000,
-            "Steel": 118000000
-          },
-          "up_time_seconds": 500000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1025,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 25,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29026,
-          "level": 26,
-          "peak_level": -1,
-          "power": 862014,
-          "cost": {
-            "Gold": 30000000,
-            "Lumber": 105000000,
-            "Steel": 136000000
-          },
-          "up_time_seconds": 712500,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1026,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 26,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29027,
-          "level": 27,
-          "peak_level": -1,
-          "power": 991938,
-          "cost": {
-            "Gold": 37500000,
-            "Lumber": 130000000,
-            "Steel": 167000000
-          },
-          "up_time_seconds": 875000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1027,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 27,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29028,
-          "level": 28,
-          "peak_level": -1,
-          "power": 1137240,
-          "cost": {
-            "Gold": 50000000,
-            "Lumber": 172000000,
-            "Steel": 221000000
-          },
-          "up_time_seconds": 1300000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1028,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 28,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29029,
-          "level": 29,
-          "peak_level": -1,
-          "power": 1301028,
-          "cost": {
-            "Gold": 66600000,
-            "Lumber": 232000000,
-            "Steel": 299000000
-          },
-          "up_time_seconds": 1692307,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1029,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 29,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        },
-        {
-          "id": 29030,
-          "level": 30,
-          "peak_level": -1,
-          "power": 1482942,
-          "cost": {
-            "Gold": 86600000,
-            "Lumber": 302000000,
-            "Steel": 389000000
-          },
-          "up_time_seconds": 2200000,
-          "prerequisite_buildings": [
-            {
-              "building_id": 1030,
-              "build_type": 1,
-              "name_key": "pgame_buildingname1",
-              "at_level": 30,
-              "icon_sprite_path": "uiv3/texture/uibuildingicon/baseskin_0017_s",
-              "display_name": "Camp"
-            }
-          ]
-        }
-      ],
-      "display_name": "Party Palace"
-    },
-    {
-      "build_type": 30,
-      "name_key": null,
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_s_000",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 30000,
-          "level": 0,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        },
-        {
-          "id": 30001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 1532340,
-          "cost": {
-            "Gold": 50000,
-            "Lumber": 50000
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ]
-    },
-    {
-      "build_type": 31,
-      "name_key": null,
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_s_000",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 31000,
-          "level": 0,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        },
-        {
-          "id": 31001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 30000,
-          "cost": {
-            "Gold": 10000,
-            "Lumber": 10000
-          },
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ]
-    },
-    {
-      "build_type": 32,
-      "name_key": "pgame_buildingname10",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0170_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 32001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Nursery"
-    },
-    {
       "build_type": 33,
       "name_key": "pgame_buildingname17",
       "icon_sprite_path": "uiv3/texture/uibuildingicon/statue_0030_s",
@@ -11435,7 +10679,7 @@
             "Gold": 1700000,
             "Lumber": 1500000,
             "Steel": 1700000,
-            "TriumphBadge(333)": 1
+            "Water Totem Essence": 1
           },
           "up_time_seconds": 18000,
           "prerequisite_buildings": [
@@ -11458,7 +10702,7 @@
             "Gold": 2400000,
             "Lumber": 2100000,
             "Steel": 2400000,
-            "TriumphBadge(333)": 1
+            "Water Totem Essence": 1
           },
           "up_time_seconds": 24600,
           "prerequisite_buildings": [
@@ -11481,7 +10725,7 @@
             "Gold": 3100000,
             "Lumber": 2700000,
             "Steel": 3100000,
-            "TriumphBadge(333)": 2
+            "Water Totem Essence": 2
           },
           "up_time_seconds": 34500,
           "prerequisite_buildings": [
@@ -11504,7 +10748,7 @@
             "Gold": 6600000,
             "Lumber": 5700000,
             "Steel": 6600000,
-            "TriumphBadge(333)": 2
+            "Water Totem Essence": 2
           },
           "up_time_seconds": 48000,
           "prerequisite_buildings": [
@@ -11527,7 +10771,7 @@
             "Gold": 9300000,
             "Lumber": 7900000,
             "Steel": 9300000,
-            "TriumphBadge(333)": 3
+            "Water Totem Essence": 3
           },
           "up_time_seconds": 67500,
           "prerequisite_buildings": [
@@ -11550,7 +10794,7 @@
             "Gold": 10600000,
             "Lumber": 9100000,
             "Steel": 10600000,
-            "TriumphBadge(333)": 3
+            "Water Totem Essence": 3
           },
           "up_time_seconds": 96000,
           "prerequisite_buildings": [
@@ -11573,7 +10817,7 @@
             "Gold": 18200000,
             "Lumber": 15600000,
             "Steel": 18200000,
-            "TriumphBadge(333)": 5
+            "Water Totem Essence": 5
           },
           "up_time_seconds": 135000,
           "prerequisite_buildings": [
@@ -11596,7 +10840,7 @@
             "Gold": 24100000,
             "Lumber": 20700000,
             "Steel": 24100000,
-            "TriumphBadge(333)": 8
+            "Water Totem Essence": 8
           },
           "up_time_seconds": 189000,
           "prerequisite_buildings": [
@@ -11619,7 +10863,7 @@
             "Gold": 25100000,
             "Lumber": 21500000,
             "Steel": 25100000,
-            "TriumphBadge(333)": 10
+            "Water Totem Essence": 10
           },
           "up_time_seconds": 262500,
           "prerequisite_buildings": [
@@ -11642,7 +10886,7 @@
             "Gold": 37300000,
             "Lumber": 31900000,
             "Steel": 37300000,
-            "TriumphBadge(333)": 15
+            "Water Totem Essence": 15
           },
           "up_time_seconds": 345000,
           "prerequisite_buildings": [
@@ -11665,7 +10909,7 @@
             "Gold": 66700000,
             "Lumber": 57200000,
             "Steel": 66700000,
-            "TriumphBadge(333)": 20
+            "Water Totem Essence": 20
           },
           "up_time_seconds": 450000,
           "prerequisite_buildings": [
@@ -11688,7 +10932,7 @@
             "Gold": 92000000,
             "Lumber": 78800000,
             "Steel": 92000000,
-            "TriumphBadge(333)": 25
+            "Water Totem Essence": 25
           },
           "up_time_seconds": 600000,
           "prerequisite_buildings": [
@@ -11711,7 +10955,7 @@
             "Gold": 105000000,
             "Lumber": 90700000,
             "Steel": 105000000,
-            "TriumphBadge(333)": 30
+            "Water Totem Essence": 30
           },
           "up_time_seconds": 855000,
           "prerequisite_buildings": [
@@ -11734,7 +10978,7 @@
             "Gold": 130000000,
             "Lumber": 111000000,
             "Steel": 130000000,
-            "TriumphBadge(333)": 35
+            "Water Totem Essence": 35
           },
           "up_time_seconds": 1050000,
           "prerequisite_buildings": [
@@ -11757,7 +11001,7 @@
             "Gold": 172000000,
             "Lumber": 147000000,
             "Steel": 172000000,
-            "TriumphBadge(333)": 40
+            "Water Totem Essence": 40
           },
           "up_time_seconds": 1560000,
           "prerequisite_buildings": [
@@ -11780,7 +11024,7 @@
             "Gold": 232000000,
             "Lumber": 199000000,
             "Steel": 232000000,
-            "TriumphBadge(333)": 45
+            "Water Totem Essence": 45
           },
           "up_time_seconds": 2030769,
           "prerequisite_buildings": [
@@ -11803,7 +11047,7 @@
             "Gold": 302000000,
             "Lumber": 259000000,
             "Steel": 302000000,
-            "TriumphBadge(333)": 50
+            "Water Totem Essence": 50
           },
           "up_time_seconds": 2640000,
           "prerequisite_buildings": [
@@ -11823,11 +11067,11 @@
           "peak_level": -1,
           "power": 2070264,
           "cost": {
-            "TriumphBadge(105000)": 340,
+            "Mastery Sigil(105000)": 340,
             "Lumber": 253000000,
             "Steel": 296000000,
             "Gold": 267000000,
-            "TriumphBadge(333)": 18
+            "Water Totem Essence": 18
           },
           "up_time_seconds": 1200000,
           "prerequisite_buildings": [
@@ -11847,11 +11091,11 @@
           "peak_level": -1,
           "power": 2837156,
           "cost": {
-            "TriumphBadge(105000)": 440,
+            "Mastery Sigil(105000)": 440,
             "Lumber": 329000000,
             "Steel": 385000000,
             "Gold": 347000000,
-            "TriumphBadge(333)": 30
+            "Water Totem Essence": 30
           },
           "up_time_seconds": 1500000,
           "prerequisite_buildings": [
@@ -11871,11 +11115,11 @@
           "peak_level": -1,
           "power": 3689450,
           "cost": {
-            "TriumphBadge(105000)": 550,
+            "Mastery Sigil(105000)": 550,
             "Lumber": 428000000,
             "Steel": 500000000,
             "Gold": 452000000,
-            "TriumphBadge(333)": 45
+            "Water Totem Essence": 45
           },
           "up_time_seconds": 2100000,
           "prerequisite_buildings": [
@@ -11895,11 +11139,11 @@
           "peak_level": -1,
           "power": 4621563,
           "cost": {
-            "TriumphBadge(105000)": 690,
+            "Mastery Sigil(105000)": 690,
             "Lumber": 536000000,
             "Steel": 625000000,
             "Gold": 565000000,
-            "TriumphBadge(333)": 60
+            "Water Totem Essence": 60
           },
           "up_time_seconds": 2500000,
           "prerequisite_buildings": [
@@ -11919,11 +11163,11 @@
           "peak_level": -1,
           "power": 5607313,
           "cost": {
-            "TriumphBadge(105000)": 840,
+            "Mastery Sigil(105000)": 840,
             "Lumber": 616000000,
             "Steel": 719000000,
             "Gold": 650000000,
-            "TriumphBadge(333)": 75
+            "Water Totem Essence": 75
           },
           "up_time_seconds": 2800000,
           "prerequisite_buildings": [
@@ -12229,7 +11473,7 @@
             "Gold": 1700000,
             "Lumber": 1500000,
             "Steel": 1700000,
-            "TriumphBadge(334)": 1
+            "Fire Totem Essence": 1
           },
           "up_time_seconds": 18000,
           "prerequisite_buildings": [
@@ -12252,7 +11496,7 @@
             "Gold": 2400000,
             "Lumber": 2100000,
             "Steel": 2400000,
-            "TriumphBadge(334)": 1
+            "Fire Totem Essence": 1
           },
           "up_time_seconds": 24600,
           "prerequisite_buildings": [
@@ -12275,7 +11519,7 @@
             "Gold": 3100000,
             "Lumber": 2700000,
             "Steel": 3100000,
-            "TriumphBadge(334)": 2
+            "Fire Totem Essence": 2
           },
           "up_time_seconds": 34500,
           "prerequisite_buildings": [
@@ -12298,7 +11542,7 @@
             "Gold": 6600000,
             "Lumber": 5700000,
             "Steel": 6600000,
-            "TriumphBadge(334)": 2
+            "Fire Totem Essence": 2
           },
           "up_time_seconds": 48000,
           "prerequisite_buildings": [
@@ -12321,7 +11565,7 @@
             "Gold": 9300000,
             "Lumber": 7900000,
             "Steel": 9300000,
-            "TriumphBadge(334)": 3
+            "Fire Totem Essence": 3
           },
           "up_time_seconds": 67500,
           "prerequisite_buildings": [
@@ -12344,7 +11588,7 @@
             "Gold": 10600000,
             "Lumber": 9100000,
             "Steel": 10600000,
-            "TriumphBadge(334)": 3
+            "Fire Totem Essence": 3
           },
           "up_time_seconds": 96000,
           "prerequisite_buildings": [
@@ -12367,7 +11611,7 @@
             "Gold": 18200000,
             "Lumber": 15600000,
             "Steel": 18200000,
-            "TriumphBadge(334)": 5
+            "Fire Totem Essence": 5
           },
           "up_time_seconds": 135000,
           "prerequisite_buildings": [
@@ -12390,7 +11634,7 @@
             "Gold": 24100000,
             "Lumber": 20700000,
             "Steel": 24100000,
-            "TriumphBadge(334)": 8
+            "Fire Totem Essence": 8
           },
           "up_time_seconds": 189000,
           "prerequisite_buildings": [
@@ -12413,7 +11657,7 @@
             "Gold": 25100000,
             "Lumber": 21500000,
             "Steel": 25100000,
-            "TriumphBadge(334)": 10
+            "Fire Totem Essence": 10
           },
           "up_time_seconds": 262500,
           "prerequisite_buildings": [
@@ -12436,7 +11680,7 @@
             "Gold": 37300000,
             "Lumber": 31900000,
             "Steel": 37300000,
-            "TriumphBadge(334)": 15
+            "Fire Totem Essence": 15
           },
           "up_time_seconds": 345000,
           "prerequisite_buildings": [
@@ -12459,7 +11703,7 @@
             "Gold": 66700000,
             "Lumber": 57200000,
             "Steel": 66700000,
-            "TriumphBadge(334)": 20
+            "Fire Totem Essence": 20
           },
           "up_time_seconds": 450000,
           "prerequisite_buildings": [
@@ -12482,7 +11726,7 @@
             "Gold": 92000000,
             "Lumber": 78800000,
             "Steel": 92000000,
-            "TriumphBadge(334)": 25
+            "Fire Totem Essence": 25
           },
           "up_time_seconds": 600000,
           "prerequisite_buildings": [
@@ -12505,7 +11749,7 @@
             "Gold": 105000000,
             "Lumber": 90700000,
             "Steel": 105000000,
-            "TriumphBadge(334)": 30
+            "Fire Totem Essence": 30
           },
           "up_time_seconds": 855000,
           "prerequisite_buildings": [
@@ -12528,7 +11772,7 @@
             "Gold": 130000000,
             "Lumber": 111000000,
             "Steel": 130000000,
-            "TriumphBadge(334)": 35
+            "Fire Totem Essence": 35
           },
           "up_time_seconds": 1050000,
           "prerequisite_buildings": [
@@ -12551,7 +11795,7 @@
             "Gold": 172000000,
             "Lumber": 147000000,
             "Steel": 172000000,
-            "TriumphBadge(334)": 40
+            "Fire Totem Essence": 40
           },
           "up_time_seconds": 1560000,
           "prerequisite_buildings": [
@@ -12574,7 +11818,7 @@
             "Gold": 232000000,
             "Lumber": 199000000,
             "Steel": 232000000,
-            "TriumphBadge(334)": 45
+            "Fire Totem Essence": 45
           },
           "up_time_seconds": 2030769,
           "prerequisite_buildings": [
@@ -12597,7 +11841,7 @@
             "Gold": 302000000,
             "Lumber": 259000000,
             "Steel": 302000000,
-            "TriumphBadge(334)": 50
+            "Fire Totem Essence": 50
           },
           "up_time_seconds": 2640000,
           "prerequisite_buildings": [
@@ -12617,11 +11861,11 @@
           "peak_level": -1,
           "power": 2070264,
           "cost": {
-            "TriumphBadge(105000)": 340,
+            "Mastery Sigil(105000)": 340,
             "Lumber": 253000000,
             "Steel": 296000000,
             "Gold": 267000000,
-            "TriumphBadge(334)": 18
+            "Fire Totem Essence": 18
           },
           "up_time_seconds": 1200000,
           "prerequisite_buildings": [
@@ -12641,11 +11885,11 @@
           "peak_level": -1,
           "power": 2837156,
           "cost": {
-            "TriumphBadge(105000)": 440,
+            "Mastery Sigil(105000)": 440,
             "Lumber": 329000000,
             "Steel": 385000000,
             "Gold": 347000000,
-            "TriumphBadge(334)": 30
+            "Fire Totem Essence": 30
           },
           "up_time_seconds": 1500000,
           "prerequisite_buildings": [
@@ -12665,11 +11909,11 @@
           "peak_level": -1,
           "power": 3689450,
           "cost": {
-            "TriumphBadge(105000)": 550,
+            "Mastery Sigil(105000)": 550,
             "Lumber": 428000000,
             "Steel": 500000000,
             "Gold": 452000000,
-            "TriumphBadge(334)": 45
+            "Fire Totem Essence": 45
           },
           "up_time_seconds": 2100000,
           "prerequisite_buildings": [
@@ -12689,11 +11933,11 @@
           "peak_level": -1,
           "power": 4621563,
           "cost": {
-            "TriumphBadge(105000)": 690,
+            "Mastery Sigil(105000)": 690,
             "Lumber": 536000000,
             "Steel": 625000000,
             "Gold": 565000000,
-            "TriumphBadge(334)": 60
+            "Fire Totem Essence": 60
           },
           "up_time_seconds": 2500000,
           "prerequisite_buildings": [
@@ -12713,11 +11957,11 @@
           "peak_level": -1,
           "power": 5607313,
           "cost": {
-            "TriumphBadge(105000)": 840,
+            "Mastery Sigil(105000)": 840,
             "Lumber": 616000000,
             "Steel": 719000000,
             "Gold": 650000000,
-            "TriumphBadge(334)": 75
+            "Fire Totem Essence": 75
           },
           "up_time_seconds": 2800000,
           "prerequisite_buildings": [
@@ -13023,7 +12267,7 @@
             "Gold": 1700000,
             "Lumber": 1500000,
             "Steel": 1700000,
-            "TriumphBadge(335)": 1
+            "Earth Totem Essence": 1
           },
           "up_time_seconds": 18000,
           "prerequisite_buildings": [
@@ -13046,7 +12290,7 @@
             "Gold": 2400000,
             "Lumber": 2100000,
             "Steel": 2400000,
-            "TriumphBadge(335)": 1
+            "Earth Totem Essence": 1
           },
           "up_time_seconds": 24600,
           "prerequisite_buildings": [
@@ -13069,7 +12313,7 @@
             "Gold": 3100000,
             "Lumber": 2700000,
             "Steel": 3100000,
-            "TriumphBadge(335)": 2
+            "Earth Totem Essence": 2
           },
           "up_time_seconds": 34500,
           "prerequisite_buildings": [
@@ -13092,7 +12336,7 @@
             "Gold": 6600000,
             "Lumber": 5700000,
             "Steel": 6600000,
-            "TriumphBadge(335)": 2
+            "Earth Totem Essence": 2
           },
           "up_time_seconds": 48000,
           "prerequisite_buildings": [
@@ -13115,7 +12359,7 @@
             "Gold": 9300000,
             "Lumber": 7900000,
             "Steel": 9300000,
-            "TriumphBadge(335)": 3
+            "Earth Totem Essence": 3
           },
           "up_time_seconds": 67500,
           "prerequisite_buildings": [
@@ -13138,7 +12382,7 @@
             "Gold": 10600000,
             "Lumber": 9100000,
             "Steel": 10600000,
-            "TriumphBadge(335)": 3
+            "Earth Totem Essence": 3
           },
           "up_time_seconds": 96000,
           "prerequisite_buildings": [
@@ -13161,7 +12405,7 @@
             "Gold": 18200000,
             "Lumber": 15600000,
             "Steel": 18200000,
-            "TriumphBadge(335)": 5
+            "Earth Totem Essence": 5
           },
           "up_time_seconds": 135000,
           "prerequisite_buildings": [
@@ -13184,7 +12428,7 @@
             "Gold": 24100000,
             "Lumber": 20700000,
             "Steel": 24100000,
-            "TriumphBadge(335)": 8
+            "Earth Totem Essence": 8
           },
           "up_time_seconds": 189000,
           "prerequisite_buildings": [
@@ -13207,7 +12451,7 @@
             "Gold": 25100000,
             "Lumber": 21500000,
             "Steel": 25100000,
-            "TriumphBadge(335)": 10
+            "Earth Totem Essence": 10
           },
           "up_time_seconds": 262500,
           "prerequisite_buildings": [
@@ -13230,7 +12474,7 @@
             "Gold": 37300000,
             "Lumber": 31900000,
             "Steel": 37300000,
-            "TriumphBadge(335)": 15
+            "Earth Totem Essence": 15
           },
           "up_time_seconds": 345000,
           "prerequisite_buildings": [
@@ -13253,7 +12497,7 @@
             "Gold": 66700000,
             "Lumber": 57200000,
             "Steel": 66700000,
-            "TriumphBadge(335)": 20
+            "Earth Totem Essence": 20
           },
           "up_time_seconds": 450000,
           "prerequisite_buildings": [
@@ -13276,7 +12520,7 @@
             "Gold": 92000000,
             "Lumber": 78800000,
             "Steel": 92000000,
-            "TriumphBadge(335)": 25
+            "Earth Totem Essence": 25
           },
           "up_time_seconds": 600000,
           "prerequisite_buildings": [
@@ -13299,7 +12543,7 @@
             "Gold": 105000000,
             "Lumber": 90700000,
             "Steel": 105000000,
-            "TriumphBadge(335)": 30
+            "Earth Totem Essence": 30
           },
           "up_time_seconds": 855000,
           "prerequisite_buildings": [
@@ -13322,7 +12566,7 @@
             "Gold": 130000000,
             "Lumber": 111000000,
             "Steel": 130000000,
-            "TriumphBadge(335)": 35
+            "Earth Totem Essence": 35
           },
           "up_time_seconds": 1050000,
           "prerequisite_buildings": [
@@ -13345,7 +12589,7 @@
             "Gold": 172000000,
             "Lumber": 147000000,
             "Steel": 172000000,
-            "TriumphBadge(335)": 40
+            "Earth Totem Essence": 40
           },
           "up_time_seconds": 1560000,
           "prerequisite_buildings": [
@@ -13368,7 +12612,7 @@
             "Gold": 232000000,
             "Lumber": 199000000,
             "Steel": 232000000,
-            "TriumphBadge(335)": 45
+            "Earth Totem Essence": 45
           },
           "up_time_seconds": 2030769,
           "prerequisite_buildings": [
@@ -13391,7 +12635,7 @@
             "Gold": 302000000,
             "Lumber": 259000000,
             "Steel": 302000000,
-            "TriumphBadge(335)": 50
+            "Earth Totem Essence": 50
           },
           "up_time_seconds": 2640000,
           "prerequisite_buildings": [
@@ -13411,11 +12655,11 @@
           "peak_level": -1,
           "power": 2070264,
           "cost": {
-            "TriumphBadge(105000)": 340,
+            "Mastery Sigil(105000)": 340,
             "Lumber": 253000000,
             "Steel": 296000000,
             "Gold": 267000000,
-            "TriumphBadge(335)": 18
+            "Earth Totem Essence": 18
           },
           "up_time_seconds": 1200000,
           "prerequisite_buildings": [
@@ -13435,11 +12679,11 @@
           "peak_level": -1,
           "power": 2837156,
           "cost": {
-            "TriumphBadge(105000)": 440,
+            "Mastery Sigil(105000)": 440,
             "Lumber": 329000000,
             "Steel": 385000000,
             "Gold": 347000000,
-            "TriumphBadge(335)": 30
+            "Earth Totem Essence": 30
           },
           "up_time_seconds": 1500000,
           "prerequisite_buildings": [
@@ -13459,11 +12703,11 @@
           "peak_level": -1,
           "power": 3689450,
           "cost": {
-            "TriumphBadge(105000)": 550,
+            "Mastery Sigil(105000)": 550,
             "Lumber": 428000000,
             "Steel": 500000000,
             "Gold": 452000000,
-            "TriumphBadge(335)": 45
+            "Earth Totem Essence": 45
           },
           "up_time_seconds": 2100000,
           "prerequisite_buildings": [
@@ -13483,11 +12727,11 @@
           "peak_level": -1,
           "power": 4621563,
           "cost": {
-            "TriumphBadge(105000)": 690,
+            "Mastery Sigil(105000)": 690,
             "Lumber": 536000000,
             "Steel": 625000000,
             "Gold": 565000000,
-            "TriumphBadge(335)": 60
+            "Earth Totem Essence": 60
           },
           "up_time_seconds": 2500000,
           "prerequisite_buildings": [
@@ -13507,11 +12751,11 @@
           "peak_level": -1,
           "power": 5607313,
           "cost": {
-            "TriumphBadge(105000)": 840,
+            "Mastery Sigil(105000)": 840,
             "Lumber": 616000000,
             "Steel": 719000000,
             "Gold": 650000000,
-            "TriumphBadge(335)": 75
+            "Earth Totem Essence": 75
           },
           "up_time_seconds": 2800000,
           "prerequisite_buildings": [
@@ -13817,7 +13061,7 @@
             "Gold": 1700000,
             "Lumber": 1500000,
             "Steel": 1700000,
-            "TriumphBadge(336)": 1
+            "Electric Totem Essence": 1
           },
           "up_time_seconds": 18000,
           "prerequisite_buildings": [
@@ -13840,7 +13084,7 @@
             "Gold": 2400000,
             "Lumber": 2100000,
             "Steel": 2400000,
-            "TriumphBadge(336)": 1
+            "Electric Totem Essence": 1
           },
           "up_time_seconds": 24600,
           "prerequisite_buildings": [
@@ -13863,7 +13107,7 @@
             "Gold": 3100000,
             "Lumber": 2700000,
             "Steel": 3100000,
-            "TriumphBadge(336)": 2
+            "Electric Totem Essence": 2
           },
           "up_time_seconds": 34500,
           "prerequisite_buildings": [
@@ -13886,7 +13130,7 @@
             "Gold": 6600000,
             "Lumber": 5700000,
             "Steel": 6600000,
-            "TriumphBadge(336)": 2
+            "Electric Totem Essence": 2
           },
           "up_time_seconds": 48000,
           "prerequisite_buildings": [
@@ -13909,7 +13153,7 @@
             "Gold": 9300000,
             "Lumber": 7900000,
             "Steel": 9300000,
-            "TriumphBadge(336)": 3
+            "Electric Totem Essence": 3
           },
           "up_time_seconds": 67500,
           "prerequisite_buildings": [
@@ -13932,7 +13176,7 @@
             "Gold": 10600000,
             "Lumber": 9100000,
             "Steel": 10600000,
-            "TriumphBadge(336)": 3
+            "Electric Totem Essence": 3
           },
           "up_time_seconds": 96000,
           "prerequisite_buildings": [
@@ -13955,7 +13199,7 @@
             "Gold": 18200000,
             "Lumber": 15600000,
             "Steel": 18200000,
-            "TriumphBadge(336)": 5
+            "Electric Totem Essence": 5
           },
           "up_time_seconds": 135000,
           "prerequisite_buildings": [
@@ -13978,7 +13222,7 @@
             "Gold": 24100000,
             "Lumber": 20700000,
             "Steel": 24100000,
-            "TriumphBadge(336)": 8
+            "Electric Totem Essence": 8
           },
           "up_time_seconds": 189000,
           "prerequisite_buildings": [
@@ -14001,7 +13245,7 @@
             "Gold": 25100000,
             "Lumber": 21500000,
             "Steel": 25100000,
-            "TriumphBadge(336)": 10
+            "Electric Totem Essence": 10
           },
           "up_time_seconds": 262500,
           "prerequisite_buildings": [
@@ -14024,7 +13268,7 @@
             "Gold": 37300000,
             "Lumber": 31900000,
             "Steel": 37300000,
-            "TriumphBadge(336)": 15
+            "Electric Totem Essence": 15
           },
           "up_time_seconds": 345000,
           "prerequisite_buildings": [
@@ -14047,7 +13291,7 @@
             "Gold": 66700000,
             "Lumber": 57200000,
             "Steel": 66700000,
-            "TriumphBadge(336)": 20
+            "Electric Totem Essence": 20
           },
           "up_time_seconds": 450000,
           "prerequisite_buildings": [
@@ -14070,7 +13314,7 @@
             "Gold": 92000000,
             "Lumber": 78800000,
             "Steel": 92000000,
-            "TriumphBadge(336)": 25
+            "Electric Totem Essence": 25
           },
           "up_time_seconds": 600000,
           "prerequisite_buildings": [
@@ -14093,7 +13337,7 @@
             "Gold": 105000000,
             "Lumber": 90700000,
             "Steel": 105000000,
-            "TriumphBadge(336)": 30
+            "Electric Totem Essence": 30
           },
           "up_time_seconds": 855000,
           "prerequisite_buildings": [
@@ -14116,7 +13360,7 @@
             "Gold": 130000000,
             "Lumber": 111000000,
             "Steel": 130000000,
-            "TriumphBadge(336)": 35
+            "Electric Totem Essence": 35
           },
           "up_time_seconds": 1050000,
           "prerequisite_buildings": [
@@ -14139,7 +13383,7 @@
             "Gold": 172000000,
             "Lumber": 147000000,
             "Steel": 172000000,
-            "TriumphBadge(336)": 40
+            "Electric Totem Essence": 40
           },
           "up_time_seconds": 1560000,
           "prerequisite_buildings": [
@@ -14162,7 +13406,7 @@
             "Gold": 232000000,
             "Lumber": 199000000,
             "Steel": 232000000,
-            "TriumphBadge(336)": 45
+            "Electric Totem Essence": 45
           },
           "up_time_seconds": 2030769,
           "prerequisite_buildings": [
@@ -14185,7 +13429,7 @@
             "Gold": 302000000,
             "Lumber": 259000000,
             "Steel": 302000000,
-            "TriumphBadge(336)": 50
+            "Electric Totem Essence": 50
           },
           "up_time_seconds": 2640000,
           "prerequisite_buildings": [
@@ -14205,11 +13449,11 @@
           "peak_level": -1,
           "power": 2070264,
           "cost": {
-            "TriumphBadge(105000)": 340,
+            "Mastery Sigil(105000)": 340,
             "Lumber": 253000000,
             "Steel": 296000000,
             "Gold": 267000000,
-            "TriumphBadge(336)": 18
+            "Electric Totem Essence": 18
           },
           "up_time_seconds": 1200000,
           "prerequisite_buildings": [
@@ -14229,11 +13473,11 @@
           "peak_level": -1,
           "power": 2837156,
           "cost": {
-            "TriumphBadge(105000)": 440,
+            "Mastery Sigil(105000)": 440,
             "Lumber": 329000000,
             "Steel": 385000000,
             "Gold": 347000000,
-            "TriumphBadge(336)": 30
+            "Electric Totem Essence": 30
           },
           "up_time_seconds": 1500000,
           "prerequisite_buildings": [
@@ -14253,11 +13497,11 @@
           "peak_level": -1,
           "power": 3689450,
           "cost": {
-            "TriumphBadge(105000)": 550,
+            "Mastery Sigil(105000)": 550,
             "Lumber": 428000000,
             "Steel": 500000000,
             "Gold": 452000000,
-            "TriumphBadge(336)": 45
+            "Electric Totem Essence": 45
           },
           "up_time_seconds": 2100000,
           "prerequisite_buildings": [
@@ -14277,11 +13521,11 @@
           "peak_level": -1,
           "power": 4621563,
           "cost": {
-            "TriumphBadge(105000)": 690,
+            "Mastery Sigil(105000)": 690,
             "Lumber": 536000000,
             "Steel": 625000000,
             "Gold": 565000000,
-            "TriumphBadge(336)": 60
+            "Electric Totem Essence": 60
           },
           "up_time_seconds": 2500000,
           "prerequisite_buildings": [
@@ -14301,11 +13545,11 @@
           "peak_level": -1,
           "power": 5607313,
           "cost": {
-            "TriumphBadge(105000)": 840,
+            "Mastery Sigil(105000)": 840,
             "Lumber": 616000000,
             "Steel": 719000000,
             "Gold": 650000000,
-            "TriumphBadge(336)": 75
+            "Electric Totem Essence": 75
           },
           "up_time_seconds": 2800000,
           "prerequisite_buildings": [
@@ -14982,7 +14226,7 @@
           "peak_level": -1,
           "power": 3797638,
           "cost": {
-            "TriumphBadge(105000)": 1400,
+            "Mastery Sigil(105000)": 1400,
             "Lumber": 1200000000,
             "Steel": 1200000000,
             "Gold": 1700000000
@@ -15005,7 +14249,7 @@
           "peak_level": -1,
           "power": 5264403,
           "cost": {
-            "TriumphBadge(105000)": 1800,
+            "Mastery Sigil(105000)": 1800,
             "Lumber": 1500000000,
             "Steel": 1500000000,
             "Gold": 2300000000
@@ -15028,7 +14272,7 @@
           "peak_level": -1,
           "power": 6898408,
           "cost": {
-            "TriumphBadge(105000)": 2300,
+            "Mastery Sigil(105000)": 2300,
             "Lumber": 2000000000,
             "Steel": 2000000000,
             "Gold": 3000000000
@@ -15051,7 +14295,7 @@
           "peak_level": -1,
           "power": 8678939,
           "cost": {
-            "TriumphBadge(105000)": 2900,
+            "Mastery Sigil(105000)": 2900,
             "Lumber": 2500000000,
             "Steel": 2500000000,
             "Gold": 3700000000
@@ -15074,7 +14318,7 @@
           "peak_level": -1,
           "power": 10562045,
           "cost": {
-            "TriumphBadge(105000)": 3500,
+            "Mastery Sigil(105000)": 3500,
             "Lumber": 2900000000,
             "Steel": 2900000000,
             "Gold": 4300000000
@@ -15093,78 +14337,6 @@
         }
       ],
       "display_name": "Field Lab 2"
-    },
-    {
-      "build_type": 38,
-      "name_key": "pgame_buildingname53",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/basket_0202_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 38001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Tomato Stockpile"
-    },
-    {
-      "build_type": 39,
-      "name_key": "pgame_buildingname54",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/basket_0102_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 39001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Pumpkin Stockpile"
-    },
-    {
-      "build_type": 40,
-      "name_key": "pgame_buildingname55",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/basket_0402_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 40001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Egg Stockpile"
-    },
-    {
-      "build_type": 41,
-      "name_key": "pgame_buildingname56",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/basket_0302_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 41001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Apple Stockpile"
     },
     {
       "build_type": 42,
@@ -17134,7 +16306,7 @@
           "peak_level": -1,
           "power": 966819,
           "cost": {
-            "TriumphBadge(105000)": 370,
+            "Mastery Sigil(105000)": 370,
             "Lumber": 422000000,
             "Steel": 338000000,
             "Gold": 356000000
@@ -17157,7 +16329,7 @@
           "peak_level": -1,
           "power": 1836678,
           "cost": {
-            "TriumphBadge(105000)": 480,
+            "Mastery Sigil(105000)": 480,
             "Lumber": 549000000,
             "Steel": 440000000,
             "Gold": 463000000
@@ -17180,7 +16352,7 @@
           "peak_level": -1,
           "power": 2803126,
           "cost": {
-            "TriumphBadge(105000)": 610,
+            "Mastery Sigil(105000)": 610,
             "Lumber": 714000000,
             "Steel": 572000000,
             "Gold": 603000000
@@ -17203,7 +16375,7 @@
           "peak_level": -1,
           "power": 3859721,
           "cost": {
-            "TriumphBadge(105000)": 760,
+            "Mastery Sigil(105000)": 760,
             "Lumber": 893000000,
             "Steel": 715000000,
             "Gold": 753000000
@@ -17226,7 +16398,7 @@
           "peak_level": -1,
           "power": 4976116,
           "cost": {
-            "TriumphBadge(105000)": 930,
+            "Mastery Sigil(105000)": 930,
             "Lumber": 1000000000,
             "Steel": 822000000,
             "Gold": 866000000
@@ -17906,7 +17078,7 @@
           "peak_level": -1,
           "power": 2627616,
           "cost": {
-            "TriumphBadge(105000)": 470,
+            "Mastery Sigil(105000)": 470,
             "Lumber": 465000000,
             "Steel": 465000000,
             "Gold": 535000000
@@ -17929,7 +17101,7 @@
           "peak_level": -1,
           "power": 3597035,
           "cost": {
-            "TriumphBadge(105000)": 600,
+            "Mastery Sigil(105000)": 600,
             "Lumber": 604000000,
             "Steel": 605000000,
             "Gold": 695000000
@@ -17952,7 +17124,7 @@
           "peak_level": -1,
           "power": 4674112,
           "cost": {
-            "TriumphBadge(105000)": 770,
+            "Mastery Sigil(105000)": 770,
             "Lumber": 786000000,
             "Steel": 786000000,
             "Gold": 904000000
@@ -17975,7 +17147,7 @@
           "peak_level": -1,
           "power": 5850523,
           "cost": {
-            "TriumphBadge(105000)": 950,
+            "Mastery Sigil(105000)": 950,
             "Lumber": 982000000,
             "Steel": 983000000,
             "Gold": 1100000000
@@ -17998,7 +17170,7 @@
           "peak_level": -1,
           "power": 7090648,
           "cost": {
-            "TriumphBadge(105000)": 1200,
+            "Mastery Sigil(105000)": 1200,
             "Lumber": 1100000000,
             "Steel": 1100000000,
             "Gold": 1300000000
@@ -18017,60 +17189,6 @@
         }
       ],
       "display_name": "Stable"
-    },
-    {
-      "build_type": 53,
-      "name_key": "pgame_buildingname21",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0290_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 53001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Wishing Fountain"
-    },
-    {
-      "build_type": 54,
-      "name_key": "pgame_buildingname22",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0380_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 54001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Forest Party"
-    },
-    {
-      "build_type": 55,
-      "name_key": "milestone_1_title",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0023_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 55001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 0,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Seer Spire"
     },
     {
       "build_type": 56,
@@ -19391,7 +18509,7 @@
           "peak_level": -1,
           "power": 2361137,
           "cost": {
-            "TriumphBadge(105000)": 560,
+            "Mastery Sigil(105000)": 560,
             "Lumber": 338000000,
             "Steel": 338000000,
             "Gold": 446000000
@@ -19414,7 +18532,7 @@
           "peak_level": -1,
           "power": 3232543,
           "cost": {
-            "TriumphBadge(105000)": 730,
+            "Mastery Sigil(105000)": 730,
             "Lumber": 439000000,
             "Steel": 440000000,
             "Gold": 579000000
@@ -19437,7 +18555,7 @@
           "peak_level": -1,
           "power": 4200589,
           "cost": {
-            "TriumphBadge(105000)": 920,
+            "Mastery Sigil(105000)": 920,
             "Lumber": 571000000,
             "Steel": 572000000,
             "Gold": 753000000
@@ -19460,7 +18578,7 @@
           "peak_level": -1,
           "power": 5259233,
           "cost": {
-            "TriumphBadge(105000)": 1100,
+            "Mastery Sigil(105000)": 1100,
             "Lumber": 714000000,
             "Steel": 715000000,
             "Gold": 942000000
@@ -19483,7 +18601,7 @@
           "peak_level": -1,
           "power": 6375577,
           "cost": {
-            "TriumphBadge(105000)": 1400,
+            "Mastery Sigil(105000)": 1400,
             "Lumber": 822000000,
             "Steel": 822000000,
             "Gold": 1000000000
@@ -20163,7 +19281,7 @@
           "peak_level": -1,
           "power": 1789824,
           "cost": {
-            "TriumphBadge(105000)": 470,
+            "Mastery Sigil(105000)": 470,
             "Lumber": 211000000,
             "Steel": 169000000,
             "Gold": 178000000
@@ -20186,7 +19304,7 @@
           "peak_level": -1,
           "power": 2449213,
           "cost": {
-            "TriumphBadge(105000)": 600,
+            "Mastery Sigil(105000)": 600,
             "Lumber": 274000000,
             "Steel": 220000000,
             "Gold": 231000000
@@ -20209,7 +19327,7 @@
           "peak_level": -1,
           "power": 3181741,
           "cost": {
-            "TriumphBadge(105000)": 770,
+            "Mastery Sigil(105000)": 770,
             "Lumber": 357000000,
             "Steel": 286000000,
             "Gold": 301000000
@@ -20232,7 +19350,7 @@
           "peak_level": -1,
           "power": 3982538,
           "cost": {
-            "TriumphBadge(105000)": 950,
+            "Mastery Sigil(105000)": 950,
             "Lumber": 446000000,
             "Steel": 357000000,
             "Gold": 376000000
@@ -20255,7 +19373,7 @@
           "peak_level": -1,
           "power": 4829533,
           "cost": {
-            "TriumphBadge(105000)": 1200,
+            "Mastery Sigil(105000)": 1200,
             "Lumber": 513000000,
             "Steel": 411000000,
             "Gold": 433000000
@@ -20935,7 +20053,7 @@
           "peak_level": -1,
           "power": 1944519,
           "cost": {
-            "TriumphBadge(105000)": 370,
+            "Mastery Sigil(105000)": 370,
             "Lumber": 253000000,
             "Steel": 211000000,
             "Gold": 223000000
@@ -20958,7 +20076,7 @@
           "peak_level": -1,
           "power": 2660786,
           "cost": {
-            "TriumphBadge(105000)": 480,
+            "Mastery Sigil(105000)": 480,
             "Lumber": 329000000,
             "Steel": 275000000,
             "Gold": 289000000
@@ -20981,7 +20099,7 @@
           "peak_level": -1,
           "power": 3456632,
           "cost": {
-            "TriumphBadge(105000)": 610,
+            "Mastery Sigil(105000)": 610,
             "Lumber": 428000000,
             "Steel": 357000000,
             "Gold": 376000000
@@ -21004,7 +20122,7 @@
           "peak_level": -1,
           "power": 4327174,
           "cost": {
-            "TriumphBadge(105000)": 760,
+            "Mastery Sigil(105000)": 760,
             "Lumber": 536000000,
             "Steel": 447000000,
             "Gold": 471000000
@@ -21027,7 +20145,7 @@
           "peak_level": -1,
           "power": 5247668,
           "cost": {
-            "TriumphBadge(105000)": 930,
+            "Mastery Sigil(105000)": 930,
             "Lumber": 616000000,
             "Steel": 514000000,
             "Gold": 541000000
@@ -21707,7 +20825,7 @@
           "peak_level": -1,
           "power": 2542930,
           "cost": {
-            "TriumphBadge(105000)": 650,
+            "Mastery Sigil(105000)": 650,
             "Lumber": 422000000,
             "Steel": 423000000,
             "Gold": 446000000
@@ -21730,7 +20848,7 @@
           "peak_level": -1,
           "power": 3464804,
           "cost": {
-            "TriumphBadge(105000)": 850,
+            "Mastery Sigil(105000)": 850,
             "Lumber": 549000000,
             "Steel": 550000000,
             "Gold": 579000000
@@ -21753,7 +20871,7 @@
           "peak_level": -1,
           "power": 4488864,
           "cost": {
-            "TriumphBadge(105000)": 1100,
+            "Mastery Sigil(105000)": 1100,
             "Lumber": 714000000,
             "Steel": 715000000,
             "Gold": 753000000
@@ -21776,7 +20894,7 @@
           "peak_level": -1,
           "power": 5608743,
           "cost": {
-            "TriumphBadge(105000)": 1300,
+            "Mastery Sigil(105000)": 1300,
             "Lumber": 893000000,
             "Steel": 894000000,
             "Gold": 942000000
@@ -21799,7 +20917,7 @@
           "peak_level": -1,
           "power": 6787858,
           "cost": {
-            "TriumphBadge(105000)": 1600,
+            "Mastery Sigil(105000)": 1600,
             "Lumber": 1000000000,
             "Steel": 1000000000,
             "Gold": 1000000000
@@ -22479,7 +21597,7 @@
           "peak_level": -1,
           "power": 4057713,
           "cost": {
-            "TriumphBadge(105000)": 1100,
+            "Mastery Sigil(105000)": 1100,
             "Lumber": 1300000000,
             "Steel": 1300000000,
             "Gold": 1500000000
@@ -22502,7 +21620,7 @@
           "peak_level": -1,
           "power": 5523204,
           "cost": {
-            "TriumphBadge(105000)": 1500,
+            "Mastery Sigil(105000)": 1500,
             "Lumber": 1700000000,
             "Steel": 1700000000,
             "Gold": 1900000000
@@ -22525,7 +21643,7 @@
           "peak_level": -1,
           "power": 7154228,
           "cost": {
-            "TriumphBadge(105000)": 1800,
+            "Mastery Sigil(105000)": 1800,
             "Lumber": 2200000000,
             "Steel": 2200000000,
             "Gold": 2500000000
@@ -22548,7 +21666,7 @@
           "peak_level": -1,
           "power": 8939697,
           "cost": {
-            "TriumphBadge(105000)": 2300,
+            "Mastery Sigil(105000)": 2300,
             "Lumber": 2800000000,
             "Steel": 2800000000,
             "Gold": 3200000000
@@ -22571,7 +21689,7 @@
           "peak_level": -1,
           "power": 10817221,
           "cost": {
-            "TriumphBadge(105000)": 2800,
+            "Mastery Sigil(105000)": 2800,
             "Lumber": 3200000000,
             "Steel": 3200000000,
             "Gold": 3600000000
@@ -25278,7 +24396,7 @@
           "peak_level": -1,
           "power": 2682789,
           "cost": {
-            "TriumphBadge(105000)": 560,
+            "Mastery Sigil(105000)": 560,
             "Lumber": 507000000,
             "Steel": 507000000,
             "Gold": 535000000
@@ -25301,7 +24419,7 @@
           "peak_level": -1,
           "power": 3674315,
           "cost": {
-            "TriumphBadge(105000)": 730,
+            "Mastery Sigil(105000)": 730,
             "Lumber": 659000000,
             "Steel": 660000000,
             "Gold": 695000000
@@ -25324,7 +24442,7 @@
           "peak_level": -1,
           "power": 4775875,
           "cost": {
-            "TriumphBadge(105000)": 920,
+            "Mastery Sigil(105000)": 920,
             "Lumber": 857000000,
             "Steel": 858000000,
             "Gold": 904000000
@@ -25347,7 +24465,7 @@
           "peak_level": -1,
           "power": 5974107,
           "cost": {
-            "TriumphBadge(105000)": 1100,
+            "Mastery Sigil(105000)": 1100,
             "Lumber": 1000000000,
             "Steel": 1000000000,
             "Gold": 1100000000
@@ -25370,7 +24488,7 @@
           "peak_level": -1,
           "power": 7240735,
           "cost": {
-            "TriumphBadge(105000)": 1400,
+            "Mastery Sigil(105000)": 1400,
             "Lumber": 1200000000,
             "Steel": 1200000000,
             "Gold": 1300000000
@@ -26054,7 +25172,7 @@
           "peak_level": -1,
           "power": 3549433,
           "cost": {
-            "TriumphBadge(105000)": 90,
+            "Mastery Sigil(105000)": 90,
             "Lumber": 1000000000,
             "Steel": 1000000000,
             "Gold": 1100000000
@@ -26077,7 +25195,7 @@
           "peak_level": -1,
           "power": 4866027,
           "cost": {
-            "TriumphBadge(105000)": 120,
+            "Mastery Sigil(105000)": 120,
             "Lumber": 1300000000,
             "Steel": 1300000000,
             "Gold": 1500000000
@@ -26100,7 +25218,7 @@
           "peak_level": -1,
           "power": 6327959,
           "cost": {
-            "TriumphBadge(105000)": 150,
+            "Mastery Sigil(105000)": 150,
             "Lumber": 1700000000,
             "Steel": 1700000000,
             "Gold": 1900000000
@@ -26123,7 +25241,7 @@
           "peak_level": -1,
           "power": 7918033,
           "cost": {
-            "TriumphBadge(105000)": 190,
+            "Mastery Sigil(105000)": 190,
             "Lumber": 2100000000,
             "Steel": 2100000000,
             "Gold": 2400000000
@@ -26146,7 +25264,7 @@
           "peak_level": -1,
           "power": 9604212,
           "cost": {
-            "TriumphBadge(105000)": 230,
+            "Mastery Sigil(105000)": 230,
             "Lumber": 2400000000,
             "Steel": 2400000000,
             "Gold": 2800000000
@@ -43514,42 +42632,6 @@
         }
       ],
       "display_name": "Camel Post"
-    },
-    {
-      "build_type": 77,
-      "name_key": "building77_name",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0650_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 77001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 300,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Palmite Ruins"
-    },
-    {
-      "build_type": 78,
-      "name_key": "building78_name",
-      "icon_sprite_path": "uiv3/texture/uibuildingicon/buildicon_0650_s",
-      "max_level": 1,
-      "levels": [
-        {
-          "id": 78001,
-          "level": 1,
-          "peak_level": -1,
-          "power": 300,
-          "cost": {},
-          "up_time_seconds": 0,
-          "prerequisite_buildings": []
-        }
-      ],
-      "display_name": "Hall of Kings"
     }
   ]
 }

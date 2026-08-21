@@ -40,6 +40,14 @@ h1 { color: #fff; margin-bottom: 6px; }
 .tile .remaining .row0 { color: #6ee7b7; }
 .res-gold { color: #fbbf24; } .res-lumber { color: #a78bfa; } .res-steel { color: #94a3b8; }
 .res-elec { color: #38bdf8; } .res-badge { color: #f472b6; } .res-time { color: #6ee7b7; }
+.tile .details-toggle { margin-top: 8px; background: none; border: 1px solid #444; color: #9ca3af; font-size: 10px; padding: 3px 8px; width: auto; border-radius: 4px; }
+.tile .details-toggle:hover { background: #333; }
+.tile .level-breakdown { margin-top: 8px; border-top: 1px solid #3a3a42; padding-top: 6px; display: none; max-height: 260px; overflow-y: auto; }
+.tile .level-breakdown.open { display: block; }
+.level-row { font-size: 10.5px; padding: 4px 0; border-bottom: 1px solid #303038; }
+.level-row .lvl-num { color: #fff; font-weight: 700; }
+.level-row .req { color: #f59e0b; font-size: 10px; margin-top: 2px; }
+.level-row .res-line { display: inline-block; margin-right: 8px; }
 .controls { position: sticky; top: 0; background: #1a1a1e; padding: 10px 0; z-index: 10; margin-bottom: 12px; border-bottom: 1px solid #333; }
 button { padding: 8px 16px; background: #6ee7b7; color: #111; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; margin-right: 8px; margin-top: 6px; }
 button:hover { background: #34d399; }
@@ -66,6 +74,8 @@ button.secondary { background: #444; color: #ddd; }
   .modifiers label { display: flex; margin-right: 0; width: 100%; }
   .modifiers select, .modifiers input[type=number] { flex: 1; min-width: 0; font-size: 16px; }
   button { padding: 10px 14px; font-size: 14px; margin-bottom: 6px; width: 100%; }
+  .tile .details-toggle { width: 100%; padding: 6px; }
+  .tile .level-breakdown { max-height: 200px; }
 }
 """
 
@@ -137,6 +147,30 @@ function renderTileRemaining(remaining, resFactor, timeFactor) {
   return html;
 }
 
+function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor) {
+  const upcoming = building.levels.filter(lvl => lvl.level > currentLevel && lvl.level !== 0);
+  if (!upcoming.length) return '<div class="level-row">max level reached</div>';
+  return upcoming.map(lvl => {
+    const resLine = Object.entries(lvl.cost || {}).map(([k, v]) => {
+      const adj = v * (k.startsWith('Gold') || k.startsWith('Lumber') || k.startsWith('Steel') || k.startsWith('Electricity') ? resFactor : 1);
+      return `<span class="res-line ${resClass(k)}">${k}: ${fmtNum(adj)}</span>`;
+    }).join('');
+    const time = (lvl.up_time_seconds || 0) * timeFactor;
+    const reqs = (lvl.prerequisite_buildings || []);
+    const reqLine = reqs.length
+      ? `<div class="req">Requires: ${reqs.map(r => `${r.display_name || r.name_key || ('build_type ' + r.build_type)} Lv.${r.at_level}`).join(', ')}</div>`
+      : '';
+    return `<div class="level-row"><span class="lvl-num">Lv.${lvl.level}</span> — ${resLine}<span class="res-time">Time: ${fmtTime(time)}</span>${reqLine}</div>`;
+  }).join('');
+}
+
+function toggleDetails(btn) {
+  const tile = btn.closest('.tile');
+  const panel = tile.querySelector('.level-breakdown');
+  const open = panel.classList.toggle('open');
+  btn.textContent = open ? 'Hide level-by-level details \u25b2' : 'Show level-by-level details \u25bc';
+}
+
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
@@ -151,6 +185,7 @@ function recalcAll() {
     const rem = remainingCost(building, cur);
     tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, resFactor, timeFactor);
     tile.classList.toggle('done', cur >= building.max_level);
+    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(building, cur, resFactor, timeFactor);
 
     for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
     grand.rawTime += rem.time;
@@ -275,6 +310,8 @@ def render_tile(b: dict) -> str:
         <label>/ {max_lv}</label>
       </div>
       <div class="remaining remaining-slot"></div>
+      <button class="details-toggle" onclick="toggleDetails(this)">Show level-by-level details ▼</button>
+      <div class="level-breakdown"></div>
     </div>
     """
 
@@ -286,7 +323,20 @@ def main():
         building_by_key[nk] = {
             "max_level": b.get("max_level", 0),
             "levels": [
-                {"level": lvl.get("level"), "cost": lvl.get("cost") or {}, "up_time_seconds": lvl.get("up_time_seconds", 0)}
+                {
+                    "level": lvl.get("level"),
+                    "cost": lvl.get("cost") or {},
+                    "up_time_seconds": lvl.get("up_time_seconds", 0),
+                    "prerequisite_buildings": [
+                        {
+                            "build_type": p.get("build_type"),
+                            "name_key": p.get("name_key"),
+                            "display_name": p.get("display_name"),
+                            "at_level": p.get("at_level"),
+                        }
+                        for p in (lvl.get("prerequisite_buildings") or [])
+                    ],
+                }
                 for lvl in b.get("levels", [])
             ],
         }
