@@ -1,0 +1,14 @@
+# Raw game dump / extraction working data — not meant for publishing
+apk_work/
+Palmon.xapk
+LuaByte_decrypted/
+TextAsset/
+TextAsset_decrypted/
+TextAsset_decrypted.zip
+TextAsset_decrypted_new.zip
+techtrees.json
+techtrees_v2.json
+techtrees_report.md
+__pycache__/
+.vscode/
+.claude/
