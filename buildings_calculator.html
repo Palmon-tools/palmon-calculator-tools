@@ -714,9 +714,15 @@ function adjustedTimeFromLevels(levelTimes, timeFactor) {
   return levelTimes.reduce((sum, t) => sum + t * timeFactor, 0);
 }
 
+// Gold/Lumber/Steel/Electricity are the only resources ever discounted — pink materials
+// (Mastery Sigil, Totem Essence, Pharaoh Coin, etc.) are never reduced by any modifier.
+const isReducible = (k) => k.startsWith('Gold') || k.startsWith('Lumber') || k.startsWith('Steel') || k.startsWith('Electricity');
+function factorForResource(k, resFactor) { return isReducible(k) ? resFactor : 1; }
+
 function fmtAdjustedResource(k, raw, resFactor) {
-  const adj = raw * resFactor;
-  const suffix = resFactor !== 1 ? ` <span class="raw">(raw ${fmtNum(raw)})</span>` : '';
+  const factor = factorForResource(k, resFactor);
+  const adj = raw * factor;
+  const suffix = factor !== 1 ? ` <span class="raw">(raw ${fmtNum(raw)})</span>` : '';
   return `<div class="${resClass(k)}">${resLabel(k)}: ${fmtNum(adj)}${suffix}</div>`;
 }
 function fmtAdjustedTime(raw, adj) {
@@ -738,7 +744,7 @@ function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor) {
   if (!upcoming.length) return '<div class="level-row">max level reached</div>';
   return upcoming.map(lvl => {
     const resLine = Object.entries(lvl.cost || {}).map(([k, v]) => {
-      const adj = v * (k.startsWith('Gold') || k.startsWith('Lumber') || k.startsWith('Steel') || k.startsWith('Electricity') ? resFactor : 1);
+      const adj = v * factorForResource(k, resFactor);
       return `<span class="res-line ${resClass(k)}">${resLabel(k)}: ${fmtNum(adj)}</span>`;
     }).join('');
     const time = (lvl.up_time_seconds || 0) * timeFactor;
@@ -794,8 +800,9 @@ function recalcAll() {
   const allKeys = [...order.filter(k => k in grand.totals), ...otherKeys];
   grandEl.innerHTML = allKeys.map(k => {
     const raw = grand.totals[k];
-    const adj = raw * resFactor;
-    const rawNote = (resFactor !== 1) ? `<span class="raw">raw: ${fmtNum(raw)}</span>` : '';
+    const factor = factorForResource(k, resFactor);
+    const adj = raw * factor;
+    const rawNote = (factor !== 1) ? `<span class="raw">raw: ${fmtNum(raw)}</span>` : '';
     return `<div><span class="${resClass(k)}">${fmtNum(adj)}</span><span class="label">${resLabel(k)}</span>${rawNote}</div>`;
   }).join('') + (() => {
     const rawTime = grand.rawTime;
