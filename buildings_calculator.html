@@ -697,7 +697,7 @@ function fmtTime(totalSeconds) {
 
 const RESOURCE_CLASS = { Gold: 'res-gold', Lumber: 'res-lumber', Steel: 'res-steel', Electricity: 'res-elec' };
 function resClass(key) { return RESOURCE_CLASS[key.split('(')[0]] || 'res-badge'; }
-const EXCLUDED_OVERVIEW_RESOURCES = ['resource_42'];
+const EXCLUDED_OVERVIEW_RESOURCES = [];
 const RESOURCE_NAMES = { resource_42: 'Pharaoh Coin' };
 function resLabel(key) { return RESOURCE_NAMES[key] || key; }
 
