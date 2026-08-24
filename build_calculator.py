@@ -102,17 +102,12 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', builderClassPct: 0, alliance1: 0, alliance3: 0, alliance4: 0, limudroidPct: 0 };
+  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, builderClassPct: 0, limudroidPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
 function saveModifiers(mod) {
   localStorage.setItem(LS_KEY_MOD, JSON.stringify(mod));
-}
-function parseHMS(str) {
-  const m = /^(\\d+):(\\d{1,2}):(\\d{1,2})$/.exec((str || '').trim());
-  if (!m) return 0;
-  return (parseInt(m[1], 10) * 3600) + (parseInt(m[2], 10) * 60) + parseInt(m[3], 10);
 }
 function fmtNum(n) { return n ? Math.round(n).toLocaleString('en-US') : '0'; }
 function fmtTime(totalSeconds) {
@@ -145,9 +140,8 @@ function remainingCost(tech, currentLevel) {
   return { totals, time, levelTimes };
 }
 
-// Fieldlab helper Palmon give a flat time reduction per single upgrade (not a %), floored at 0.
-function adjustedTimeFromLevels(levelTimes, timeFactor, helperSeconds) {
-  return levelTimes.reduce((sum, t) => sum + Math.max(0, t * timeFactor - helperSeconds), 0);
+function adjustedTimeFromLevels(levelTimes, timeFactor) {
+  return levelTimes.reduce((sum, t) => sum + t * timeFactor, 0);
 }
 
 // TriumphBadge is not a reducible "resource" — the -2.5% buff never applies to it.
@@ -171,11 +165,11 @@ function fmtAdjustedTime(raw, adj) {
   return `<div class="res-time">Time: ${fmtTime(adj)}${suffix}</div>`;
 }
 
-function renderTileRemaining(remaining, materialFactor, electricityFactor, timeFactor, helperSeconds) {
+function renderTileRemaining(remaining, materialFactor, electricityFactor, timeFactor) {
   const entries = Object.entries(remaining.totals);
   if (!entries.length && !remaining.time) return '<div class="row0">max level reached</div>';
   let html = entries.map(([k, v]) => fmtAdjustedResource(k, v, materialFactor, electricityFactor)).join('');
-  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor, helperSeconds);
+  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor);
   html += fmtAdjustedTime(remaining.time, adjTime);
   return html;
 }
@@ -184,29 +178,19 @@ function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
   const resourceReductionPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
-  // Verified against real in-game before/after-Warden data: research-speed sources sum ADDITIVELY
-  // into one total %, then a single factor is applied — multiplicative per-source compounding
-  // was tested and produces impossible (negative) results once many bonuses stack.
   // Development maxed grants its 4 built-in Research Speed techs (4 x +5% = +20% additive).
-  // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
-  const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
-  const speedBonusSum = (mod.devMaxed ? 20 : 0)
-    + (mod.vip || 0)
-    + (mod.title || 0)
-    + (mod.researchAid || 0)
-    + (mod.lifetimePass ? 30 : 0)
-    + (mod.fieldlabSpeedPct1 || 0)
-    + (mod.fieldlabSpeedPct2 || 0)
-    + allianceBonus
-    + (mod.limudroidPct || 0);
+  // Research-speed sources compound sequentially/multiplicatively into a single time factor,
+  // matching the model verified for the Building calculator (each source is its own divisor).
+  const speedSources = [mod.devMaxed ? 20 : 0, mod.vip || 0, mod.title || 0, mod.researchAid || 0,
+    mod.lifetimePass ? 30 : 0, mod.fieldlabSpeedPct1 || 0, mod.fieldlabSpeedPct2 || 0, mod.limudroidPct || 0];
   const baseResFactor = 1 - resourceReductionPct / 100;
   // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
   // by other resource-cost reductions such as the Builder Class Buff.
   const materialFactor = baseResFactor;
   const electricityFactor = 1 - (mod.builderClassPct || 0) / 100;
-  const timeFactor = 1 / (1 + speedBonusSum / 100);
-  const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
-  const helperSeconds = parseHMS(mod.helper);
+  const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
+  const timeFactor = 1 / speedFactorProduct;
+  const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
   const treeSubtotals = {};
 
@@ -215,8 +199,8 @@ function recalcAll() {
     const tech = DATA.techByKey[key];
     const cur = levels[key] ?? 0;
     const rem = remainingCost(tech, cur);
-    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor, helperSeconds);
-    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, materialFactor, electricityFactor, timeFactor, helperSeconds);
+    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor);
+    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, materialFactor, electricityFactor, timeFactor);
     tile.classList.toggle('done', cur >= tech.max_level);
 
     for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
@@ -362,11 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-lifetime-pass').checked = mod.lifetimePass;
   document.getElementById('mod-fieldlab-speed1').value = mod.fieldlabSpeedPct1;
   document.getElementById('mod-fieldlab-speed2').value = mod.fieldlabSpeedPct2;
-  document.getElementById('mod-helper').value = mod.helper;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
-  document.getElementById('mod-alliance-1').value = mod.alliance1;
-  document.getElementById('mod-alliance-3').value = mod.alliance3;
-  document.getElementById('mod-alliance-4').value = mod.alliance4;
   document.getElementById('mod-limudroid').value = mod.limudroidPct;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
@@ -378,11 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
       m.lifetimePass = document.getElementById('mod-lifetime-pass').checked;
       m.fieldlabSpeedPct1 = parseFloat(document.getElementById('mod-fieldlab-speed1').value) || 0;
       m.fieldlabSpeedPct2 = parseFloat(document.getElementById('mod-fieldlab-speed2').value) || 0;
-      m.helper = document.getElementById('mod-helper').value;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
-      m.alliance1 = parseInt(document.getElementById('mod-alliance-1').value, 10) || 0;
-      m.alliance3 = parseInt(document.getElementById('mod-alliance-3').value, 10) || 0;
-      m.alliance4 = parseInt(document.getElementById('mod-alliance-4').value, 10) || 0;
       m.limudroidPct = parseFloat(document.getElementById('mod-limudroid').value) || 0;
       saveModifiers(m);
       recalcAll();
@@ -492,8 +468,6 @@ def main():
                  '<option value="15">VIP 11 (+15% Research Speed)</option>'
                  '<option value="20">VIP 12 (+20% Research Speed)</option>'
                  '</select></label>')
-    parts.append('<label>Fieldlab Helpers total (HH:MM:SS reduction): '
-                 '<input type="text" id="mod-helper" class="mod-input" pattern="\\d+:\\d{2}:\\d{2}" placeholder="00:00:00" style="width:90px"></label>')
     parts.append('<label>Limudroid Research Speed Bonus % (depends on Skill Level + Star Level, check its skill tooltip in-game): '
                  '<input type="number" id="mod-limudroid" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Research Speed)</label>')
@@ -501,22 +475,6 @@ def main():
                  '<input type="number" id="mod-fieldlab-speed1" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Fieldlab 2 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed2" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<label>Alliance Tech Buff (Class 1, Research Speed): <select id="mod-alliance-1" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Research Speed</option>'
-                 '<option value="2">+2% Research Speed</option>'
-                 '</select></label>')
-    parts.append('<label>Alliance Tech Buff (Class 3, Research Speed): <select id="mod-alliance-3" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Research Speed</option>'
-                 '<option value="2">+2% Research Speed</option>'
-                 '</select></label>')
-    parts.append('<label>Alliance Tech Buff (Class 4, Research Speed): <select id="mod-alliance-4" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Research Speed</option>'
-                 '<option value="2">+2% Research Speed</option>'
-                 '<option value="3">+3% Research Speed</option>'
-                 '</select></label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'
@@ -525,7 +483,7 @@ def main():
                  '<option value="4">-4% resource cost</option>'
                  '<option value="5">-5% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real before/after-Warden in-game data; multiplicative per-source compounding produced impossible results). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only). Fieldlab helper reductions are flat and applied per individual upgrade (not per total), after the speed factor, floored at 0.</div>')
+    parts.append('<div class="note">Research-speed sources compound sequentially/multiplicatively into a single time factor (verified against real in-game data; same model as the Building calculator). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only).</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
