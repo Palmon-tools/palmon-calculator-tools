@@ -112,7 +112,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, builderClassPct: 0, limudroidPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
+  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, builderClassPct: 0, limudroidPct: 0, guildDuelMaxed: false };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -213,12 +213,11 @@ function recalcAll() {
   const mod = loadModifiers();
   const resourceReductionPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
   // Development maxed grants its 4 built-in Research Speed techs (4 x +5% = +20% additive).
-  // Verified against real in-game data (raw 26d20h -> real 12d5h35m): research-speed sources sum
-  // ADDITIVELY into one total %, then a single factor is applied — sequential multiplicative
-  // compounding overshoots the real result by ~20% and does not fit. Unlike the Building calculator,
-  // Alliance Tech Buff DOES measurably contribute here (confirmed: closing a ~7.5pp gap matches its
-  // Class 1/3/4 max of 2%+2%+3%=7% almost exactly), so it stays in the sum for Tech.
-  const allianceBonus = (mod.alliance1 || 0) + (mod.alliance3 || 0) + (mod.alliance4 || 0);
+  // Verified against real in-game data (raw 26d20h -> real 12d5h35m, with Guild Duel tree already
+  // maxed): research-speed sources sum ADDITIVELY into one total %, then a single factor is applied —
+  // sequential multiplicative compounding overshoots the real result by ~20% and does not fit.
+  // Alliance Tech Buff was tested and does NOT measurably contribute here (same as Building), so it
+  // is not tracked as a modifier for Tech either.
   const speedBonusSum = (mod.devMaxed ? 20 : 0)
     + (mod.vip || 0)
     + (mod.title || 0)
@@ -227,7 +226,7 @@ function recalcAll() {
     + (mod.fieldlabSpeedPct1 || 0)
     + (mod.fieldlabSpeedPct2 || 0)
     + (mod.limudroidPct || 0)
-    + allianceBonus;
+    + (mod.guildDuelMaxed ? 10 : 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
   // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
   // by other resource-cost reductions such as the Builder Class Buff.
@@ -393,9 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-fieldlab-speed2').value = mod.fieldlabSpeedPct2;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
   document.getElementById('mod-limudroid').value = mod.limudroidPct;
-  document.getElementById('mod-alliance-1').value = mod.alliance1;
-  document.getElementById('mod-alliance-3').value = mod.alliance3;
-  document.getElementById('mod-alliance-4').value = mod.alliance4;
+  document.getElementById('mod-guild-duel').checked = mod.guildDuelMaxed;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
@@ -408,9 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
       m.fieldlabSpeedPct2 = parseFloat(document.getElementById('mod-fieldlab-speed2').value) || 0;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
       m.limudroidPct = parseFloat(document.getElementById('mod-limudroid').value) || 0;
-      m.alliance1 = parseInt(document.getElementById('mod-alliance-1').value, 10) || 0;
-      m.alliance3 = parseInt(document.getElementById('mod-alliance-3').value, 10) || 0;
-      m.alliance4 = parseInt(document.getElementById('mod-alliance-4').value, 10) || 0;
+      m.guildDuelMaxed = document.getElementById('mod-guild-duel').checked;
       saveModifiers(m);
       recalcAll();
     });
@@ -533,22 +528,7 @@ def main():
                  '<input type="number" id="mod-fieldlab-speed1" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Fieldlab 2 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed2" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<label>Alliance Tech Buff (Class 1, Research Speed): <select id="mod-alliance-1" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Research Speed</option>'
-                 '<option value="2">+2% Research Speed</option>'
-                 '</select></label>')
-    parts.append('<label>Alliance Tech Buff (Class 3, Research Speed): <select id="mod-alliance-3" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Research Speed</option>'
-                 '<option value="2">+2% Research Speed</option>'
-                 '</select></label>')
-    parts.append('<label>Alliance Tech Buff (Class 4, Research Speed): <select id="mod-alliance-4" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Research Speed</option>'
-                 '<option value="2">+2% Research Speed</option>'
-                 '<option value="3">+3% Research Speed</option>'
-                 '</select></label>')
+    parts.append('<label><input type="checkbox" id="mod-guild-duel" class="mod-input"> Guild Duel tree fully maxed (+10% Research Speed)</label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'
@@ -557,7 +537,7 @@ def main():
                  '<option value="4">-4% resource cost</option>'
                  '<option value="5">-5% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real in-game data; multiplicative per-source compounding overshoots by ~20% and does not fit). Unlike the Building calculator, Alliance Tech Buff DOES contribute to research speed here. Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only).</div>')
+    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real in-game data; multiplicative per-source compounding overshoots by ~20% and does not fit). Alliance Tech Buff was tested and does NOT measurably contribute here (same as Building), so it is not tracked. Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only).</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')

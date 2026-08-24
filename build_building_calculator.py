@@ -195,14 +195,16 @@ function toggleDetails(btn) {
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
-  const resourceDiscountPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
+  const resourceDiscountPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
   const resFactor = 1 - resourceDiscountPct / 100;
   // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly):
   // building-speed sources compound sequentially/multiplicatively (each is its own divisor).
   const speedSources = [mod.devMaxed ? 20 : 0, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
     mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0];
   const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
-  const timeFactor = 1 / speedFactorProduct;
+  // Master Builder reduces build TIME directly (up to -25%), not resource cost — applied as its own
+  // multiplier on top of the speed-sources factor.
+  const timeFactor = (1 / speedFactorProduct) * (1 - (mod.masterBuilderPct || 0) / 100);
   const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
 
@@ -472,13 +474,13 @@ def main():
                  '</select></label>')
     parts.append('<label>Master Builder: <select id="mod-master-builder" class="mod-input">'
                  '<option value="0">None</option>'
-                 '<option value="5">-5% resource cost</option>'
-                 '<option value="10">-10% resource cost</option>'
-                 '<option value="15">-15% resource cost</option>'
-                 '<option value="20">-20% resource cost</option>'
-                 '<option value="25">-25% resource cost</option>'
+                 '<option value="5">-5% Build Time</option>'
+                 '<option value="10">-10% Build Time</option>'
+                 '<option value="15">-15% Build Time</option>'
+                 '<option value="20">-20% Build Time</option>'
+                 '<option value="25">-25% Build Time</option>'
                  '</select></label>')
-    parts.append('<div class="note">Building-speed sources (Development maxed, Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) compound sequentially/multiplicatively into a single time factor (verified against real in-game timers). Development maxed, Builder Class Buff and Master Builder all discount resource cost and stack additively. Note: Desert-tech research that reduces Desert-building time/resource cost is not yet factored into this calculator.</div>')
+    parts.append('<div class="note">Building-speed sources (Development maxed, Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) compound sequentially/multiplicatively into a single time factor (verified against real in-game timers). Master Builder reduces build time directly (up to -25%) on top of that, it does NOT discount resource cost. Development maxed and Builder Class Buff discount resource cost and stack additively. Note: Desert-tech research that reduces Desert-building time/resource cost is not yet factored into this calculator.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
