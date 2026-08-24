@@ -180,17 +180,24 @@ function recalcAll() {
   const resourceReductionPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
   // Development maxed grants its 4 built-in Research Speed techs (4 x +5% = +20% additive).
   // Research-speed sources compound sequentially/multiplicatively into a single time factor,
-  // matching the model verified for the Building calculator (each source is its own divisor).
-  const speedSources = [mod.devMaxed ? 20 : 0, mod.vip || 0, mod.title || 0, mod.researchAid || 0,
-    mod.lifetimePass ? 30 : 0, mod.fieldlabSpeedPct1 || 0, mod.fieldlabSpeedPct2 || 0, mod.limudroidPct || 0];
+  // Verified against real in-game data (raw 26d20h -> real 12d5h35m): unlike the Building calculator,
+  // research-speed sources sum ADDITIVELY into one total %, then a single factor is applied — sequential
+  // multiplicative compounding overshoots the real result by ~20% and does not fit.
+  const speedBonusSum = (mod.devMaxed ? 20 : 0)
+    + (mod.vip || 0)
+    + (mod.title || 0)
+    + (mod.researchAid || 0)
+    + (mod.lifetimePass ? 30 : 0)
+    + (mod.fieldlabSpeedPct1 || 0)
+    + (mod.fieldlabSpeedPct2 || 0)
+    + (mod.limudroidPct || 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
   // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
   // by other resource-cost reductions such as the Builder Class Buff.
   const materialFactor = baseResFactor;
   const electricityFactor = 1 - (mod.builderClassPct || 0) / 100;
-  const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
-  const timeFactor = 1 / speedFactorProduct;
-  const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
+  const timeFactor = 1 / (1 + speedBonusSum / 100);
+  const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
   const treeSubtotals = {};
 
@@ -483,7 +490,7 @@ def main():
                  '<option value="4">-4% resource cost</option>'
                  '<option value="5">-5% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Research-speed sources compound sequentially/multiplicatively into a single time factor (verified against real in-game data; same model as the Building calculator). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only).</div>')
+    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real in-game data; multiplicative per-source compounding overshoots by ~20% and does not fit). Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only).</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
