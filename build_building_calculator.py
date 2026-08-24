@@ -431,7 +431,7 @@ def main():
     parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Palmon Building Upgrade Calculator</title>')
     parts.append(f"<style>{CSS}</style></head><body>")
     parts.append('<div class="site-header"><div class="site-brand">'
-                 '<img class="site-logo" src="logo.png" alt="Logo" onerror="this.style.display=&quot;none&quot;">'
+                 '<img class="site-logo" src="Logo.png" alt="Logo" onerror="this.style.display=&quot;none&quot;">'
                  '<div class="site-credit">By MewLuy and Tetsu @S35</div>'
                  '</div></div>')
     parts.append('<div class="controls">')
