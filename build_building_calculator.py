@@ -133,6 +133,8 @@ function fmtTime(totalSeconds) {
 const RESOURCE_CLASS = { Gold: 'res-gold', Lumber: 'res-lumber', Steel: 'res-steel', Electricity: 'res-elec' };
 function resClass(key) { return RESOURCE_CLASS[key.split('(')[0]] || 'res-badge'; }
 const EXCLUDED_OVERVIEW_RESOURCES = ['resource_42'];
+const RESOURCE_NAMES = { resource_42: 'Pharaoh Coin' };
+function resLabel(key) { return RESOURCE_NAMES[key] || key; }
 
 // remaining cost from (currentLevel+1) to max_level, inclusive
 function remainingCost(building, currentLevel) {
@@ -156,7 +158,7 @@ function adjustedTimeFromLevels(levelTimes, timeFactor, helperSeconds) {
 function fmtAdjustedResource(k, raw, resFactor) {
   const adj = raw * resFactor;
   const suffix = resFactor !== 1 ? ` <span class="raw">(raw ${fmtNum(raw)})</span>` : '';
-  return `<div class="${resClass(k)}">${k}: ${fmtNum(adj)}${suffix}</div>`;
+  return `<div class="${resClass(k)}">${resLabel(k)}: ${fmtNum(adj)}${suffix}</div>`;
 }
 function fmtAdjustedTime(raw, adj) {
   const suffix = adj !== raw ? ` <span class="raw">(raw ${fmtTime(raw)})</span>` : '';
@@ -178,7 +180,7 @@ function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor, hel
   return upcoming.map(lvl => {
     const resLine = Object.entries(lvl.cost || {}).map(([k, v]) => {
       const adj = v * (k.startsWith('Gold') || k.startsWith('Lumber') || k.startsWith('Steel') || k.startsWith('Electricity') ? resFactor : 1);
-      return `<span class="res-line ${resClass(k)}">${k}: ${fmtNum(adj)}</span>`;
+      return `<span class="res-line ${resClass(k)}">${resLabel(k)}: ${fmtNum(adj)}</span>`;
     }).join('');
     const time = Math.max(0, (lvl.up_time_seconds || 0) * timeFactor - helperSeconds);
     const reqs = (lvl.prerequisite_buildings || []);
@@ -234,7 +236,7 @@ function recalcAll() {
     const raw = grand.totals[k];
     const adj = raw * resFactor;
     const rawNote = (resFactor !== 1) ? `<span class="raw">raw: ${fmtNum(raw)}</span>` : '';
-    return `<div><span class="${resClass(k)}">${fmtNum(adj)}</span><span class="label">${k}</span>${rawNote}</div>`;
+    return `<div><span class="${resClass(k)}">${fmtNum(adj)}</span><span class="label">${resLabel(k)}</span>${rawNote}</div>`;
   }).join('') + (() => {
     const rawTime = grand.rawTime;
     const adjTime = grand.adjTime;
