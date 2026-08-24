@@ -770,11 +770,12 @@ function recalcAll() {
   const resFactor = 1 - resourceDiscountPct / 100;
   // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
   const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
-  const speedBonusSum = (mod.devMaxed ? 20 : 0) + (mod.title || 0) + (mod.constructionAid || 0) + (mod.vip || 0)
-    + (mod.lifetimePass ? 30 : 0) + (mod.monthlyPass ? 10 : 0)
-    + allianceBonus;
-  const timeFactor = 1 / (1 + speedBonusSum / 100);
-  const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
+  // Each building-speed source is an independent multiplicative reduction, not a single additive sum (verified against real in-game timers).
+  const speedSources = [mod.devMaxed ? 20 : 0, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
+    mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0, allianceBonus];
+  const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
+  const timeFactor = 1 / speedFactorProduct;
+  const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
   const helperSeconds = parseHMS(mod.helper);
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
 
