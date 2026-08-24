@@ -14,3 +14,25 @@ language_en_names.json
 __pycache__/
 .vscode/
 .claude/
+
+# Extraction/decryption/datamining scripts and intermediate artifacts —
+# not needed to run or understand the calculators, kept local-only.
+decrypt_all.py
+extract_luabyte.py
+extract_tech_icons.py
+extract_building_icons.py
+extract_language_names.py
+merge_display_names.py
+merge_building_names.py
+build_buildings.py
+build_techtrees.py
+build_techtrees_v2.py
+build_gallery.py
+build_full_report.py
+tech_icons_manifest.json
+building_icons_manifest.json
+display_names.json
+building_display_names.json
+techtrees_full.html
+techtrees_gallery.html
+
