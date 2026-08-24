@@ -203,13 +203,13 @@ function recalcAll() {
   const mod = loadModifiers();
   const resourceDiscountPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
   const resFactor = 1 - resourceDiscountPct / 100;
-  // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
-  const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
-  // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly+Alliance):
-  // building-speed sources compound sequentially/multiplicatively (each is its own divisor), NOT
-  // as a single additive sum — additive was off by ~21%, sequential matches within ~3%.
+  // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly,
+  // Alliance Buff maxed): building-speed sources compound sequentially/multiplicatively (each is its
+  // own divisor). The Alliance Tech Buff does NOT measurably reduce actual building time (excluding it
+  // matches the real timer within 0.2%, including it overshoots by ~3%), so it is tracked in the UI but
+  // deliberately left out of the time factor here.
   const speedSources = [mod.devMaxed ? 20 : 0, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
-    mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0, allianceBonus];
+    mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0];
   const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
   const timeFactor = 1 / speedFactorProduct;
   const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
