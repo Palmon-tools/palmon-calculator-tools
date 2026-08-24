@@ -102,7 +102,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', builderClassPct: 0 };
+  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', builderClassPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -194,7 +194,10 @@ function recalcAll() {
     + (mod.researchAid || 0)
     + (mod.lifetimePass ? 30 : 0)
     + (mod.fieldlabSpeedPct1 || 0)
-    + (mod.fieldlabSpeedPct2 || 0);
+    + (mod.fieldlabSpeedPct2 || 0)
+    + (mod.alliance1 || 0)
+    + (mod.alliance3 || 0)
+    + (mod.alliance4 || 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
   // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
   // by other resource-cost reductions such as the Builder Class Buff.
@@ -360,6 +363,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-fieldlab-speed2').value = mod.fieldlabSpeedPct2;
   document.getElementById('mod-helper').value = mod.helper;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
+  document.getElementById('mod-alliance-1').value = mod.alliance1;
+  document.getElementById('mod-alliance-3').value = mod.alliance3;
+  document.getElementById('mod-alliance-4').value = mod.alliance4;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
@@ -372,6 +378,9 @@ document.addEventListener('DOMContentLoaded', () => {
       m.fieldlabSpeedPct2 = parseFloat(document.getElementById('mod-fieldlab-speed2').value) || 0;
       m.helper = document.getElementById('mod-helper').value;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
+      m.alliance1 = parseInt(document.getElementById('mod-alliance-1').value, 10) || 0;
+      m.alliance3 = parseInt(document.getElementById('mod-alliance-3').value, 10) || 0;
+      m.alliance4 = parseInt(document.getElementById('mod-alliance-4').value, 10) || 0;
       saveModifiers(m);
       recalcAll();
     });
@@ -465,8 +474,8 @@ def main():
     parts.append('<label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development tree fully maxed (-2.5% resource cost, +20% Research Speed from its 4 built-in speed techs)</label>')
     parts.append('<label>Title: <select id="mod-title" class="mod-input">'
                  '<option value="0">None</option>'
-                 '<option value="60">Warden (+60% Research Speed)</option>'
-                 '<option value="50">Scientist (+50% Research Speed)</option>'
+                 '<option value="25">Scientist (+25% Research Speed)</option>'
+                 '<option value="60">Warden — Event (+60% Research Speed)</option>'
                  '</select></label>')
     parts.append('<label>Research Aid: <select id="mod-research-aid" class="mod-input">'
                  '<option value="0">None</option>'
@@ -487,6 +496,22 @@ def main():
                  '<input type="number" id="mod-fieldlab-speed1" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Fieldlab 2 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed2" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
+    parts.append('<label>Alliance Tech Buff (Class 1, Research Speed): <select id="mod-alliance-1" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">+1% Research Speed</option>'
+                 '<option value="2">+2% Research Speed</option>'
+                 '</select></label>')
+    parts.append('<label>Alliance Tech Buff (Class 3, Research Speed): <select id="mod-alliance-3" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">+1% Research Speed</option>'
+                 '<option value="2">+2% Research Speed</option>'
+                 '</select></label>')
+    parts.append('<label>Alliance Tech Buff (Class 4, Research Speed): <select id="mod-alliance-4" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">+1% Research Speed</option>'
+                 '<option value="2">+2% Research Speed</option>'
+                 '<option value="3">+3% Research Speed</option>'
+                 '</select></label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'

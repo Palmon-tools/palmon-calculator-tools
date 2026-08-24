@@ -101,7 +101,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, helper: '00:00:00', builderClassPct: 0, masterBuilderPct: 0 };
+  const defaults = { title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, helper: '00:00:00', builderClassPct: 0, masterBuilderPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -199,7 +199,8 @@ function recalcAll() {
   const resourceDiscountPct = (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
   const resFactor = 1 - resourceDiscountPct / 100;
   const speedBonusSum = (mod.title || 0) + (mod.constructionAid || 0) + (mod.vip || 0)
-    + (mod.lifetimePass ? 30 : 0) + (mod.monthlyPass ? 10 : 0);
+    + (mod.lifetimePass ? 30 : 0) + (mod.monthlyPass ? 10 : 0)
+    + (mod.alliance1 || 0) + (mod.alliance3 || 0) + (mod.alliance4 || 0);
   const timeFactor = 1 / (1 + speedBonusSum / 100);
   const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
   const helperSeconds = parseHMS(mod.helper);
@@ -326,6 +327,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-helper').value = mod.helper;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
   document.getElementById('mod-master-builder').value = mod.masterBuilderPct;
+  document.getElementById('mod-alliance-1').value = mod.alliance1;
+  document.getElementById('mod-alliance-3').value = mod.alliance3;
+  document.getElementById('mod-alliance-4').value = mod.alliance4;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
@@ -337,6 +341,9 @@ document.addEventListener('DOMContentLoaded', () => {
       m.helper = document.getElementById('mod-helper').value;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
       m.masterBuilderPct = parseInt(document.getElementById('mod-master-builder').value, 10) || 0;
+      m.alliance1 = parseInt(document.getElementById('mod-alliance-1').value, 10) || 0;
+      m.alliance3 = parseInt(document.getElementById('mod-alliance-3').value, 10) || 0;
+      m.alliance4 = parseInt(document.getElementById('mod-alliance-4').value, 10) || 0;
       saveModifiers(m);
       recalcAll();
     });
@@ -462,6 +469,22 @@ def main():
                  '<input type="text" id="mod-helper" class="mod-input" pattern="\\d+:\\d{2}:\\d{2}" placeholder="00:00:00" style="width:90px"></label>')
     parts.append('<label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Building Speed)</label>')
     parts.append('<label><input type="checkbox" id="mod-monthly-pass" class="mod-input"> Monthly Pass (+10% Building Speed)</label>')
+    parts.append('<label>Alliance Tech Buff (Class 1, Building Speed): <select id="mod-alliance-1" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">+1% Building Speed</option>'
+                 '<option value="2">+2% Building Speed</option>'
+                 '</select></label>')
+    parts.append('<label>Alliance Tech Buff (Class 3, Building Speed): <select id="mod-alliance-3" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">+1% Building Speed</option>'
+                 '<option value="2">+2% Building Speed</option>'
+                 '</select></label>')
+    parts.append('<label>Alliance Tech Buff (Class 4, Building Speed): <select id="mod-alliance-4" class="mod-input">'
+                 '<option value="0">None</option>'
+                 '<option value="1">+1% Building Speed</option>'
+                 '<option value="2">+2% Building Speed</option>'
+                 '<option value="3">+3% Building Speed</option>'
+                 '</select></label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'
