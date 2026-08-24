@@ -5701,6 +5701,8 @@ function recalcAll() {
   // into one total %, then a single factor is applied — multiplicative per-source compounding
   // was tested and produces impossible (negative) results once many bonuses stack.
   // Development maxed grants its 4 built-in Research Speed techs (4 x +5% = +20% additive).
+  // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
+  const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
   const speedBonusSum = (mod.devMaxed ? 20 : 0)
     + (mod.vip || 0)
     + (mod.title || 0)
@@ -5708,9 +5710,7 @@ function recalcAll() {
     + (mod.lifetimePass ? 30 : 0)
     + (mod.fieldlabSpeedPct1 || 0)
     + (mod.fieldlabSpeedPct2 || 0)
-    + (mod.alliance1 || 0)
-    + (mod.alliance3 || 0)
-    + (mod.alliance4 || 0)
+    + allianceBonus
     + (mod.limudroidPct || 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
   // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
