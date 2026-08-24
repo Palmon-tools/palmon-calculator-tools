@@ -1,0 +1,438 @@
+925
+resource_aid || Resource Aid
+downloadRes || Downloading resources...
+errorcode_124 || This squad can't carry any more resources.
+errorcode_135 || You can't raid friendly resource nodes.
+errorcode_137 || You can't raid unoccupied resource nodes.
+errorcode_505 || This level of resource node can only be found in the Advanced resource belt.
+errorcode_709 || Upgrade time not reached
+errorcode_805 || Not enough resources.
+errorcode_907 || You don't have enough resources.
+errorcode_1008 || Not enough resources to upgrade skill.
+errorcode_2025 || Unable to apply for resource aid.
+errorcode_2026 || Unable to receive resource aid.
+item_itemname_105 || {0} Building Speedup
+reserves_desc || Remaining Resources
+safety_resource || Protected Resources: 
+insecurity_resource || Unprotected Resources: 
+search_3 || Lumberyard
+mining_name_14 || Lumberyard
+item_itemname_10 || 1K Lumber Chest
+item_itemname_11 || 10K Lumber Chest
+item_itemname_12 || 100K Lumber Chest
+item_itemname_24 || 1K Resource Chest
+item_itemname_25 || 10K Resource Chest
+item_itemname_74 || Random Resource Chest
+item_itemname_109 || {0} Healing Speedup
+item_itemname_113 || {0} Research Speedup
+item_itemname_173 || {0} Healing Speedup (Desert)
+item_itemname_153 || {0} Training Speedup
+collect_fail_des || Resource Node Has Disappeared
+collect_disable || Resource Node Has Disappeared
+collect_disable_des || Resource Node Has Disappeared...
+item_remarks_10 || Stacks upon stacks of construction-ready Lumber. Use to receive 1K Lumber.
+item_remarks_11 || Stacks upon stacks of construction-ready Lumber. Use to receive 10K Lumber.
+item_remarks_12 || Stacks upon stacks of construction-ready Lumber. Use to receive 100K Lumber.
+item_remarks_24 || Open to receive 1K Gold and 1K Lumber.
+item_remarks_25 || Open to receive 10K Gold and 10K Lumber.
+item_remarks_74 || Open to randomly receive 1000 Food or 1000 Lumber.
+item_remarks_173 || Reduces Sandstorm Scuffle healing queue by {0}.
+collect_myArm || You already have a squad harvesting this resource node.
+resnotenough || Not enough resources.
+UIResourceBuy_title || Replenish Resources
+desdrilltime || Training Speed Bonus
+item_remarks_562 || Will randomly drop Food, Lumber, or Steel.
+item_remarks_563 || Has a chance to drop Speedups, which can be used to reduce the time required for activities.
+item_remarks_567 || Will randomly drop Food, Lumber, or Steel.
+item_remarks_570 || Coins with a very high gold content. An essential resource for developing your Camp.
+item_remarks_571 || Wood that has been processed into usable planks. An essential resource for developing your Camp.
+item_remarks_1087 || Steel obtained from high-temperature smelting. An essential resource for developing your Camp.
+droptype_name_6 || Lumber (Protected)
+droptype_name_7 || Lumber (Unprotected)
+droptype_name_8 || Lumber
+droptype_remarks_5 || Coins with a very high gold content. An essential resource for developing your Camp.
+droptype_remarks_6 || Solid Lumber that cannot be looted by other explorers.
+droptype_remarks_7 || Regular Lumber that can be looted by other explorers.
+droptype_remarks_29 || Electricity that cannot be looted by other explorers.
+droptype_remarks_30 || Electricity that can be looted by other explorers.
+droptype_remarks_31 || Free-flowing electricity. Essential for development.
+noResource || No resources to collect
+time_reduce || Time Reduction: 
+player_more_type_4 || Resource Production
+player_desc_60 || Camp Lumber Output Per Hour
+player_desc_62 || Resource Harvesting Speed Bonus
+player_desc_72 || Guild Rally March Speed Bonus
+player_desc_75 || Protector Squad Death Rate Reduction
+player_desc_81 || Lumberyard Harvesting Speed Bonus
+collect_disable_des_1 || The resource node you were going to harvest from has disappeared. Your squad has been recalled.
+union_official_remarks_2 || An erudite leader who reveals hidden secrets. Research Speed +2%.
+union_official_remarks_3 || A charismatic figure who leads with brilliance. March Speed +3%.
+union_official_remarks_4 || A brilliant craftsperson known for their ingenuity and skill. Building Speed +2%.
+DownloadOver || Resource update complete.
+award_desc_9 || Resource Items
+award_equip_desc_6 || Resource Items
+warning_res_title || Resources: 
+mail_res_name2 || Lumber: 
+reducetime || Time Reduction
+noitemtips || You have no resource items available.
+reduce_time || Time Reduced: 
+tax_desc || Resources Looted Today: {0}
+resource_allocation || Resource Distribution
+resource_allocation_desc || Resources looted in a rally attack will be distributed based on each squad's Load.
+unio_reshelp_desc || You have requested resource aid. Resources are on their way.
+goto_name_48 || Harvest Lumber
+goto_desc_55 || Available in the VIP Shop at a discount.
+select_resource_retry || Please select a resource and try again
+time_shorten || Time Reduction
+mail_detect_desc_3 || The resource node you were scouting has been depleted. Your Scowl has been recalled.
+scout_subtitle_1 || Lootable Resources
+resource_ribbon || Resource Belts
+task_guide_tips2 || You'll need <color=#ff7c3b>Gold</color>, <color=#ff7c3b>Lumber</color>, <color=#ff7c3b>Steel</color>, and <color=#ff7c3b>Electricity</color> to upgrade this tech. Tap here to start upgrading.
+mail_detect_desc_9 || The resource node you were scouting is no longer occupied. Your Scowl has been recalled.
+mail_detect_desc_10 || The resource node you were scouting is now under allied control. Your Scowl has been recalled.
+city_function_remarks_101003 || March Speed +{0}
+city_function_remarks_101008 || Training Speed +{0}
+city_function_remarks_101010 || Construction Speed +{0}
+city_function_remarks_101012 || Tech Research Speed +{0}
+city_function_remarks_101204 || Reduces severe injury rate by <color=#c0ff8d>{0}</color> and death rate by <color=#c0ff8d>{1}</color> for all guildmates' Armigo.
+city_function_remarks_101205 || Increases healing speed by <color=#c0ff8d>{0}</color> and training speed by <color=#c0ff8d>{1}</color> for all guildmates
+city_function_remarks_101401 || Increases squad March Speed by <color=#c0ff8d>{0}</color> for all guildmates.
+vip_buff_name8 || Squad March Speed Bonus
+vip_buff_name10 || Armigo Healing Speed Bonus
+vip_buff_name12 || Tech Research Speed Bonus
+task_fresh_trial_30 || Use {0} min of Building Speedups
+task_fresh_trial_31 || Use {0} min of Training Speedups
+federal_official_buff_4 || Resource Output Speed +15%
+federal_official_buff_5 || Construction Speed +5%
+get_resource_once || Earn 1 point for every resource harvested: 
+gather_mail_elevate_2 || Lumber Harvesting Bonus: {0}%
+activity_help_desc_265 || 1. During the event, explorers can spend Fortune Tickets to spin the wheel.
+2. Each spin grants a random valuable reward.
+3. Accumulate spins to unlock extra rewards. The more you spin, the better the rewards!
+4. During the event, you can purchase Wheel of Fortune bundles to get Fortune Tickets.
+5. Note: Any unused Fortune Tickets will be recycled at the end of the event and converted to 5-Min Building Speedups at a 1:5 ratio. Be sure to use them all before the event ends.
+marchdesc_3_caiji_1 || Heading to resource node: {0}
+mapobjecttype_3 || Resource Node
+resource_alluse_tips || Hint: Resources from chests are all protected resources. Tap All to claim your resources!
+safe_tips || Protected resources can't be looted by other explorers. They come primarily from your <color=#378cb4>Camp's resource buildings</color>, <color=#378cb4>harvesting from resource nodes</color>, and using <color=#378cb4>resource items</color>.
+unsafe_tips || When <color=#378cb4>harvesting from a resource node</color>, a portion of the resources you harvest will be unprotected, meaning they can be looted by other explorers. Resources looted from <color=#378cb4>raiding other explorers' Camps</color> are always unprotected.
+fap_describe_15 || 1) Healing injured units costs <color=#378cb4>resources</color> and takes <color=#378cb4>time</color>. After being healed, units need to be manually discharged.
+2) You can heal multiple levels of Armigo <color=#378cb4>at the same time</color>.
+3) You can reduce healing time by using <color=#378cb4>Healing Speedups</color>.
+fap_describe_18 || When <color=#378cb4>upgrading buildings or training Armigo</color>, you can request aid from your fellow guildmates to reduce the time required. The maximum number of times you can receive aid and the amount of time it reduces can be increased by researching the <color=#378cb4>Mutual Aid</color> and <color=#378cb4>Apt Aid</color> guild techs.
+fap_describe_23 || 1) To upgrade guild techs, guildmates must <color=#378cb4>donate resources</color>. You will be rewarded with <color=#378cb4>Guild Amity</color> whenever you make a donation.
+2) <color=#378cb4>Guild Amity</color> can be used in the <color=#378cb4>Guild Shop</color> to purchase a variety of rare items.
+3) Your Guild Amity is yours to keep. <color=#378cb4>It will not be lost if you leave the guild</color>, and can still be used after you join a new guild.
+4) After joining a guild, you start with 0 Donation Points. One attempt recovers every <color=#378cb4>20 minutes</color>.
+5) The benefits of guild techs apply to all members of your guild.
+UIResourceAdd_desc || Ahoy explorer! We're missing the following resources. Can you think of any way to acquire more?
+no_res_to_rob || This Camp has no lootable resourcess
+UIUnionHelp_help_desc || 1) After joining a guild, you can request aid from your guildmates when upgrading buildings or researching techs to reduce the time required.
+2) There is a <color=#00af94>limit on how many guildmates can aid a single aid request</color>.
+3) This limit can be increased by researching certain guild techs.
+4) You can also increase the effectiveness of your guild's aid (by total time reduced) by researching certain guild techs.
+Unzipping || Extracting resource files...
+UIHeroList_help_desc || 1) Palmon can duel other Palmon, or lead squads of Armigo in fighting world map battles.
+2) Upgrade and ascend your Palmon to improve their attributes. Ascending a Palmon will unlock new skills and increase the level caps of their skills.
+3) Certain Palmon are more suited for combat roles, while others excel at developing your Camp.
+4) Palmon are divided into frontline and backline positions. Frontline Palmon excel at survival and defense, while backline Palmon focus on damage and support.
+5) You can dismiss a Palmon to get a dismissal gift. You will NOT receive a full refund for the resources you spent to upgrade them.
+UITech_help_desc || 1) Researching techs costs resources and time, but they will permanently upgrade your abilities.
+2) You can only research 1 tech at a time.
+3) Advanced techs will only be unlocked after you've researched earlier techs.
+UICollect_help_name || Harvesting Resources
+UICollect_help_desc || 1) On the World Map, resource nodes are your primary source of resources. Occupying a resource node allows you to harvest its respective resource.
+2) Each resource node can only be occupied by a single explorer at a time.
+3) You won't gain any resources by attacking another explorer while they're occupying a resource node, but you can drive them out of the node.
+push_name_7 || Resources Full
+gameset_desc_8 || Reduces visual quality for the sake of performance.
+gameset_desc_9 || Reduces visual quality and brightness to reduce power consumption.
+gameset_graphics_desc_1 || To switch to High quality, you'll need to download additional resources and restart the game. Continue?
+gameset_graphics_desc_3 || To switch to Low quality, you will need to download additional resources and restart the game. Continue?
+skill_effect_01 || March Speed
+package_to_resource || Resource items have been converted into protected resources
+tower_remarks || This building represents step one of Genetek's long-term plans for Pallantis. With their network of formidable Checkpoints, Genetek has been able to keep other explorers to the fringes of the continent, keeping the richest resource nodes and the mysterious Temple firmly within their grasp. Until these Checkpoints fall, the power of Palmon will be under their control...
+bag_2 || Inventory/Resources
+pay_37 || Lumber Supply
+monthcard_desc_5 || Claim 1.5M Lumber every day you log in; 10.5M Lumber in total!
+hospital_description || 1) <color=#00af94>Lightly injured</color> Armigo will automatically heal once they return to their departure point.
+2) <color=#00af94>Severely injured</color> Armigo will be sent to your Hospitals.
+3) If your Hospital is at <color=#00af94>max capacity</color>, Armigo that get severely injured will instead <color=#00af94>die</color>. You can avoid this by <color=#00af94>upgrading your Hospitals</color> to increase their capacity and by <color=#00af94>healing injured Armigo as soon as possible</color>.
+4) During <color=#00af94>Camp</color> battles, the attacker's Armigo can be <color=#00af94>severely injured or killed</color>. The defender's Armigo cannot be killed, but can be severely injured.
+5) During <color=#00af94>world map and resource node</color> battles, <color=#00af94>no Armigo will be killed</color> on either side.
+uimail_title_14 || Looted Resources
+uimail_title_14_new_1_title || Resources Looted
+base_move_tip2 || Ahoy, explorer! Your Camp was reduced to 0 Durability. It's been automatically relocated to a safer area.
+card_attr_name11 || Damage Reduction
+card_attr_name15 || Crit Damage Reduction
+card_attr_name2005 || Final Damage Dealt Reduction
+card_attr_name2006 || Final Damage Taken Reduction
+card_attr_name2013 || Final Damage Taken Reduction
+card_attr_name2015 || Final Damage Taken Reduction
+buildup_buff_tips || Construction speed +{0}%.
+item_remarks_1130 || Used to spin the Wheel of Fortune. Potential rewards include UR Palmon Tokens. Note: This item will be removed after each event ends and converted into 5 min Building Speedups at a ratio of 1:5.
+item_remarks_167 || May drop a 1m Universal Speedup, Building Speedup, Research Speedup, Training Speedup, or Healing Speedup.
+item_remarks_168 || May drop a 5m Universal Speedup, Building Speedup, Research Speedup, Training Speedup, or Healing Speedup.
+monthcard2 || 7d Mega-Value Lumber
+resource_buff || Resource Bonus
+mining_desc_14 || This lumber yard looks like it was set up by another explorer, but they seem to have abandoned it some time ago. Wherever they went, they left behind a lot of Lumber.
+res_get || Resources Looted
+res_lost || Resources Lost
+hero_effect_tip2 || Maximito's skill reduced the construction time for this building.
+hero_effect_tip4 || Limudroid's skill reduced the research time for this tech.
+hero_effect_tip5 || Voltbolt's skill reduced the research time for this tech.
+activity_superprivilege_month_tip3 || Construction Speed +10% (While Monthly Pass Is Active)
+activity_superprivilege_month_tip4 || Training Speed +30% (While Monthly Pass Is Active)
+activity_superprivilege_forever_tip3 || Construction Speed +30% (Permanent)
+activity_superprivilege_forever_tip4 || Research Speed +30% (Permanent)
+resource_paypack_7_1 || Super Lumber Supply 1
+resource_paypack_7_2 || Super Lumber Supply 2
+resource_paypack_7_3 || Super Lumber Supply 3
+resource_paypack_7_4 || Super Lumber Supply 4
+resource_paypack_7_5 || Super Lumber Supply 5
+resource_paypack_7_6 || Super Lumber Supply 6
+speedup_paypack_1_1 || Super Building Speedup Supply 1
+speedup_paypack_1_2 || Super Building Speedup Supply 2
+speedup_paypack_1_3 || Super Building Speedup Supply 3
+speedup_paypack_1_4 || Super Building Speedup Supply 4
+speedup_paypack_1_5 || Super Building Speedup Supply 5
+speedup_paypack_1_6 || Super Building Speedup Supply 6
+speedup_paypack_2_1 || Super Research Speedup Supply 1
+speedup_paypack_2_2 || Super Research Speedup Supply 2
+speedup_paypack_2_3 || Super Research Speedup Supply 3
+speedup_paypack_2_4 || Super Research Speedup Supply 4
+speedup_paypack_2_5 || Super Research Speedup Supply 5
+speedup_paypack_2_6 || Super Research Speedup Supply 6
+speedup_paypack_3_1 || Super Training Speedup Supply 1
+speedup_paypack_3_2 || Super Training Speedup Supply 2
+speedup_paypack_3_3 || Super Training Speedup Supply 3
+speedup_paypack_3_4 || Super Training Speedup Supply 4
+speedup_paypack_3_5 || Super Training Speedup Supply 5
+speedup_paypack_3_6 || Super Training Speedup Supply 6
+speedup_paypack_4_1 || Super Healing Speedup Supply 1
+speedup_paypack_4_2 || Super Healing Speedup Supply 2
+speedup_paypack_4_3 || Super Healing Speedup Supply 3
+speedup_paypack_4_4 || Super Healing Speedup Supply 4
+speedup_paypack_4_5 || Super Healing Speedup Supply 5
+speedup_paypack_4_6 || Super Healing Speedup Supply 6
+get_resource || Acquire Resources
+get_resource_7 || Acquire Lumber
+use_all_item || All resources will be protected
+resource_pack_7 || Lumber Bundles
+castle_skin_attr_1 || Training Speed
+castle_skin_attr_3 || World March Speed
+castle_skin_attr_6 || Harvesting Speed (All Resources)
+castle_skin_attr_7 || Camp Resource Output
+loading_tips_5 || Loading scene resources...
+loading_tips_6 || Loading initial resources...
+loading_tips_7 || Loading Camp resources...
+crossserver_mine_tip15 || Your Dojo was taken over. Resources no longer available.
+crossserver_mine_tip40 || Get Resources
+crossserver_mine_des || 1. Dojo Challenges are available from Monday to Sunday.
+2. Each week at opening time, explorers will be assigned to a zone based on their Camp level. The higher the zone level, the greater its Dojo Prestige rewards.
+3. You can only be assigned to one competition stage each week.
+4. Dojos are located within 4 elemental zones. Occupy a Dojo to collect its corresponding elemental energy. Each zone contains 1 Champion Dojo, 8 Elite Dojos, and more Regular Dojos. Higher-level Dojos produce more elemental energy.
+5. Collect from an unchallenged Dojo that's 100% occupied to trigger a special event and receive bonus rewards. There's also a chance to trigger a special event when challenging an 100% occupied Dojo.
+6. You can challenge a Dojo occupied by another player. A successful challenge will transfer the Dojo to you. Your first challenge each day is free; subsequent challenges have a 10-minute cooldown and cost Pallite.
+7. You can challenge Dojos occupied by other players up to 6 times per day. Challenging Dojos with more resources will yield greater rewards.
+errorcode_10204 || Your resources have been looted and cannot be claimed.
+errorcode_10211 || You can't claim resources from a Dojo you haven't occupied.
+alliance_boss_8 || Upgrade your hunting traps to reduce boss attributes.
+alliance_boss_34 || Attack Reduction
+alliance_boss_35 || Defense Reduction
+building_num_38 || Camp Resource Output Bonus
+resource_paypack_7_7 || Super Lumber Supply 7
+resource_paypack_7_8 || Super Lumber Supply 8
+item_remarks_769 || The Party Palace is a special Camp building that produces a ton of Palpowder, resources (Gold/Lumber/Steel), and XP. The higher its level, the higher its output!
+funclub_pack_tips2 || Grants a steady income of Palpowder and up to <color=#09da5d>50%</color> extra resource output!
+recharge_gift_new_name_2 || Loads of Lumber
+recharge_gift_new_slogan_2 || Load up on Lumber!
+web_store_des24 || Get a huge discount on your first purchase!
+alliance_battlefield_tip68 || +25% Armigo Healing Speed
+alliance_battlefield_tip74 || Squad March Speed +50%
+alliance_battlefield_tip75 || Armigo Healing Speed +50%
+alliance_battlefield_tip79 || Armigo Healing Speed +{0}
+alliance_battlefield_rule10 || 2 per map. Occupy them to earn a <color=#FF2400>small amount</color> of Guild Points and Personal Points, as well as an Armigo Healing Speed bonus for all participating guildmates.
+alliance_battlefield_rule35 || Legend has it that deep within Pallantis, an ancient land lies buried beneath the sands. In this forgotten realm, a Palmon with the power to create miracles once lived in harmony with humans. It was an era of unparalleled prosperity, until a cataclysm forced the Palmon into eternal slumber, and the land, along with its miracles, was swallowed by the sands. Now, that long-lost Palmon has risen from the dunes once more, awaiting a new companion to bond with.
+alliance_battlefield_four_rule_9_des || 1. When the battlefield opens for <color=#EE7615>30/40/50</color> minutes, a Rift Colossus will spawn in the center of the map.
+2. Explorers can send squads to attack the Rift Colossus. Each victory reduces its HP by 1. When its HP reaches 0, it is defeated.
+3. The guild of the explorer who lands the final blow on the Rift Colossus earns a massive amount of Guild Points.
+4. Each Rift Colossus lasts for <color=#EE7615>10</color> minutes. If not defeated within <color=#EE7615>10</color> minutes, it will disappear from the battlefield.
+inborn_skill_text_5 || Resource output {0}%
+buff_name_674 || Lumber Output
+buff_name_676 || Lumber Output
+buff_name_678 || Electricity Output
+UIMarchingSpeed_4 || Reduces march time by 25%
+UIMarchingSpeed_5 || Reduces march time by 50%
+Battle_new_9 || Resources Harvested: 
+Battle_new_11 || Extra Resources
+Battle_new_20 || Lumber Harvesting Bonus
+droptype_name_29 || Electricity (Protected)
+droptype_name_30 || Electricity (Unprotected)
+droptype_name_31 || Electricity
+building_desc_11 || The Table Saw processes raw Wood into valuable Lumber, an essential resource for your Camp's growth.
+building_desc_12 || The big Furnace can smelt Ore into Steel, a key resource for your Camp.
+building_desc_13 || At the Power Plant, Electric-type Palmon discharge their natural energy, which is stored as Electricity used to power your Camp.
+building_num_59 || Armigo Training Speed
+building_workchange_tips_1 || Removing this Palmon from their job will remove all bonuses they provide and may even cause some resources to cease production. Continue?
+building_workchange_text6 || Assigning a Palmon to this job will increase resource output
+building_workchange_worktip_1 || Assign Palmon to Building to reduce the time required to upgrade buildings.
+building_workchange_worktip_3 || Assign Palmon to Training to reduce the time required to train Armigo.
+building_workchange_worktip_7 || Assign Palmon to Analyzing to reduce the time required to research techs.
+building_workchange_worktip_10 || Assign Palmon to Healing to reduce the time required to heal injured Armigo.
+building_workchange_worktip_18 || Assign Palmon to Healing to reduce the time required to heal injured Armigo.
+building_workchange_worktip_37 || Assign Palmon to Analyzing to reduce the time required to research techs.
+building_workchange_worktip_12 || Assign Palmon to Sawing to obtain Lumber. Upgrade the Table Saw to increase Lumber output.
+building_workchange_worktip_14 || Assign Palmon to Charging to obtain Electricity. Upgrade the Power Plant to increase Electricity output.
+building_workchange_worktip_57 || Assign Palmon to Crafting to reduce the time required to craft equipment.
+building_workchange_worktip_70 || Assign Palmon to reduce Mastery Sigil production time.
+damage_reduce || Damage Reduction
+defence_reduce || Defense Reduction
+buff_name_2 || Resource Output
+home_campinstruct_text_4 || Reduces the upgrade time of all buildings currently being upgraded by {0} hours. Cooldown: 48 hours.
+offline_incom_text_3 || No Resource Income
+card_skill_desc_1 || Electricity output +{0} when working a Charging job.
+card_skill_desc_6 || Lumber output +{0} when working a Sawing job.
+card_skill_desc_7 || Electricity Output
+card_skill_desc_12 || Lumber Output
+unlock_tile_tip_7 || Insufficient Lumber.
+item_itemname_562 || Resources
+item_itemname_567 || Resources
+errorcode_160 || Exceeded max claimable resources for today.
+item_itemname_791 || 1M Lumber Chest
+item_itemname_795 || 3M Lumber Chest
+item_remarks_791 || Stacks upon stacks of construction-ready Lumber. Use to receive 1M Lumber.
+item_remarks_795 || Stacks upon stacks of construction-ready Lumber. Use to receive 3M Lumber.
+inborn_skill_text_15 || Crit Damage Reduction +{0}%
+inborn_skill_text_27 || Crit Damage Reduction -{0}%
+UIHomeEvent_tips2 || Received Lumber x<color=#0AE2A2>{0}</color>
+card_attr_name16 || Accuracy Reduction
+card_attr_name17 || Evasion Reduction
+card_attr_name18 || Crit Rate Reduction
+card_attr_name19 || Tenacity Reduction
+card_attr_name21 || Crit Damage Reduction Decreased
+card_attr_name23 || Stun Resist Reduction
+building_queue_1_tips || From here, you can manage your build queues or activate more to speed up your build times. 
+vip_vipbuff_7_name || Squad March Speed
+vip_vipbuff_10_name || Armigo Healing Speed
+vip_vipbuff_12_name || Tech Research Speed
+city_function_6_remarks || Training Speed +{0}
+city_function_8_remarks || Construction Speed +{0}
+city_function_9_remarks || Tech Research Speed +{0}
+tech_queue_1_tips || From here, you can manage your research queues, activate more, or speed up your research times. 
+tech_queue_speedup_1_tips || Reduces research queue time by {0} min.
+home_report_2_text || The Storehouse is full. Go retrieve your resources!
+tech_name_enter_100100_3_des || Unlock Field Lab 2 to double your research speed!
+tech_desc_new_3_desc || Unlock Field Lab 2 to double your research speed!
+task_everyday_14_remarks || Harvest {0} Lumber
+Welcome_to_the_New_World_27_remarks || Use {0} min of Building Speedups
+Welcome_to_the_New_World_28_remarks || Use {0} min of Training Speedups
+Welcome_to_the_New_World_29_remarks || Use {0} min of Healing Speedups
+Welcome_to_the_New_World_30_remarks || Use {0} min of Research Speedups
+hero_dismiss_1_tip || Dismissing an upgraded Palmon does not refund the resources you spent upgrading them, but you will still receive dismissal rewards.
+alliance_tech_2_remarks || Increases the time reduction of guild aid.
+alliance_tech_5_remarks || Increases the tech research speed of all guildmates.
+alliance_tech_8_remarks || Increases the Camp Lumber output speed of all guildmates.
+alliance_tech_12_remarks || Increases the March Speed of guildmates when defending Sanctums.
+alliance_tech_13_remarks || Increases the March Speed of guildmates when attacking Sanctums.
+item_itemname_804 || 5K Electricity Chest
+item_itemname_805 || 25K Electricity Chest
+item_itemname_806 || 250K Electricity Chest
+item_itemname_807 || 1M Electricity Chest
+item_remarks_804 || A mountain of high-capacity batteries. Use to receive 5K Electricity.
+item_remarks_805 || A mountain of high-capacity batteries. Use to receive 25K Electricity.
+item_remarks_806 || A mountain of high-capacity batteries. Use to receive 250K Electricity.
+item_remarks_807 || A mountain of high-capacity batteries. Use to receive 1M Electricity.
+direct_pack_4_1 || Lumber Load 1
+direct_pack_4_2 || Lumber Load 2
+direct_pack_4_3 || Lumber Load 3
+direct_pack_4_4 || Lumber Load 4
+direct_pack_4_5 || Lumber Load 5
+direct_pack_6_1 || Electricity Excess 1
+direct_pack_6_2 || Electricity Excess 2
+direct_pack_6_3 || Electricity Excess 3
+direct_pack_6_4 || Electricity Excess 4
+direct_pack_6_5 || Electricity Excess 5
+direct_pack_7_1 || Building Speedups 1
+direct_pack_7_2 || Building Speedups 2
+direct_pack_7_3 || Building Speedups 3
+direct_pack_7_4 || Building Speedups 4
+direct_pack_7_5 || Building Speedups 5
+direct_pack_9_1 || Training Speedups 1
+direct_pack_9_2 || Training Speedups 2
+direct_pack_9_3 || Training Speedups 3
+direct_pack_9_4 || Training Speedups 4
+direct_pack_9_5 || Training Speedups 5
+direct_pack_10_1 || Healing Speedups 1
+direct_pack_10_2 || Healing Speedups 2
+direct_pack_10_3 || Healing Speedups 3
+direct_pack_10_4 || Healing Speedups 4
+direct_pack_10_5 || Healing Speedups 5
+buff_name_202 || Aid Time Reduction
+buff_name_203 || Sanctum Attack March Speed
+buff_name_204 || Sanctum Defense March Speed
+intelligence_investigate_collect_tips || Unable to harvest; this resource node belongs to {0}.
+adventurer_competition_task_1_des || Use 1 min of Training Speedups
+adventurer_competition_task_3_des || Use 1 min of Building Speedups
+hero_equip_armor_2_remarks || A special cloak that seems to reduce the profile of the wearer. Grants a small boost to HP and Defense.
+dojo_special_5_text || While exploring the area around the Dojo, you came across an abandoned warehouse. You found some Lumber stored inside. Seems someone hid it here and never came back.
+daily_package_6_name || Research Speedup
+daily_package_1_desc || Contains a large amount of materials and resources used to upgrade Palmon equipment. 
+daily_package_2_desc || Contains a large amount of materials and resources used to ascend Palmon equipment.
+daily_package_3_desc || Contains a large amount of resources and speedups used to upgrade buildings.
+daily_package_4_desc || Contains a large amount of items and resources used to upgrade Palmon.
+daily_package_5_desc || Contains a large amount of items and resources used to upgrade Palmon skills.
+daily_package_6_desc || Contains a large amount of resources and speedups used to research techs.
+daily_package_7_desc || Contains a large amount of resources and speedups used to train Armigo.
+card_skill_3_410_desc || The kind-hearted Lendanear possesses magical healing powers. Healing speed +{0} when working in a Hospital.
+card_skill_3_402_desc || Meowdame has a penchant for making miracles happen. Increases Gold, Lumber, and Steel rewards by {0} when it defeats a Bullymon or Bullyboss.
+card_skill_3_402_title || Extra Resources
+plot_dialogue_18_3 || You'll encounter many Wild Palmon while exploring Pallantis. You can challenge them to earn resources, which you can use to improve your Camp and speed up your growth.
+tech_des_004_des || Tech research speed
+tech_des_006_des || Armigo training speed
+tech_des_007_des || Hospital healing speed
+tech_des_009_des || Building construction resource cost
+tech_des_012_des || Lumber output
+tech_des_015_des || Lumber Harvesting Speed
+tech_des_038_des || Research resource cost
+tech_des_039_des || Healing resource cost
+tech_des_040_des || Training resource cost
+tech_des_1_007_des || Squad 1: March Speed vs Bullymon
+tech_des_1_008_des || Squad 1: March Speed to other explorers
+tech_des_1_009_des || Squad 1: March Speed to resource nodes
+tech_des_1_010_des || Squad 1: General March Speed
+tech_des_2_007_des || Squad 2: March Speed vs Bullymon
+tech_des_2_008_des || Squad 2: March Speed to other explorers
+tech_des_2_009_des || Squad 2: March Speed to resource nodes
+tech_des_2_010_des || Squad 2: General March Speed
+tech_des_3_007_des || Squad 3: March Speed vs Bullymon
+tech_des_3_008_des || Squad 3: March Speed to other explorers
+tech_des_3_009_des || Squad 3: March Speed to resource nodes
+tech_des_3_010_des || Squad 3: General March Speed
+tech_des_4_007_des || Squad 4: March Speed vs Bullymon
+tech_des_4_008_des || Squad 4: March Speed to other explorers
+tech_des_4_009_des || Squad 4: March Speed to resource nodes
+tech_des_4_010_des || Squad 4: General March Speed
+item_2145_itemremarks || Open to receive a random resource. Some explorers have even found 5000 Pallite and UR Palmon Omni-Tokens inside. You feeling lucky today?
+consume_federal_iron || Realm Steel Cost: 
+fap_describe_51 || 1) When a guild occupies the only Lvl <color=#378cb4>5</color> Temple on the map, its guildmaster can declare themselves <color=#378cb4>Hegemon</color> of Pallantis.
+2) If the guild abandons the Lvl 5 Temple, the Realm will be automatically disbanded.
+3) Realm Steel
+Whenever an explorer harvests all available resources from a Foundry and it <color=#378cb4>disappears</color>, the Realm will receive <color=#378cb4>2%</color> of the Foundry's value as <color=#378cb4>Realm Steel</color>.
+arm_dismiss_tip2 || Dismissing Armigo will not refund any resources.
+building_desc_16 || This structure is used to process Lumber. All you need to do is collect the Lumber. Leave the rest to your clever Palmon!
+goto_new_10_desc || Get Electricity
+goto_11_text || You can chop trees in your Camp to obtain Wood, a raw material for producing Lumber.
+recharge_gift_1_text || Quick ascension at a huge discount!
+recharge_gift_2_text || The super discounts on all supplies!
+push_title_73 || Resources Ready!
+push_config_73 || Camp resources full. Come claim them now!
+low_res_remark_3_des || Wood obtained from Logging. Can be used to produce Lumber at the Table Saw.
+strongest_1_remarks || Use 1 min of Building Speedups
+strongest_5_remarks || Use 1 min of Training Speedups
+strongest_27_remarks || Use 1 min of Healing Speedups
+alliance_tech_buff_2_remarks || Time Reduction (s)
+alliance_tech_buff_5_remarks || Tech Research Speed Bonus
+alliance_tech_buff_8_remarks || Lumber Output Speed Bonus
+alliance_tech_buff_12_remarks || March Speed Bonus
+alliance_tech_buff_13_remarks || March Speed Bonus

@@ -102,7 +102,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', builderClassPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
+  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, helper: '00:00:00', builderClassPct: 0, alliance1: 0, alliance3: 0, alliance4: 0, limudroidPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -197,7 +197,8 @@ function recalcAll() {
     + (mod.fieldlabSpeedPct2 || 0)
     + (mod.alliance1 || 0)
     + (mod.alliance3 || 0)
-    + (mod.alliance4 || 0);
+    + (mod.alliance4 || 0)
+    + (mod.limudroidPct || 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
   // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
   // by other resource-cost reductions such as the Builder Class Buff.
@@ -366,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-alliance-1').value = mod.alliance1;
   document.getElementById('mod-alliance-3').value = mod.alliance3;
   document.getElementById('mod-alliance-4').value = mod.alliance4;
+  document.getElementById('mod-limudroid').value = mod.limudroidPct;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
@@ -381,6 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
       m.alliance1 = parseInt(document.getElementById('mod-alliance-1').value, 10) || 0;
       m.alliance3 = parseInt(document.getElementById('mod-alliance-3').value, 10) || 0;
       m.alliance4 = parseInt(document.getElementById('mod-alliance-4').value, 10) || 0;
+      m.limudroidPct = parseFloat(document.getElementById('mod-limudroid').value) || 0;
       saveModifiers(m);
       recalcAll();
     });
@@ -474,8 +477,8 @@ def main():
     parts.append('<label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development tree fully maxed (-2.5% resource cost, +20% Research Speed from its 4 built-in speed techs)</label>')
     parts.append('<label>Title: <select id="mod-title" class="mod-input">'
                  '<option value="0">None</option>'
-                 '<option value="25">Scientist (+25% Research Speed)</option>'
-                 '<option value="60">Warden — Event (+60% Research Speed)</option>'
+                 '<option value="50">Scientist (+50% Research Speed)</option>'
+                 '<option value="60">Scientist / Warden — Event (+60% Research Speed)</option>'
                  '</select></label>')
     parts.append('<label>Research Aid: <select id="mod-research-aid" class="mod-input">'
                  '<option value="0">None</option>'
@@ -491,6 +494,8 @@ def main():
                  '</select></label>')
     parts.append('<label>Fieldlab Helpers total (HH:MM:SS reduction): '
                  '<input type="text" id="mod-helper" class="mod-input" pattern="\\d+:\\d{2}:\\d{2}" placeholder="00:00:00" style="width:90px"></label>')
+    parts.append('<label>Limudroid Research Speed Bonus % (depends on Skill Level + Star Level, check its skill tooltip in-game): '
+                 '<input type="number" id="mod-limudroid" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Research Speed)</label>')
     parts.append('<label>Fieldlab 1 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed1" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
