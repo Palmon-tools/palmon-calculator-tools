@@ -20,6 +20,8 @@ if not SRC.exists():
     SRC = ROOT / "buildings_v2.json"
 BD = json.loads(SRC.read_text(encoding="utf-8"))
 ICON_DIR = "building_icons"
+EXCLUDED_BUILDINGS = {"Generator", "Brick Kiln", "Super Brick Kiln", "Holy Tower", "Mithril Workshop", "Super Mithril Workshop"}
+BD["buildings"] = [b for b in BD["buildings"] if b.get("display_name") not in EXCLUDED_BUILDINGS]
 
 CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
@@ -101,7 +103,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, helper: '00:00:00', builderClassPct: 0, masterBuilderPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
+  const defaults = { devMaxed: false, title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, helper: '00:00:00', builderClassPct: 0, masterBuilderPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -130,6 +132,7 @@ function fmtTime(totalSeconds) {
 
 const RESOURCE_CLASS = { Gold: 'res-gold', Lumber: 'res-lumber', Steel: 'res-steel', Electricity: 'res-elec' };
 function resClass(key) { return RESOURCE_CLASS[key.split('(')[0]] || 'res-badge'; }
+const EXCLUDED_OVERVIEW_RESOURCES = ['resource_42'];
 
 // remaining cost from (currentLevel+1) to max_level, inclusive
 function remainingCost(building, currentLevel) {
@@ -200,7 +203,7 @@ function recalcAll() {
   const resFactor = 1 - resourceDiscountPct / 100;
   // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
   const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
-  const speedBonusSum = (mod.title || 0) + (mod.constructionAid || 0) + (mod.vip || 0)
+  const speedBonusSum = (mod.devMaxed ? 20 : 0) + (mod.title || 0) + (mod.constructionAid || 0) + (mod.vip || 0)
     + (mod.lifetimePass ? 30 : 0) + (mod.monthlyPass ? 10 : 0)
     + allianceBonus;
   const timeFactor = 1 / (1 + speedBonusSum / 100);
@@ -225,7 +228,7 @@ function recalcAll() {
 
   const grandEl = document.getElementById('grand-totals');
   const order = ['Gold', 'Lumber', 'Steel', 'Electricity'];
-  const otherKeys = Object.keys(grand.totals).filter(k => !order.includes(k));
+  const otherKeys = Object.keys(grand.totals).filter(k => !order.includes(k) && !EXCLUDED_OVERVIEW_RESOURCES.includes(k));
   const allKeys = [...order.filter(k => k in grand.totals), ...otherKeys];
   grandEl.innerHTML = allKeys.map(k => {
     const raw = grand.totals[k];
@@ -321,6 +324,7 @@ function importLevels() {
 document.addEventListener('DOMContentLoaded', () => {
   const levels = loadLevels();
   const mod = loadModifiers();
+  document.getElementById('mod-dev-maxed').checked = mod.devMaxed;
   document.getElementById('mod-title').value = mod.title;
   document.getElementById('mod-construction-aid').value = mod.constructionAid;
   document.getElementById('mod-vip').value = mod.vip;
@@ -335,6 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
+      m.devMaxed = document.getElementById('mod-dev-maxed').checked;
       m.title = parseInt(document.getElementById('mod-title').value, 10) || 0;
       m.constructionAid = parseInt(document.getElementById('mod-construction-aid').value, 10) || 0;
       m.vip = parseInt(document.getElementById('mod-vip').value, 10) || 0;
@@ -449,6 +454,7 @@ def main():
     parts.append('<div id="grand-totals" class="totals"></div>')
     parts.append('<div class="modifiers">')
     parts.append('<h3>Global Modifiers</h3>')
+    parts.append('<label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development maxed (+20% Building Speed)</label>')
     parts.append('<label>Title: <select id="mod-title" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="60">Warden (+60% Building Speed)</option>'
