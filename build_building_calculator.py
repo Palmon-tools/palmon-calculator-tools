@@ -103,17 +103,12 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, helper: '00:00:00', builderClassPct: 0, masterBuilderPct: 0, alliance1: 0, alliance3: 0, alliance4: 0 };
+  const defaults = { devMaxed: false, title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, builderClassPct: 0, masterBuilderPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
 function saveModifiers(mod) {
   localStorage.setItem(LS_KEY_MOD, JSON.stringify(mod));
-}
-function parseHMS(str) {
-  const m = /^(\\d+):(\\d{1,2}):(\\d{1,2})$/.exec((str || '').trim());
-  if (!m) return 0;
-  return (parseInt(m[1], 10) * 3600) + (parseInt(m[2], 10) * 60) + parseInt(m[3], 10);
 }
 function fmtNum(n) { return n ? Math.round(n).toLocaleString('en-US') : '0'; }
 function fmtTime(totalSeconds) {
@@ -150,9 +145,8 @@ function remainingCost(building, currentLevel) {
   return { totals, time, levelTimes };
 }
 
-// Building Helpers give a flat time reduction per single upgrade (not a %), floored at 0 — same mechanic as tech Fieldlab helpers.
-function adjustedTimeFromLevels(levelTimes, timeFactor, helperSeconds) {
-  return levelTimes.reduce((sum, t) => sum + Math.max(0, t * timeFactor - helperSeconds), 0);
+function adjustedTimeFromLevels(levelTimes, timeFactor) {
+  return levelTimes.reduce((sum, t) => sum + t * timeFactor, 0);
 }
 
 function fmtAdjustedResource(k, raw, resFactor) {
@@ -165,16 +159,16 @@ function fmtAdjustedTime(raw, adj) {
   return `<div class="res-time">Time: ${fmtTime(adj)}${suffix}</div>`;
 }
 
-function renderTileRemaining(remaining, resFactor, timeFactor, helperSeconds) {
+function renderTileRemaining(remaining, resFactor, timeFactor) {
   const entries = Object.entries(remaining.totals);
   if (!entries.length && !remaining.time) return '<div class="row0">max level reached</div>';
   let html = entries.map(([k, v]) => fmtAdjustedResource(k, v, resFactor)).join('');
-  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor, helperSeconds);
+  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor);
   html += fmtAdjustedTime(remaining.time, adjTime);
   return html;
 }
 
-function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor, helperSeconds) {
+function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor) {
   const upcoming = building.levels.filter(lvl => lvl.level > currentLevel && lvl.level !== 0);
   if (!upcoming.length) return '<div class="level-row">max level reached</div>';
   return upcoming.map(lvl => {
@@ -182,7 +176,7 @@ function renderLevelBreakdown(building, currentLevel, resFactor, timeFactor, hel
       const adj = v * (k.startsWith('Gold') || k.startsWith('Lumber') || k.startsWith('Steel') || k.startsWith('Electricity') ? resFactor : 1);
       return `<span class="res-line ${resClass(k)}">${resLabel(k)}: ${fmtNum(adj)}</span>`;
     }).join('');
-    const time = Math.max(0, (lvl.up_time_seconds || 0) * timeFactor - helperSeconds);
+    const time = (lvl.up_time_seconds || 0) * timeFactor;
     const reqs = (lvl.prerequisite_buildings || []);
     const reqLine = reqs.length
       ? `<div class="req">Requires: ${reqs.map(r => `${r.display_name || r.name_key || ('build_type ' + r.build_type)} Lv.${r.at_level}`).join(', ')}</div>`
@@ -203,17 +197,13 @@ function recalcAll() {
   const mod = loadModifiers();
   const resourceDiscountPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
   const resFactor = 1 - resourceDiscountPct / 100;
-  // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly,
-  // Alliance Buff maxed): building-speed sources compound sequentially/multiplicatively (each is its
-  // own divisor). The Alliance Tech Buff does NOT measurably reduce actual building time (excluding it
-  // matches the real timer within 0.2%, including it overshoots by ~3%), so it is tracked in the UI but
-  // deliberately left out of the time factor here.
+  // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly):
+  // building-speed sources compound sequentially/multiplicatively (each is its own divisor).
   const speedSources = [mod.devMaxed ? 20 : 0, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
     mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0];
   const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
   const timeFactor = 1 / speedFactorProduct;
   const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
-  const helperSeconds = parseHMS(mod.helper);
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
 
   document.querySelectorAll('.tile[data-key]').forEach(tile => {
@@ -221,10 +211,10 @@ function recalcAll() {
     const building = DATA.buildingByKey[key];
     const cur = levels[key] ?? 0;
     const rem = remainingCost(building, cur);
-    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor, helperSeconds);
-    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, resFactor, timeFactor, helperSeconds);
+    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor);
+    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, resFactor, timeFactor);
     tile.classList.toggle('done', cur >= building.max_level);
-    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(building, cur, resFactor, timeFactor, helperSeconds);
+    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(building, cur, resFactor, timeFactor);
 
     for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
     grand.rawTime += rem.time;
@@ -335,12 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-vip').value = mod.vip;
   document.getElementById('mod-lifetime-pass').checked = mod.lifetimePass;
   document.getElementById('mod-monthly-pass').checked = mod.monthlyPass;
-  document.getElementById('mod-helper').value = mod.helper;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
   document.getElementById('mod-master-builder').value = mod.masterBuilderPct;
-  document.getElementById('mod-alliance-1').value = mod.alliance1;
-  document.getElementById('mod-alliance-3').value = mod.alliance3;
-  document.getElementById('mod-alliance-4').value = mod.alliance4;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
@@ -350,12 +336,8 @@ document.addEventListener('DOMContentLoaded', () => {
       m.vip = parseInt(document.getElementById('mod-vip').value, 10) || 0;
       m.lifetimePass = document.getElementById('mod-lifetime-pass').checked;
       m.monthlyPass = document.getElementById('mod-monthly-pass').checked;
-      m.helper = document.getElementById('mod-helper').value;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
       m.masterBuilderPct = parseInt(document.getElementById('mod-master-builder').value, 10) || 0;
-      m.alliance1 = parseInt(document.getElementById('mod-alliance-1').value, 10) || 0;
-      m.alliance3 = parseInt(document.getElementById('mod-alliance-3').value, 10) || 0;
-      m.alliance4 = parseInt(document.getElementById('mod-alliance-4').value, 10) || 0;
       saveModifiers(m);
       recalcAll();
     });
@@ -478,26 +460,8 @@ def main():
                  '<option value="30">VIP 8 (+30% Building Speed)</option>'
                  '<option value="50">VIP 9 (+50% Building Speed)</option>'
                  '</select></label>')
-    parts.append('<label>Building Helpers total (HH:MM:SS reduction): '
-                 '<input type="text" id="mod-helper" class="mod-input" pattern="\\d+:\\d{2}:\\d{2}" placeholder="00:00:00" style="width:90px"></label>')
     parts.append('<label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Building Speed)</label>')
     parts.append('<label><input type="checkbox" id="mod-monthly-pass" class="mod-input"> Monthly Pass (+10% Building Speed)</label>')
-    parts.append('<label>Alliance Tech Buff (Class 1, Building Speed): <select id="mod-alliance-1" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Building Speed</option>'
-                 '<option value="2">+2% Building Speed</option>'
-                 '</select></label>')
-    parts.append('<label>Alliance Tech Buff (Class 3, Building Speed): <select id="mod-alliance-3" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Building Speed</option>'
-                 '<option value="2">+2% Building Speed</option>'
-                 '</select></label>')
-    parts.append('<label>Alliance Tech Buff (Class 4, Building Speed): <select id="mod-alliance-4" class="mod-input">'
-                 '<option value="0">None</option>'
-                 '<option value="1">+1% Building Speed</option>'
-                 '<option value="2">+2% Building Speed</option>'
-                 '<option value="3">+3% Building Speed</option>'
-                 '</select></label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'
@@ -514,7 +478,7 @@ def main():
                  '<option value="20">-20% resource cost</option>'
                  '<option value="25">-25% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Building-speed sources (Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) sum additively into one total %, then a single time factor is applied — same model as the Tech calculator. Development maxed, Builder Class Buff and Master Builder all discount resource cost and stack additively. Building Helper reductions are flat and applied per individual level-up (not per total), after the speed factor, floored at 0.</div>')
+    parts.append('<div class="note">Building-speed sources (Development maxed, Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) compound sequentially/multiplicatively into a single time factor (verified against real in-game timers). Development maxed, Builder Class Buff and Master Builder all discount resource cost and stack additively. Note: Desert-tech research that reduces Desert-building time/resource cost is not yet factored into this calculator.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
