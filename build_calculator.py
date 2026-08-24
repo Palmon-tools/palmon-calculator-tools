@@ -46,6 +46,14 @@ h2 { color: #6ee7b7; margin-top: 32px; margin-bottom: 8px; padding-bottom: 6px; 
 .tile .lvl-step:hover { background: #2a2a32; }
 .tile .remaining { margin-top: 6px; font-size: 11px; line-height: 1.5; }
 .tile .remaining .row0 { color: #6ee7b7; }
+.tile .details-toggle { margin-top: 8px; background: none; border: 1px solid #444; color: #9ca3af; font-size: 10px; padding: 3px 8px; width: auto; border-radius: 4px; }
+.tile .details-toggle:hover { background: #333; }
+.tile .level-breakdown { margin-top: 8px; border-top: 1px solid #3a3a42; padding-top: 6px; display: none; max-height: 260px; overflow-y: auto; }
+.tile .level-breakdown.open { display: block; }
+.level-row { font-size: 10.5px; padding: 4px 0; border-bottom: 1px solid #303038; }
+.level-row .lvl-num { color: #fff; font-weight: 700; }
+.level-row .req { color: #f59e0b; font-size: 10px; margin-top: 2px; }
+.level-row .res-line { display: inline-block; margin-right: 8px; }
 .res-gold { color: #fbbf24; } .res-lumber { color: #a78bfa; } .res-steel { color: #94a3b8; }
 .res-elec { color: #38bdf8; } .res-badge { color: #f472b6; } .res-time { color: #6ee7b7; }
 .controls { position: sticky; top: 0; background: #1a1a1e; padding: 10px 0; z-index: 10; margin-bottom: 12px; border-bottom: 1px solid #333; }
@@ -78,6 +86,8 @@ button.secondary { background: #444; color: #ddd; }
   .tile .name { font-size: 12px; }
   .tile .lvl-row input { width: 44px; font-size: 16px; }
   .tile .lvl-step { width: 32px; height: 32px; font-size: 18px; }
+  .tile .details-toggle { width: 100%; padding: 6px; }
+  .tile .level-breakdown { max-height: 200px; }
   .totals { font-size: 15px; gap: 10px; }
   .modifiers label { display: flex; margin-right: 0; width: 100%; }
   .modifiers select, .modifiers input[type=number], .modifiers input[type=text] { flex: 1; min-width: 0; font-size: 16px; }
@@ -174,6 +184,30 @@ function renderTileRemaining(remaining, materialFactor, electricityFactor, timeF
   return html;
 }
 
+function renderLevelBreakdown(tech, currentLevel, materialFactor, electricityFactor, timeFactor) {
+  const upcoming = tech.levels.filter(lvl => lvl.level > currentLevel && lvl.level !== 0);
+  if (!upcoming.length) return '<div class="level-row">max level reached</div>';
+  return upcoming.map(lvl => {
+    const resLine = Object.entries(lvl.cost || {}).map(([k, v]) => {
+      const adj = v * factorForResource(k, materialFactor, electricityFactor);
+      return `<span class="res-line ${resClass(k)}">${k}: ${fmtNum(adj)}</span>`;
+    }).join('');
+    const time = (lvl.up_time_seconds || 0) * timeFactor;
+    const reqs = (lvl.prerequisite_techs || []);
+    const reqLine = reqs.length
+      ? `<div class="req">Requires: ${reqs.map(r => `${r.display_name || r.name_key} Lv.${r.at_level}`).join(', ')}</div>`
+      : '';
+    return `<div class="level-row"><span class="lvl-num">Lv.${lvl.level}</span> — ${resLine}<span class="res-time">Time: ${fmtTime(time)}</span>${reqLine}</div>`;
+  }).join('');
+}
+
+function toggleDetails(btn) {
+  const tile = btn.closest('.tile');
+  const panel = tile.querySelector('.level-breakdown');
+  const open = panel.classList.toggle('open');
+  btn.textContent = open ? 'Hide level-by-level details \u25b2' : 'Show level-by-level details \u25bc';
+}
+
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
@@ -209,6 +243,7 @@ function recalcAll() {
     const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor);
     tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, materialFactor, electricityFactor, timeFactor);
     tile.classList.toggle('done', cur >= tech.max_level);
+    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(tech, cur, materialFactor, electricityFactor, timeFactor);
 
     for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
     grand.rawTime += rem.time;
@@ -425,6 +460,8 @@ def render_tile(tech: dict, tree_label: str) -> str:
         <label>/ {max_lv}</label>
       </div>
       <div class="remaining remaining-slot"></div>
+      <button class="details-toggle" onclick="toggleDetails(this)">Show level-by-level details ▼</button>
+      <div class="level-breakdown"></div>
     </div>
     """
 
@@ -439,7 +476,12 @@ def main():
             tech_by_key[nk] = {
                 "max_level": tech.get("max_level", 0),
                 "levels": [
-                    {"level": lvl.get("level"), "cost": lvl.get("cost") or {}, "up_time_seconds": lvl.get("up_time_seconds", 0)}
+                    {
+                        "level": lvl.get("level"),
+                        "cost": lvl.get("cost") or {},
+                        "up_time_seconds": lvl.get("up_time_seconds", 0),
+                        "prerequisite_techs": lvl.get("prerequisite_techs") or [],
+                    }
                     for lvl in tech.get("levels", [])
                 ],
             }
