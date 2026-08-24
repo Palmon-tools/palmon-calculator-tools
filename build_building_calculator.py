@@ -205,14 +205,14 @@ function recalcAll() {
   const resFactor = 1 - resourceDiscountPct / 100;
   // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
   const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
-  // Verified against real in-game data (same model as the Tech calculator): building-speed sources
-  // sum ADDITIVELY into one total %, then a single factor is applied — sequential/multiplicative
-  // per-source compounding was tested and does not match observed in-game timers.
-  const speedBonusSum = (mod.devMaxed ? 20 : 0) + (mod.title || 0) + (mod.constructionAid || 0) + (mod.vip || 0)
-    + (mod.lifetimePass ? 30 : 0) + (mod.monthlyPass ? 10 : 0)
-    + allianceBonus;
-  const timeFactor = 1 / (1 + speedBonusSum / 100);
-  const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
+  // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly+Alliance):
+  // building-speed sources compound sequentially/multiplicatively (each is its own divisor), NOT
+  // as a single additive sum — additive was off by ~21%, sequential matches within ~3%.
+  const speedSources = [mod.devMaxed ? 20 : 0, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
+    mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0, allianceBonus];
+  const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
+  const timeFactor = 1 / speedFactorProduct;
+  const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
   const helperSeconds = parseHMS(mod.helper);
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
 
