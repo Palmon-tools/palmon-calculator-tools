@@ -201,7 +201,7 @@ function toggleDetails(btn) {
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
-  const resourceDiscountPct = (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
+  const resourceDiscountPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0) + (mod.masterBuilderPct || 0);
   const resFactor = 1 - resourceDiscountPct / 100;
   // Alliance Tech Buffs (Class 1/3/4) do NOT stack with each other in-game — only the highest applies.
   const allianceBonus = Math.max(mod.alliance1 || 0, mod.alliance3 || 0, mod.alliance4 || 0);
@@ -456,7 +456,7 @@ def main():
     parts.append('<div id="grand-totals" class="totals"></div>')
     parts.append('<div class="modifiers">')
     parts.append('<h3>Global Modifiers</h3>')
-    parts.append('<label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development maxed (+20% Building Speed)</label>')
+    parts.append('<label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development maxed (+20% Building Speed, -2.5% Resource Cost)</label>')
     parts.append('<label>Title: <select id="mod-title" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="60">Warden (+60% Building Speed)</option>'
@@ -511,7 +511,7 @@ def main():
                  '<option value="20">-20% resource cost</option>'
                  '<option value="25">-25% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Building-speed sources (Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) sum additively into one total %, then a single time factor is applied — same model as the Tech calculator. Builder Class Buff and Master Builder both discount resource cost and stack additively. Building Helper reductions are flat and applied per individual level-up (not per total), after the speed factor, floored at 0.</div>')
+    parts.append('<div class="note">Building-speed sources (Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) sum additively into one total %, then a single time factor is applied — same model as the Tech calculator. Development maxed, Builder Class Buff and Master Builder all discount resource cost and stack additively. Building Helper reductions are flat and applied per individual level-up (not per total), after the speed factor, floored at 0.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
