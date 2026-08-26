@@ -112,7 +112,7 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, builderClassPct: 0, limudroidPct: 0, guildDuelMaxed: false };
+  const defaults = { title: 0, researchAid: 0, vip: 0, lifetimePass: false, fieldlabSpeedPct1: 0, fieldlabSpeedPct2: 0, builderClassPct: 0, limudroidPct: 0, limudroidMinuteBonus: 0, squad4Active: false };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
@@ -137,6 +137,16 @@ function fmtTime(totalSeconds) {
 const RESOURCE_CLASS = { Gold: 'res-gold', Lumber: 'res-lumber', Steel: 'res-steel', Electricity: 'res-elec' };
 function resClass(key) { return RESOURCE_CLASS[key.split('(')[0]] || 'res-badge'; }
 
+// Development-tree techs whose level determines the auto-detected Development bonus.
+const DEV_EFFICIENT_RESEARCH_KEY = 'tech_name_new_101200_12_title';
+const DEV_QUICK_MINDS_KEYS = ['tech_name_new_100400_4_title', 'tech_name_new_101900_19_title', 'tech_name_new_102600_26_title', 'tech_name_new_103300_33_title'];
+
+function isTreeMaxed(treeLabel, levels) {
+  const keys = DATA.treeTechs[treeLabel] || [];
+  if (!keys.length) return false;
+  return keys.every(k => (levels[k] || 0) >= (DATA.techByKey[k].max_level || 0));
+}
+
 // remaining cost from (currentLevel+1) to max_level, inclusive
 function remainingCost(tech, currentLevel) {
   const totals = {};
@@ -150,8 +160,8 @@ function remainingCost(tech, currentLevel) {
   return { totals, time, levelTimes };
 }
 
-function adjustedTimeFromLevels(levelTimes, timeFactor) {
-  return levelTimes.reduce((sum, t) => sum + t * timeFactor, 0);
+function adjustedTimeFromLevels(levelTimes, timeFactor, flatSeconds) {
+  return levelTimes.reduce((sum, t) => sum + Math.max(0, t * timeFactor - flatSeconds), 0);
 }
 
 // TriumphBadge is not a reducible "resource" — the -2.5% buff never applies to it.
@@ -175,16 +185,16 @@ function fmtAdjustedTime(raw, adj) {
   return `<div class="res-time">Time: ${fmtTime(adj)}${suffix}</div>`;
 }
 
-function renderTileRemaining(remaining, materialFactor, electricityFactor, timeFactor) {
+function renderTileRemaining(remaining, materialFactor, electricityFactor, timeFactor, flatSeconds) {
   const entries = Object.entries(remaining.totals);
   if (!entries.length && !remaining.time) return '<div class="row0">max level reached</div>';
   let html = entries.map(([k, v]) => fmtAdjustedResource(k, v, materialFactor, electricityFactor)).join('');
-  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor);
+  const adjTime = adjustedTimeFromLevels(remaining.levelTimes, timeFactor, flatSeconds);
   html += fmtAdjustedTime(remaining.time, adjTime);
   return html;
 }
 
-function renderLevelBreakdown(tech, currentLevel, materialFactor, electricityFactor, timeFactor) {
+function renderLevelBreakdown(tech, currentLevel, materialFactor, electricityFactor, timeFactor, flatSeconds) {
   const upcoming = tech.levels.filter(lvl => lvl.level > currentLevel && lvl.level !== 0);
   if (!upcoming.length) return '<div class="level-row">max level reached</div>';
   return upcoming.map(lvl => {
@@ -192,7 +202,7 @@ function renderLevelBreakdown(tech, currentLevel, materialFactor, electricityFac
       const adj = v * factorForResource(k, materialFactor, electricityFactor);
       return `<span class="res-line ${resClass(k)}">${k}: ${fmtNum(adj)}</span>`;
     }).join('');
-    const time = (lvl.up_time_seconds || 0) * timeFactor;
+    const time = Math.max(0, (lvl.up_time_seconds || 0) * timeFactor - flatSeconds);
     const reqs = (lvl.prerequisite_techs || []);
     const reqLine = reqs.length
       ? `<div class="req">Requires: ${reqs.map(r => `${r.display_name || r.name_key} Lv.${r.at_level}`).join(', ')}</div>`
@@ -211,14 +221,22 @@ function toggleDetails(btn) {
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
-  const resourceReductionPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
-  // Development maxed grants its 4 built-in Research Speed techs (4 x +5% = +20% additive).
+  // Development bonus is auto-detected from the current level of its Research Speed / resource-cost
+  // techs, instead of a manual "maxed" checkbox: Efficient Research gives -0.5% resource cost per
+  // level (max 2.5% at level 5), Quick Minds I-IV each give +1% Research Speed per level (max 20%
+  // total once all 4 are at level 5).
+  const devResourcePct = (levels[DEV_EFFICIENT_RESEARCH_KEY] || 0) * 0.5;
+  const devSpeedPct = DEV_QUICK_MINDS_KEYS.reduce((sum, k) => sum + (levels[k] || 0), 0) * 1;
+  // Guild Duel's +10% Research Speed is auto-detected once the whole tree is maxed, instead of a
+  // manual checkbox.
+  const guildDuelMaxed = isTreeMaxed('Guild Duel', levels);
+  const resourceReductionPct = devResourcePct + (mod.builderClassPct || 0);
   // Verified against real in-game data (raw 26d20h -> real 12d5h35m, with Guild Duel tree already
   // maxed): research-speed sources sum ADDITIVELY into one total %, then a single factor is applied —
   // sequential multiplicative compounding overshoots the real result by ~20% and does not fit.
   // Alliance Tech Buff was tested and does NOT measurably contribute here (same as Building), so it
   // is not tracked as a modifier for Tech either.
-  const speedBonusSum = (mod.devMaxed ? 20 : 0)
+  const speedBonusSum = devSpeedPct
     + (mod.vip || 0)
     + (mod.title || 0)
     + (mod.researchAid || 0)
@@ -226,35 +244,46 @@ function recalcAll() {
     + (mod.fieldlabSpeedPct1 || 0)
     + (mod.fieldlabSpeedPct2 || 0)
     + (mod.limudroidPct || 0)
-    + (mod.guildDuelMaxed ? 10 : 0);
+    + (guildDuelMaxed ? 10 : 0);
   const baseResFactor = 1 - resourceReductionPct / 100;
-  // Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered
+  // Electricity is confirmed NOT covered by the Development-maxed reduction, but IS covered
   // by other resource-cost reductions such as the Builder Class Buff.
   const materialFactor = baseResFactor;
   const electricityFactor = 1 - (mod.builderClassPct || 0) / 100;
   const timeFactor = 1 / (1 + speedBonusSum / 100);
   const speedBonusPct = Math.round(speedBonusSum * 10) / 10;
+  // Limudroid's per-Star-Level minute bonus is a flat time reduction applied per individual level-up
+  // (not per total), floored at 0 — same mechanic previously used for helpers.
+  const flatSeconds = (mod.limudroidMinuteBonus || 0) * 60;
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
   const treeSubtotals = {};
+
+  const infoEl = document.getElementById('dev-guild-computed');
+  if (infoEl) {
+    infoEl.textContent = `Auto-detected: Development bonus \u2192 -${devResourcePct.toFixed(1)}% Resource Cost, +${devSpeedPct.toFixed(1)}% Research Speed | Guild Duel tree maxed \u2192 ${guildDuelMaxed ? '+10% Research Speed active' : 'not yet active'}`;
+  }
 
   document.querySelectorAll('.tile[data-key]').forEach(tile => {
     const key = tile.dataset.key;
     const tech = DATA.techByKey[key];
     const cur = levels[key] ?? 0;
     const rem = remainingCost(tech, cur);
-    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor);
-    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, materialFactor, electricityFactor, timeFactor);
+    const adjTime = adjustedTimeFromLevels(rem.levelTimes, timeFactor, flatSeconds);
+    tile.querySelector('.remaining-slot').innerHTML = renderTileRemaining(rem, materialFactor, electricityFactor, timeFactor, flatSeconds);
     tile.classList.toggle('done', cur >= tech.max_level);
-    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(tech, cur, materialFactor, electricityFactor, timeFactor);
+    tile.querySelector('.level-breakdown').innerHTML = renderLevelBreakdown(tech, cur, materialFactor, electricityFactor, timeFactor, flatSeconds);
 
-    for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
-    grand.rawTime += rem.time;
-    grand.adjTime += adjTime;
     const tl = tile.dataset.tree;
     if (!treeSubtotals[tl]) treeSubtotals[tl] = { totals: {}, rawTime: 0, adjTime: 0 };
     for (const [k, v] of Object.entries(rem.totals)) treeSubtotals[tl].totals[k] = (treeSubtotals[tl].totals[k] || 0) + v;
     treeSubtotals[tl].rawTime += rem.time;
     treeSubtotals[tl].adjTime += adjTime;
+
+    // Squad 4 must be purchased in-game first — exclude it from the grand totals until activated.
+    if (tl === 'Squad 4' && !mod.squad4Active) return;
+    for (const [k, v] of Object.entries(rem.totals)) grand.totals[k] = (grand.totals[k] || 0) + v;
+    grand.rawTime += rem.time;
+    grand.adjTime += adjTime;
   });
 
   const grandEl = document.getElementById('grand-totals');
@@ -383,7 +412,6 @@ function importLevels() {
 document.addEventListener('DOMContentLoaded', () => {
   const levels = loadLevels();
   const mod = loadModifiers();
-  document.getElementById('mod-dev-maxed').checked = mod.devMaxed;
   document.getElementById('mod-title').value = mod.title;
   document.getElementById('mod-research-aid').value = mod.researchAid;
   document.getElementById('mod-vip').value = mod.vip;
@@ -392,11 +420,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mod-fieldlab-speed2').value = mod.fieldlabSpeedPct2;
   document.getElementById('mod-builder-class').value = mod.builderClassPct;
   document.getElementById('mod-limudroid').value = mod.limudroidPct;
-  document.getElementById('mod-guild-duel').checked = mod.guildDuelMaxed;
+  document.getElementById('mod-limudroid-minutes').value = mod.limudroidMinuteBonus;
+  const squad4El = document.getElementById('tree-squad4-active');
+  if (squad4El) squad4El.checked = mod.squad4Active;
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
-      m.devMaxed = document.getElementById('mod-dev-maxed').checked;
       m.title = parseInt(document.getElementById('mod-title').value, 10) || 0;
       m.researchAid = parseInt(document.getElementById('mod-research-aid').value, 10) || 0;
       m.vip = parseInt(document.getElementById('mod-vip').value, 10) || 0;
@@ -405,7 +434,9 @@ document.addEventListener('DOMContentLoaded', () => {
       m.fieldlabSpeedPct2 = parseFloat(document.getElementById('mod-fieldlab-speed2').value) || 0;
       m.builderClassPct = parseInt(document.getElementById('mod-builder-class').value, 10) || 0;
       m.limudroidPct = parseFloat(document.getElementById('mod-limudroid').value) || 0;
-      m.guildDuelMaxed = document.getElementById('mod-guild-duel').checked;
+      m.limudroidMinuteBonus = parseFloat(document.getElementById('mod-limudroid-minutes').value) || 0;
+      const s4 = document.getElementById('tree-squad4-active');
+      m.squad4Active = s4 ? s4.checked : false;
       saveModifiers(m);
       recalcAll();
     });
@@ -472,6 +503,7 @@ def render_tile(tech: dict, tree_label: str) -> str:
 
 def main():
     tech_by_key = {}
+    tree_techs = {}
     for tree in TT["trees"]:
         for tech in tree["techs"]:
             nk = tech.get("name_key")
@@ -489,6 +521,7 @@ def main():
                     for lvl in tech.get("levels", [])
                 ],
             }
+            tree_techs.setdefault(tree["label"], []).append(nk)
 
     parts = []
     parts.append('<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Palmon Tech Upgrade Calculator</title>')
@@ -503,7 +536,7 @@ def main():
     parts.append('<div id="grand-totals" class="totals"></div>')
     parts.append('<div class="modifiers">')
     parts.append('<h3>Global Modifiers</h3>')
-    parts.append('<label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development tree fully maxed (-2.5% resource cost, +20% Research Speed from its 4 built-in speed techs)</label>')
+    parts.append('<div id="dev-guild-computed" class="note" style="margin-bottom:10px;"></div>')
     parts.append('<label>Title: <select id="mod-title" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="50">Scientist (+50% Research Speed)</option>'
@@ -523,12 +556,13 @@ def main():
                  '</select></label>')
     parts.append('<label>Limudroid Research Speed Bonus % (depends on Skill Level + Star Level, check its skill tooltip in-game): '
                  '<input type="number" id="mod-limudroid" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
+    parts.append('<label>Limudroid Minute Bonus per Star Level (flat time reduction, in minutes): '
+                 '<input type="number" id="mod-limudroid-minutes" class="mod-input" min="0" step="0.01" style="width:70px"></label>')
     parts.append('<label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Research Speed)</label>')
     parts.append('<label>Fieldlab 1 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed1" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
     parts.append('<label>Fieldlab 2 speed bonus %: '
                  '<input type="number" id="mod-fieldlab-speed2" class="mod-input" min="0" max="100" step="0.01" style="width:70px"></label>')
-    parts.append('<label><input type="checkbox" id="mod-guild-duel" class="mod-input"> Guild Duel tree fully maxed (+10% Research Speed)</label>')
     parts.append('<label>Builder Class Buff: <select id="mod-builder-class" class="mod-input">'
                  '<option value="0">None</option>'
                  '<option value="1">-1% resource cost</option>'
@@ -537,7 +571,7 @@ def main():
                  '<option value="4">-4% resource cost</option>'
                  '<option value="5">-5% resource cost</option>'
                  '</select></label>')
-    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real in-game data; multiplicative per-source compounding overshoots by ~20% and does not fit). Alliance Tech Buff was tested and does NOT measurably contribute here (same as Building), so it is not tracked. Electricity is confirmed NOT covered by the -2.5% Development-maxed reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the -2.5% Development-maxed reduction (on Gold/Lumber/Steel only).</div>')
+    parts.append('<div class="note">Research-speed sources sum additively into one total %, then a single time factor is applied (verified against real in-game data; multiplicative per-source compounding overshoots by ~20% and does not fit). Alliance Tech Buff was tested and does NOT measurably contribute here (same as Building), so it is not tracked. Electricity is confirmed NOT covered by the Development resource-cost reduction, but IS covered by other resource-cost discounts like the Builder Class Buff. Both Fieldlab buildings have their own level-dependent speed bonus — enter each in-game value manually. Builder Class Buff is an additional Gold/Lumber/Steel/Electricity cost discount (-1% to -5%) that stacks with the Development resource-cost reduction (on Gold/Lumber/Steel only). Development\'s bonus (Efficient Research + Quick Minds I-IV) and Guild Duel\'s +10% Research Speed are now auto-detected from the levels you enter for those techs instead of manual checkboxes — see the computed values above. Limudroid\'s flat Minute Bonus (per Star Level) is subtracted directly from each individual level\'s upgrade time, floored at 0, in addition to its % Research Speed field. Squad 4 must be unlocked/purchased in-game first — tick its "Include in totals" checkbox once active to have it count toward the grand totals; it always shows its own tree subtotal regardless.</div>')
     parts.append('</div>')
     parts.append('<button onclick="exportLevels()">Export levels → JSON</button>')
     parts.append('<button class="secondary" onclick="importLevels()">Import JSON</button>')
@@ -553,10 +587,14 @@ def main():
     for tree in TT["trees"]:
         label = tree.get("display_name") or tree["label"]
         tree_label_esc = html.escape(tree["label"])
+        squad4_toggle = (
+            ' <label class="squad4-toggle" style="font-size:12px;font-weight:normal;margin-left:12px;">'
+            '<input type="checkbox" id="tree-squad4-active" class="mod-input"> Include in totals (must be unlocked in-game)</label>'
+        ) if tree["label"] == "Squad 4" else ""
         parts.append(f'<h2 id="tree_{tree["index"]}">'
                      f'<span class="tree-toggle" onclick="toggleTree(\'{tree_label_esc}\')" data-tree-toggle="{tree_label_esc}">\u25bc</span> '
                      f'{tree["index"]}. {html.escape(label)} '
-                     f'<button class="secondary tree-max-btn" onclick="maxTree(\'{tree_label_esc}\')">Set tree to max</button></h2>')
+                     f'<button class="secondary tree-max-btn" onclick="maxTree(\'{tree_label_esc}\')">Set tree to max</button>{squad4_toggle}</h2>')
         parts.append(f'<div class="tree-subtotal" data-tree="{tree_label_esc}"></div>')
         parts.append(f'<div class="tree-body" data-tree-body="{tree_label_esc}">')
 
@@ -574,7 +612,7 @@ def main():
         parts.append('</div>')
         parts.append('</div>')
 
-    js = JS_TEMPLATE.replace("__DATA__", json.dumps({"techByKey": tech_by_key}, ensure_ascii=False))
+    js = JS_TEMPLATE.replace("__DATA__", json.dumps({"techByKey": tech_by_key, "treeTechs": tree_techs}, ensure_ascii=False))
     parts.append(f"<script>{js}</script></body></html>")
 
     out_path = ROOT / "techtrees_calculator.html"

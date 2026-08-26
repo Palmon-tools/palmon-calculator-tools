@@ -63,7 +63,7 @@ button.secondary { background: #444; color: #ddd; }
   .site-header { justify-content: center; margin-bottom: 8px; }
   .site-logo { width: 40px; height: 40px; }
 }
-</style></head><body><div class="site-header"><div class="site-brand"><img class="site-logo" src="Logo.png" alt="Logo" onerror="this.style.display=&quot;none&quot;"><div class="site-credit">By MewLuy and Tetsu @S35</div></div></div><div class="controls"><h1>Palmon Survival — Building Upgrade Calculator</h1><div class="meta">Enter your CURRENT level for each building. Totals show what's still needed to reach max level. Saved automatically in your browser.</div><div id="grand-totals" class="totals"></div><div class="modifiers"><h3>Global Modifiers</h3><label><input type="checkbox" id="mod-dev-maxed" class="mod-input"> Development maxed (+20% Building Speed, -2.5% Resource Cost)</label><label>Title: <select id="mod-title" class="mod-input"><option value="0">None</option><option value="60">Warden (+60% Building Speed)</option><option value="50">Architect (+50% Building Speed)</option></select></label><label>Construction Aid: <select id="mod-construction-aid" class="mod-input"><option value="0">None</option><option value="10">+10% Building Speed</option><option value="20">+20% Building Speed</option></select></label><label>VIP Level: <select id="mod-vip" class="mod-input"><option value="0">None</option><option value="5">VIP 3 (+5% Building Speed)</option><option value="10">VIP 5 (+10% Building Speed)</option><option value="20">VIP 6 (+20% Building Speed)</option><option value="30">VIP 8 (+30% Building Speed)</option><option value="50">VIP 9 (+50% Building Speed)</option></select></label><label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Building Speed)</label><label><input type="checkbox" id="mod-monthly-pass" class="mod-input"> Monthly Pass (+10% Building Speed)</label><label>Builder Class Buff: <select id="mod-builder-class" class="mod-input"><option value="0">None</option><option value="1">-1% resource cost</option><option value="2">-2% resource cost</option><option value="3">-3% resource cost</option><option value="4">-4% resource cost</option><option value="5">-5% resource cost</option></select></label><label>Master Builder: <select id="mod-master-builder" class="mod-input"><option value="0">None</option><option value="5">-5% Build Time</option><option value="10">-10% Build Time</option><option value="15">-15% Build Time</option><option value="20">-20% Build Time</option><option value="25">-25% Build Time</option></select></label><div class="note">Building-speed sources (Development maxed, Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) compound sequentially/multiplicatively into a single time factor (verified against real in-game timers). Master Builder reduces build time directly (up to -25%) on top of that, it does NOT discount resource cost. Development maxed and Builder Class Buff discount resource cost and stack additively. Note: Desert-tech research that reduces Desert-building time/resource cost is not yet factored into this calculator.</div></div><button onclick="exportLevels()">Export levels → JSON</button><button class="secondary" onclick="importLevels()">Import JSON</button><button class="secondary" onclick="resetAll()">Reset all to 0</button><button class="secondary" onclick="maxAll()">Set all to max</button></div><div class="grid">
+</style></head><body><div class="site-header"><div class="site-brand"><img class="site-logo" src="Logo.png" alt="Logo" onerror="this.style.display=&quot;none&quot;"><div class="site-credit">By MewLuy and Tetsu @S35</div></div></div><div class="controls"><h1>Palmon Survival — Building Upgrade Calculator</h1><div class="meta">Enter your CURRENT level for each building. Totals show what's still needed to reach max level. Saved automatically in your browser.</div><div id="grand-totals" class="totals"></div><div class="modifiers"><h3>Global Modifiers</h3><div id="dev-computed" class="note" style="margin-bottom:10px;"></div><label>Title: <select id="mod-title" class="mod-input"><option value="0">None</option><option value="60">Warden (+60% Building Speed)</option><option value="50">Architect (+50% Building Speed)</option></select></label><label>Construction Aid: <select id="mod-construction-aid" class="mod-input"><option value="0">None</option><option value="10">+10% Building Speed</option><option value="20">+20% Building Speed</option></select></label><label>VIP Level: <select id="mod-vip" class="mod-input"><option value="0">None</option><option value="5">VIP 3 (+5% Building Speed)</option><option value="10">VIP 5 (+10% Building Speed)</option><option value="20">VIP 6 (+20% Building Speed)</option><option value="30">VIP 8 (+30% Building Speed)</option><option value="50">VIP 9 (+50% Building Speed)</option></select></label><label><input type="checkbox" id="mod-lifetime-pass" class="mod-input"> Lifetime Pass (+30% Building Speed)</label><label><input type="checkbox" id="mod-monthly-pass" class="mod-input"> Monthly Pass (+10% Building Speed)</label><label>Builder Class Buff: <select id="mod-builder-class" class="mod-input"><option value="0">None</option><option value="1">-1% resource cost</option><option value="2">-2% resource cost</option><option value="3">-3% resource cost</option><option value="4">-4% resource cost</option><option value="5">-5% resource cost</option></select></label><label>Master Builder: <select id="mod-master-builder" class="mod-input"><option value="0">None</option><option value="5">-5% Build Time</option><option value="10">-10% Build Time</option><option value="15">-15% Build Time</option><option value="20">-20% Build Time</option><option value="25">-25% Build Time</option></select></label><div class="note">Building-speed sources (Development, Title, Construction Aid, VIP, Lifetime Pass, Monthly Pass) compound sequentially/multiplicatively into a single time factor (verified against real in-game timers). Master Builder reduces build time directly (up to -25%) on top of that, it does NOT discount resource cost. Development's bonus (Precision Engineering -0.5%/level Resource Cost + Efficient Construction I-IV +1%/level Building Speed each) is auto-detected from the levels you entered in the Tech calculator (same browser, saved automatically there) — no manual checkbox needed; open the Tech calculator once and enter those levels if the computed value above reads 0%. Development and Builder Class Buff discount resource cost and stack additively. Note: Desert-tech research that reduces Desert-building time/resource cost is not yet factored into this calculator.</div></div><button onclick="exportLevels()">Export levels → JSON</button><button class="secondary" onclick="importLevels()">Import JSON</button><button class="secondary" onclick="resetAll()">Reset all to 0</button><button class="secondary" onclick="maxAll()">Set all to max</button></div><div class="grid">
     <div class="tile" data-key="pgame_buildingname1">
       <img src="building_icons/buildicon_0000_s.png" onerror="this.classList.add(&quot;missing&quot;);this.replaceWith(document.createTextNode(&quot;(no icon)&quot;));" alt="Camp">
       <div class="name">Camp</div>
@@ -668,12 +668,23 @@ function saveLevels(store) {
   localStorage.setItem(LS_KEY, JSON.stringify(store));
 }
 function loadModifiers() {
-  const defaults = { devMaxed: false, title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, builderClassPct: 0, masterBuilderPct: 0 };
+  const defaults = { title: 0, constructionAid: 0, vip: 0, lifetimePass: false, monthlyPass: false, builderClassPct: 0, masterBuilderPct: 0 };
   try { return { ...defaults, ...JSON.parse(localStorage.getItem(LS_KEY_MOD) || '{}') }; }
   catch(e) { return defaults; }
 }
 function saveModifiers(mod) {
   localStorage.setItem(LS_KEY_MOD, JSON.stringify(mod));
+}
+
+// The Tech calculator (same origin) stores current tech levels under this key — read it here to
+// auto-detect the Development bonus from Precision Engineering / Efficient Construction I-IV
+// instead of a manual "Development maxed" checkbox.
+const TECH_LS_KEY = 'palmon_current_levels_v1';
+const DEV_PRECISION_ENGINEERING_KEY = 'tech_name_new_100900_9_title';
+const DEV_EFFICIENT_CONSTRUCTION_KEYS = ['tech_name_new_100100_1_title', 'tech_name_new_101600_16_title', 'tech_name_new_102300_23_title', 'tech_name_new_103000_30_title'];
+function loadTechLevels() {
+  try { return JSON.parse(localStorage.getItem(TECH_LS_KEY) || '{}'); }
+  catch(e) { return {}; }
 }
 function fmtNum(n) { return n ? Math.round(n).toLocaleString('en-US') : '0'; }
 function fmtTime(totalSeconds) {
@@ -766,11 +777,18 @@ function toggleDetails(btn) {
 function recalcAll() {
   const levels = loadLevels();
   const mod = loadModifiers();
-  const resourceDiscountPct = (mod.devMaxed ? 2.5 : 0) + (mod.builderClassPct || 0);
+  // Development's bonus is auto-detected from the Tech calculator's saved levels for Precision
+  // Engineering (-0.5% resource cost per level, max 2.5% at level 5) and Efficient Construction I-IV
+  // (+1% Building Speed per level each, max 20% total once all 4 are at level 5) instead of a manual
+  // "Development maxed" checkbox.
+  const techLevels = loadTechLevels();
+  const devResourcePct = (techLevels[DEV_PRECISION_ENGINEERING_KEY] || 0) * 0.5;
+  const devSpeedPct = DEV_EFFICIENT_CONSTRUCTION_KEYS.reduce((sum, k) => sum + (techLevels[k] || 0), 0) * 1;
+  const resourceDiscountPct = devResourcePct + (mod.builderClassPct || 0);
   const resFactor = 1 - resourceDiscountPct / 100;
   // Verified against real in-game timers (raw 13d21h20m -> buffed 5d9h16m with Dev+VIP9+Lifetime+Monthly):
   // building-speed sources compound sequentially/multiplicatively (each is its own divisor).
-  const speedSources = [mod.devMaxed ? 20 : 0, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
+  const speedSources = [devSpeedPct, mod.title || 0, mod.constructionAid || 0, mod.vip || 0,
     mod.lifetimePass ? 30 : 0, mod.monthlyPass ? 10 : 0];
   const speedFactorProduct = speedSources.reduce((p, v) => p * (1 + v / 100), 1);
   // Master Builder reduces build TIME directly (up to -25%), not resource cost — applied as its own
@@ -778,6 +796,11 @@ function recalcAll() {
   const timeFactor = (1 / speedFactorProduct) * (1 - (mod.masterBuilderPct || 0) / 100);
   const speedBonusPct = Math.round((speedFactorProduct - 1) * 1000) / 10;
   const grand = { totals: {}, rawTime: 0, adjTime: 0 };
+
+  const infoEl = document.getElementById('dev-computed');
+  if (infoEl) {
+    infoEl.textContent = `Auto-detected (from Tech calculator levels): Development bonus → -${devResourcePct.toFixed(1)}% Resource Cost, +${devSpeedPct.toFixed(1)}% Building Speed`;
+  }
 
   document.querySelectorAll('.tile[data-key]').forEach(tile => {
     const key = tile.dataset.key;
@@ -893,7 +916,6 @@ function importLevels() {
 document.addEventListener('DOMContentLoaded', () => {
   const levels = loadLevels();
   const mod = loadModifiers();
-  document.getElementById('mod-dev-maxed').checked = mod.devMaxed;
   document.getElementById('mod-title').value = mod.title;
   document.getElementById('mod-construction-aid').value = mod.constructionAid;
   document.getElementById('mod-vip').value = mod.vip;
@@ -904,7 +926,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.mod-input').forEach(el => {
     el.addEventListener('input', () => {
       const m = loadModifiers();
-      m.devMaxed = document.getElementById('mod-dev-maxed').checked;
       m.title = parseInt(document.getElementById('mod-title').value, 10) || 0;
       m.constructionAid = parseInt(document.getElementById('mod-construction-aid').value, 10) || 0;
       m.vip = parseInt(document.getElementById('mod-vip').value, 10) || 0;
